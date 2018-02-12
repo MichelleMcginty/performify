@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  .row
+    .col-md-6.center
+      img(src="../css/logo.png" width="555")
+      .logo
+      h1 Login
+      form(method='POST', action='/users/login')
+          .form-group
+              .row
+                  label(for='exampleInputEmail1') Employee username
+                  input#exampleInputEmail1.form-control(name='username', type='text', aria-describedby='emailHelp', placeholder='Enter username')
+          .form-group
+              .row
+                  label Password
+                  input.form-control(type="password", name="password"  placeholder='Enter password') 
+          button.btn.btn-default.btn-success.btn-login(type="submit", value="Submit") Log in

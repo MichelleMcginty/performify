@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .container
+    .info-wrapper
+      .col-md-6.center
+        
+        h1 Welcome to Performify
+        a(class='button btn btn-default btn-success btn-login', href='/users/add') Add Employee
+    .article-wrapper
+      .col-md-6.center
+        h3 Articles
+        ul.list-group
+          each article, i in articles
+            li.list-group-item
+              a(href='/articles/'+article._id)= article.title

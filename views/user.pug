@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1= user.name
+  hr
+  a.btn.btn-default(href='/users/edit/'+user._id) Edit
+  a.btn.btn-danger.delete-article(href='#', data-id=user._id) Delete
