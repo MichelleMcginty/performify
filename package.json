@@ -4,9 +4,9 @@
   "description": "Simple app using node and express",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app"
+    "start": "npm start"
   },
-  "author": "me",
+  "author": "Michelle McGinty",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
