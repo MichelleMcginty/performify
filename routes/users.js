@@ -3,83 +3,19 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
-// User model
+// Article model
 const User = require('../models/user');
 
-// Register form
-// router.get('/register', function(req, res){
-//   res.render('register');
-// });
-
-// // Register process
-// router.post('/register', function(req, res){
-//   const name = req.body.name;
-//   const email = req.body.email;
-//   const username = req.body.username;
-//   const password = req.body.password;
-//   const password2 = req.body.password2;
-//   const role = req.body.role;
-//   const team = req.body.team;
-//   const title = req.body.title;
-
-//   req.checkBody('name', 'Name is required').notEmpty();
-//   req.checkBody('email', 'Email is required').notEmpty();
-//   req.checkBody('email', 'Email is required').isEmail();
-//   req.checkBody('username', 'Username is required').notEmpty();
-//   req.checkBody('password', 'Password is required').notEmpty();
-//   req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-
-//   let errors = req.validationErrors();
-
-//   if(errors){
-//     res.render('register', {
-//       errors: errors
-//     });
-//   } else {
-//     let newUser = new User({
-//       name: name,
-//       email: email,
-//       username: username,
-//       password: password,
-//       role: role,
-//       team: team,
-//       title: title
-//     });
-//     bcrypt.genSalt(10, function(err, salt){
-//       bcrypt.hash(newUser.password, salt, function(err, hash){
-//         if(err){
-//           console.error(err);
-//         }
-//         newUser.password = hash;
-
-//         newUser.save(function(err){
-//           if(err) {
-//             console.error(err);
-//             return;
-//           } else {
-//             req.flash('success', 'You are now registered and can log in');
-//             res.redirect('/users/login');
-//           }
-//         });
-//       });
-//     })
-//   }
-// });
-
+// new article form
 router.get('/add', function(req, res){
-  res.render('add');
+  res.render('add', {
+    title: 'Add Employee'
+  });
 });
 
-// Register process
+// submit new article 
 router.post('/add', function(req, res){
-  const name = req.body.name;
-  const email = req.body.email;
-  const username = req.body.username;
-  const password = req.body.password;
-  const role = req.body.role;
-  const team = req.body.team;
-  const title = req.body.title;
-
+  // Express validator
   req.checkBody('name', 'Name is required').notEmpty();
   req.checkBody('email', 'Email is required').notEmpty();
   req.checkBody('email', 'Email is required').isEmail();
@@ -88,7 +24,8 @@ router.post('/add', function(req, res){
   req.checkBody('role', 'Role is required').notEmpty();
   req.checkBody('team', 'Team is required').notEmpty();
   req.checkBody('title', 'Title is required').notEmpty();
-
+  
+  // Get errors
   let errors = req.validationErrors();
 
   if(errors){
@@ -110,7 +47,6 @@ router.post('/add', function(req, res){
             console.error(err);
           }
           user.password = hash;
-
           user.save(function(err){
             if(err) {
               console.error(err);
@@ -126,8 +62,10 @@ router.post('/add', function(req, res){
   }
 });
 
+
+// load edit form
 router.get('/edit/:id', function(req, res){
-  User.findById(req.params.id, function(err, article){
+  User.find(req.params.id, function(err, users){
     res.render('edit_employee', {
       title: 'Edit Employee',
       user: user
@@ -135,16 +73,30 @@ router.get('/edit/:id', function(req, res){
   });
 });
 
+router.get('/list', function (req, res) {
+  User.find((err, users) => {  
+    if (err) {
+        // Note that this error doesn't mean nothing was found,
+        // it means the database had an error while searching, hence the 500 status
+        res.status(500).send(err);
+        console.error(err);
+    } else {
+        res.render('list_employees', {
+        users: users
+      });
+    }
+  });
+});
+
 // update submit new article 
 router.post('/edit/:id', function(req, res){
   let user = {};
-  name = req.body.name;
-  email = req.body.email;
-  username = req.body.username;
-  password = req.body.password;
-  role = req.body.role;
-  team = req.body.team;
-  title = req.body.title;
+  user.name = req.body.name;
+  user.email = req.body.email;
+  user.username = req.body.username;
+  user.role = req.body.role;
+  user.team = req.body.team;
+  user.title = req.body.title;
 
   let query = {_id: req.params.id};
 
@@ -168,22 +120,21 @@ router.delete('/:id', function(req, res){
       console.error(err);
       return;
     } else {
-      req.flash('success', 'USer Deleted')
+      req.flash('success', 'User Deleted')
       res.send('Success');
     }
   });
 });
 
-// // get single user
-// router.get('/:id', function(req, res){
-//   User.findById(req.params.id, function(err, article){
-//     res.render('User', {
-//       article: article
-//     });
-//   });
-// });
+//issue with login if there is content in user.pug
+router.get('/:id', function(req, res){
+  User.find(req.params.id, function(err, user){
+    res.render('user', {
+      user: user
+    });
+  });
+});
 
-// Login form
 router.get('/login', function(req, res) {
   res.render('login');
 });

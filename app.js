@@ -10,6 +10,7 @@ const config = require('./config/database');
 
 // Article model
 const Article = require('./models/article');
+const User = require('./models/user');
 
 mongoose.connect(config.database);
 const db = mongoose.connection;
@@ -17,6 +18,13 @@ const db = mongoose.connection;
 // Check connection
 db.once('open', function(){
   console.log('Connected to MongoDB');
+
+    // //Read All the data from the "details" collection.
+    // db.collection("users").find({}).toArray( (err , collection) => {
+    //   if(err) throw err;
+    //   console.log("Record Read successfully");
+    //   console.log(collection);
+    // });
 });
 
 // Check for db errors
@@ -43,6 +51,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+
+
 
 // Express Messages Middleware
 app.use(require('connect-flash')());
@@ -94,15 +104,71 @@ app.get('/', function (req, res) {
   });
 });
 
-app.get('/', function (req, res) {
-  User.find({}, function(err, articles){
-    if(err){
-      console.error(err);
+// app.get('/users/list', function (req, res) {
+//   User.find((err, users) => {  
+//     if (err) {
+//         // Note that this error doesn't mean nothing was found,
+//         // it means the database had an error while searching, hence the 500 status
+//         res.status(500).send(err);
+//         console.error(err);
+//     } else {
+//         res.render('list_employees', {
+//         users: users
+//       });
+//     }
+//   });
+// });
+
+// app.get('/pop', function (req, res) {
+//   User.find({}).toArray(function(err, users) {
+//     if (err) {
+//         res.send(err);
+//     } else if (users.length) {
+//       res.render('index', {
+//         'users': users[0].data
+//         });
+//     } else {
+//         res.send('No documents found');
+//     }
+//   });
+// });
+
+// app.get('/use', function (req, res) {
+//   User.find({})
+//     .exec(function (err, users){
+//       if(err){
+//         res.send("uh oh error");
+//       } else {
+//           res.json(users);
+//       }
+//     });
+// });
+
+
+
+// app.get('/', function (req, res) {
+//   User.find({}, function(err, users){
+//     if(err){
+//       console.error(err);
+//     } else 
+//     {
+//       res.render('index', {
+//         title: 'Users', 
+//         users: users
+//       });
+//     }
+//   });
+// });
+
+var userArray = [];
+app.get("/", function(req, res) {
+  db.collection(users).find({}).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get sections.");
     } else {
-      res.render('index', {
-        title: 'Users', 
-        users: users
-      });
+      // res.status(200).json(docs);
+      userArray = docs;
+      console.log(userArray)
     }
   });
 });
