@@ -16,14 +16,18 @@ html
           a.navbar-brand(href='#') Performify
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
-            li
-              a(href='/') Home
-            li
-              a(href='/articles/add') Add Article
-            li
-              a(href='/users/add') Add Employee
-            li
-              a(href='/users/list') List Employees
+            if user
+              li
+                a(href='/') Home
+              li
+                a(href='/articles/add') Submit Self-Review
+              li
+                a(href='/users/add') Add Employee
+              li
+                a(href='/users/list') List Employees
+            else
+              li
+                a(href='/') Home
           ul.nav.navbar-nav.navbar-right
             if user
               li

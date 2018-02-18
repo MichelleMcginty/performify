@@ -1,9 +1,15 @@
 extends layout
 
 block content
-  h1= article.title
-  h5 Written by #{article.author}
-  p= article.body
-  hr
-  a.btn.btn-default(href='/articles/edit/'+article._id) Edit
-  a.btn.btn-danger.delete-article(href='#', data-id=article._id) Delete
+  .col-md-8.center
+    h2 Review date: #{article.date}
+    h3 Teamwork: #{article.teamwork}
+    h3 Results: #{article.results}
+    h3 Comunication: #{article.communication}
+    h3 Passion: #{article.passion}
+    h3 Development: #{article.development}
+    h3 Overall Result: #{article.overallResult}
+    h4 Comments: #{article.comments}
+    hr
+    a.btn.btn-default(href='/articles/edit/'+article._id) Edit
+    a.btn.btn-danger.delete-article(href='#', data-id=article._id) Delete

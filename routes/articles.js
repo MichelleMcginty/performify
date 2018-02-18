@@ -14,9 +14,13 @@ router.get('/add', function(req, res){
 // submit new article 
 router.post('/add', function(req, res){
   // Express validator
-  req.checkBody('title', 'Title is required').notEmpty();
-  req.checkBody('author', 'Author is required').notEmpty();
-  req.checkBody('body', 'Body is required').notEmpty();
+  req.checkBody('teamwork', 'teamwork is required').notEmpty();
+  req.checkBody('results', 'results is required').notEmpty();
+  req.checkBody('communication', 'communication is required').notEmpty();
+  req.checkBody('passion', 'passion is required').notEmpty();
+  req.checkBody('development', 'development is required').notEmpty();
+  req.checkBody('overallResult', 'overallResult is required').notEmpty();
+  req.checkBody('comments', 'comments is required').notEmpty();
   
   // Get errors
   let errors = req.validationErrors();
@@ -28,9 +32,13 @@ router.post('/add', function(req, res){
     });
   } else {
     let article = new Article();
-    article.title = req.body.title;
-    article.author = req.body.author;
-    article.body = req.body.body;
+    article.teamwork = req.body.teamwork;
+    article.results = req.body.results;
+    article.communication = req.body.communication;
+    article.passion = req.body.passion;
+    article.development = req.body.development;
+    article.overallResult = req.body.overallResult;
+    article.comments = req.body.comments;
 
     article.save(function(err){
       if(err) {
@@ -57,9 +65,14 @@ router.get('/edit/:id', function(req, res){
 // update submit new article 
 router.post('/edit/:id', function(req, res){
   let article = {};
-  article.title = req.body.title;
-  article.author = req.body.author;
-  article.body = req.body.body;
+  article.teamwork = req.body.teamwork;
+  article.results = req.body.results;
+  article.communication = req.body.communication;
+  article.passion = req.body.passion;
+  article.development = req.body.development;
+  article.overallResult = req.body.overallResult;
+  article.comments = req.body.comments;
+
 
   let query = {_id: req.params.id};
 

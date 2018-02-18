@@ -3,14 +3,162 @@ extends layout
 block content
   h1 #{title}
   form(method='POST', action='/articles/edit/'+article._id)
+    .form-group.self-review
+      label Teamwork:
+      br
+      .form-check.self-review-check.self-review-check-first
+        input.form-check-input(type='radio', name='teamwork', value='Unsatisfactory' id=article.teamwork)
+        label.form-check-label(for='exampleRadios1')
+          | Unsatisfactory
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='teamwork', value='Needs Improvement' id=article.teamwork)
+        label.form-check-label(for='exampleRadios1')
+          | Needs Improvement
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='teamwork', value='Meets Expectations' id=article.teamwork)
+        label.form-check-label(for='exampleRadios1')
+          | Meets Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='teamwork', value='Exceeds Expectations' id=article.teamwork)
+        label.form-check-label(for='exampleRadios1')
+          | Exceeds Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='teamwork', value='outstanding' id=article.teamwork)
+        label.form-check-label(for='exampleRadios1')
+          | Outstanding
+    .form-group.self-review
+      label Results:
+      br
+      .form-check.self-review-check.self-review-check-first
+        input.form-check-input(type='radio', name='results', value='Unsatisfactory')
+        label.form-check-label(for='exampleRadios1')
+          | Unsatisfactory
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='results', value='Needs Improvement')
+        label.form-check-label(for='exampleRadios1')
+          | Needs Improvement
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='results', value='Meets Expectations')
+        label.form-check-label(for='exampleRadios1')
+          | Meets Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='results', value='Exceeds Expectations')
+        label.form-check-label(for='exampleRadios1')
+          | Exceeds Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='results', value='outstanding')
+        label.form-check-label(for='exampleRadios1')
+          | Outstanding
+    .form-group.self-review
+      label Communication:
+      br
+      .form-check.self-review-check.self-review-check-first
+        input.form-check-input(type='radio', name='communication', value='Unsatisfactory')
+        label.form-check-label(for='exampleRadios1')
+          | Unsatisfactory
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='communication', value='Needs Improvement')
+        label.form-check-label(for='exampleRadios1')
+          | Needs Improvement
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='communication', value='Meets Expectations')
+        label.form-check-label(for='exampleRadios1')
+          | Meets Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='communication', value='Exceeds Expectations')
+        label.form-check-label(for='exampleRadios1')
+          | Exceeds Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='communication', value='outstanding')
+        label.form-check-label(for='exampleRadios1')
+          | Outstanding
+    .form-group.self-review
+      label Passion:
+      br
+      .form-check.self-review-check.self-review-check-first
+        input.form-check-input(type='radio', name='passion', value='Unsatisfactory')
+        label.form-check-label(for='exampleRadios1')
+          | Unsatisfactory
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='passion', value='Needs Improvement')
+        label.form-check-label(for='exampleRadios1')
+          | Needs Improvement
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='passion', value='Meets Expectations')
+        label.form-check-label(for='exampleRadios1')
+          | Meets Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='passion', value='Exceeds Expectations')
+        label.form-check-label(for='exampleRadios1')
+          | Exceeds Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='passion', value='outstanding')
+        label.form-check-label(for='exampleRadios1')
+          | Outstanding
+    .form-group.self-review
+      label Development:
+      br
+      .form-check.self-review-check.self-review-check-first
+        input.form-check-input(type='radio', name='development', value='Unsatisfactory')
+        label.form-check-label(for='exampleRadios1')
+          | Unsatisfactory
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='development', value='Needs Improvement')
+        label.form-check-label(for='exampleRadios1')
+          | Needs Improvement
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='development', value='Meets Expectations')
+        label.form-check-label(for='exampleRadios1')
+          | Meets Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='development', value='Exceeds Expectations')
+        label.form-check-label(for='exampleRadios1')
+          | Exceeds Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='development', value='outstanding')
+        label.form-check-label(for='exampleRadios1')
+          | Outstanding
+    .form-group.self-review
+      label Overall Performance Rating:
+      br
+      .form-check.self-review-check.self-review-check-first
+        input.form-check-input(type='radio', name='overallResult', value='Unsatisfactory')
+        label.form-check-label(for='exampleRadios1')
+          | Unsatisfactory
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='overallResult', value='Needs Improvement')
+        label.form-check-label(for='exampleRadios1')
+          | Needs Improvement
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='overallResult', value='Meets Expectations')
+        label.form-check-label(for='exampleRadios1')
+          | Meets Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='overallResult', value='Exceeds Expectations')
+        label.form-check-label(for='exampleRadios1')
+          | Exceeds Expectations
+      .form-check.self-review-check
+        input.form-check-input(type='radio', name='overallResult', value='outstanding')
+        label.form-check-label(for='exampleRadios1')
+          | Outstanding
     .form-group
-      label Title:
-      input.form-control(name='title', type='text', value=article.title)
-    .form-group
-      label Author:
-      input.form-control(name='author', type='text', value=article.author)
-    .form-group
-      label Body:
-      textarea.form-control(name='body')= article.body
+      label Any Comments:
+      br
+      textarea.form-control(name='comments')=article.comments
     br
     input.btn.btn-primary(type='submit', value='Submit')
+
+
+
+
+    //- .form-group
+    //-   label Title:
+    //-   input.form-control(name='title', type='text', value=article.title)
+    //- .form-group
+    //-   label Author:
+    //-   input.form-control(name='author', type='text', value=article.author)
+    //- .form-group
+    //-   label Body:
+    //-   textarea.form-control(name='body')= article.body
+    //- br
+    //- input.btn.btn-primary(type='submit', value='Submit')

@@ -88,6 +88,15 @@ router.get('/list', function (req, res) {
   });
 });
 
+//issue with login if there is content in user.pug
+// router.get('/:id', function(req, res){
+//   User.find(req.params.id, function(err, user){
+//     res.render('user', {
+//       user: user
+//     });
+//   });
+// });
+
 // update submit new article 
 router.post('/edit/:id', function(req, res){
   let user = {};
@@ -126,14 +135,6 @@ router.delete('/:id', function(req, res){
   });
 });
 
-//issue with login if there is content in user.pug
-router.get('/:id', function(req, res){
-  User.find(req.params.id, function(err, user){
-    res.render('user', {
-      user: user
-    });
-  });
-});
 
 router.get('/login', function(req, res) {
   res.render('login');
