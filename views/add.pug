@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  .col-md-6.center
+  .col-md-6.center.float-none
     h1 Add Employee    
     form(method='POST', action='/users/add')
       .form-group
@@ -19,6 +19,10 @@ block content
       .form-group
         label Role:
         br
+        .form-check
+          input.form-check-input(type='radio', name='role', value='admin')
+          label.form-check-label(for='exampleRadios1')
+            | Admin
         .form-check
           input.form-check-input(type='radio', name='role', value='seniorManagement')
           label.form-check-label(for='exampleRadios1')
