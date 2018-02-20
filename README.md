@@ -7,7 +7,6 @@ A user can create an article, view article, edit article and delete an article.
 To start 
 - Remove the node modules folder
 - Run "Npm install"
-- Start MongoDB
-- Run "Npm start"
+- Run "nodemon app"
 
 Navigate to http://localhost:3333/
