@@ -65,10 +65,10 @@ router.post('/add', function(req, res){
 
 // load edit form
 router.get('/edit/:id', function(req, res){
-  User.find(req.params.id, function(err, users){
+  User.findById(req.params.id, function(err, users){
     res.render('edit_employee', {
       title: 'Edit Employee',
-      user: user
+      users: users
     });
   });
 });
@@ -76,8 +76,6 @@ router.get('/edit/:id', function(req, res){
 router.get('/list', function (req, res) {
   User.find((err, users) => {  
     if (err) {
-        // Note that this error doesn't mean nothing was found,
-        // it means the database had an error while searching, hence the 500 status
         res.status(500).send(err);
         console.error(err);
     } else {
@@ -89,13 +87,14 @@ router.get('/list', function (req, res) {
 });
 
 //issue with login if there is content in user.pug
-// router.get('/:id', function(req, res){
-//   User.find(req.params.id, function(err, user){
-//     res.render('user', {
-//       user: user
-//     });
-//   });
-// });
+
+router.get('/:id', function(req, res){
+  User.findById(req.params.id, function(err, user){
+    res.render('profile', {
+      user: user
+    });
+  });
+});
 
 // update submit new article 
 router.post('/edit/:id', function(req, res){

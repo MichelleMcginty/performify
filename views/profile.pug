@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .container
+    .col-md-6.center
+      h2 Profile
+      p hello
+      p= user.name
+      p= user.email
+      p= user.username
+      p= user.role
+      p= user.team
+      p= user.title
+  a.btn.btn-default(href='/users/edit/'+user._id) Edit
+  a.btn.btn-danger.delete-article(href='#', data-id=user._id) Delete

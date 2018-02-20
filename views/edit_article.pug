@@ -37,23 +37,23 @@ block content
             br
           .col-md-11.form-info-col
             .form-check.self-review-check.self-review-check-first
-              input.form-check-input(type='radio', name='results', value='Unsatisfactory')
+              input.form-check-input(type='radio', name='results', value=article.results)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Unsatisfactory
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='Needs Improvement')
+              input.form-check-input(type='radio', name='results', value=article.results)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Needs Improvement
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='Meets Expectations')
+              input.form-check-input(type='radio', name='results', value=article.results)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Meets Expectations
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='Exceeds Expectations')
+              input.form-check-input(type='radio', name='results', value=article.results)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Exceeds Expectations
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='outstanding')
+              input.form-check-input(type='radio', name='results', value=article.results)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Outstanding
       .form-group.self-review
