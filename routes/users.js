@@ -88,6 +88,26 @@ router.get('/list', function (req, res) {
 
 //issue with login if there is content in user.pug
 
+router.post('/login', function(req, res, next){
+  passport.authenticate('local', { 
+    successRedirect: '/',
+    failureRedirect: '/users/login',
+    failureFlash: true
+  })(req, res, next);
+});
+
+// Logout form
+router.get('/logout', function(req, res) {
+  req.logout();
+  req.flash('success', 'You are logged out');
+  res.redirect('/users/login');
+});
+
+
+router.get('/login', function(req, res) {
+  res.render('login');
+});
+
 router.get('/:id', function(req, res){
   User.findById(req.params.id, function(err, user){
     res.render('profile', {
@@ -135,24 +155,11 @@ router.delete('/:id', function(req, res){
 });
 
 
-router.get('/login', function(req, res) {
-  res.render('login');
-});
+// router.get('/login', function(req, res) {
+//   res.render('login');
+// });
 
 // Login process
-router.post('/login', function(req, res, next){
-  passport.authenticate('local', { 
-    successRedirect: '/',
-    failureRedirect: '/users/login',
-    failureFlash: true
-  })(req, res, next);
-});
 
-// Logout form
-router.get('/logout', function(req, res) {
-  req.logout();
-  req.flash('success', 'You are logged out');
-  res.redirect('/users/login');
-});
 
 module.exports = router;
