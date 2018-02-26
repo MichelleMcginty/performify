@@ -4,8 +4,8 @@ block content
   .container
     .article-wrapper
       .col-md-6.center.float-none
-        h3 Employees
+        h3 Dynamics Review
         ul.list-group
-          each user in users
+          each dynamic in dynamics
             li.list-group-item
-              a(href='/users/'+user._id)= user.name
+              a(href='/dynamics/'+dynamic._id)= dynamic.date

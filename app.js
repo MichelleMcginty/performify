@@ -11,6 +11,7 @@ const config = require('./config/database');
 // Article model
 const Article = require('./models/article');
 const User = require('./models/user');
+const Dynamic = require('./models/dynamic');
 
 mongoose.connect(config.database);
 const db = mongoose.connection;
@@ -109,6 +110,19 @@ app.get('/', function (req, res) {
   });
 });
 
+app.get('/', function (req, res) {
+  Dynamic.find({}, function(err, dynamics){
+    if(err){
+      console.error(err);
+    } else {
+      res.render('index', {
+        title: 'Dynamics', 
+        dynamics: dynamics
+      });
+    }
+  });
+});
+
 // app.get('/users/list', function (req, res) {
 //   User.find((err, users) => {  
 //     if (err) {
@@ -182,9 +196,11 @@ app.get("/", function(req, res) {
 // Route Files
 let articles = require('./routes/articles');
 let users = require('./routes/users');
+let dynamics = require('./routes/dynamics');
 // Any routes that goes to '/articles' will go to the 'articles.js' file in route
 app.use('/articles', articles);
 app.use('/users', users);
+app.use('/dynamics', dynamics);
 
 app.listen(3333, function(){
   console.log(`Server started on port 3333`);

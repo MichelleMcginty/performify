@@ -12,6 +12,9 @@ const User = require('../models/user');
 
 //issue with login if there is content in user.pug
 
+
+
+
 router.post('/login', function (req, res, next) {
   passport.authenticate('local-login', {
     successRedirect: '/',

@@ -4,9 +4,12 @@ html
     title Performify
     link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet' href='/css/style.css')
+    //- link(href='https://use.fontawesome.com/releases/v5.0.6/css/all.css', rel='stylesheet')
     script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')
+    script(defer src='https://use.fontawesome.com/releases/v5.0.6/js/all.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q', crossorigin='anonymous')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl', crossorigin='anonymous')
+    
 
   body
     nav.navbar.navbar-inverse
@@ -21,17 +24,53 @@ html
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
             if user
-              li
-                a(href='/') Home
-              li
-                a(href='/articles/add') Submit Self-Review
-              li
-                a(href='/users/add') Add Employee
-              li
-                a(href='/users/list') List Employees
-            else
-              li
-                a(href='/') Home
+              if (user.role =="admin")
+                li
+                  a(href='/') Home
+                li.dropdown
+                  a.dropdown-toggle(data-toggle='dropdown', href='#')
+                    | Reviews
+                    span.caret
+                  ul.dropdown-menu
+                    li
+                      a(href='/articles/add') Self-Review
+                    li
+                      a(href='/dynamics/add') Dynamic Self-Review 
+                    li
+                      a(href='/dynamics/list-review') List Dynamic Self-Review
+                li.dropdown
+                  a.dropdown-toggle(data-toggle='dropdown', href='#')
+                    | Employees
+                    span.caret
+                  ul.dropdown-menu
+                    li
+                      a(href='/users/add') Add Employee
+                    li
+                      a(href='/users/list') List Employees
+              else if (user.role == "seniorManagement")
+                li
+                  a(href='/') Home
+                li.dropdown
+                  a.dropdown-toggle(data-toggle='dropdown', href='#')
+                    | Reviews
+                    span.caret
+                  ul.dropdown-menu
+                    li
+                      a(href='/articles/add') Self-Review
+              else if (user.role == "management")
+                li
+                  a(href='/') Home
+                li
+                  a(href='/articles/add') Self-Review
+              else if (user.role == "Employee")
+                li
+                  a(href='/') Home
+                li.dropdown
+                  li
+                    a(href='/articles/add') Submit Self-Review  
+              else
+                li
+                  a(href='/') Home
           ul.nav.navbar-nav.navbar-right
             if user
               li

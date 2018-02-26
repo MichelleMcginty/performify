@@ -19,7 +19,6 @@ const dynamicSchema = mongoose.Schema({
     required: true
   },
   passion: {
-    title:,
     type: String,
     required: true
   },
@@ -37,4 +36,4 @@ const dynamicSchema = mongoose.Schema({
   }
 });
 
-const Article = module.exports = mongoose.model('Article', articleSchema);
+const Dynamic = module.exports = mongoose.model('Dynamic', dynamicSchema);

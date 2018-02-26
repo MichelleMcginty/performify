@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .col-md-8.center.float-none
+    h2 Review Details
+    br
+    h3 Review date: #{dynamic.date}
+    .row
+      .col-md-4
+        h4 Teamwork:
+        h4 Results: 
+        h4 Comunication: 
+        h4 Passion: 
+        h4 Development:
+        h4 Overall Result: 
+        h4 Comments: 
+      .col-md-8
+        h4= dynamic.teamwork
+        h4= dynamic.results
+        h4= dynamic.communication
+        h4= dynamic.passion
+        h4= dynamic.development
+        h4= dynamic.overallResult
+        h4= dynamic.comments
+    
+    hr 
+    a.btn.btn-default(href='/dynamics/edit/'+dynamic._id) Edit
+    a.btn.btn-danger.delete-dynamic(href='#', data-id=dynamic._id) Delete
