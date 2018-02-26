@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  H2 Edit Profile
   form(method='POST', action='/users/edit/'+users._id)
     .form-group
       label Name:
@@ -8,75 +9,66 @@ block content
     .form-group
       label Email:
       input.form-control(name='email', type='text', value=users.email)
+    .form-group
+      label Username:
+      input.form-control(name='username', type='text' value=users.username)
+    .form-group
+      label Role:
+      br
+      .form-check
+        input.form-check-input(type='radio', name='role', value='admin')
+        label.form-check-label(for='exampleRadios1')
+          | Admin
+      .form-check
+        input.form-check-input(type='radio', name='role', value='seniorManagement')
+        label.form-check-label(for='exampleRadios1')
+          | Senior Management
+      .form-check
+        input.form-check-input(type='radio', name='role', value='management')
+        label.form-check-label(for='exampleRadios1')
+          | Management
+      .form-check
+        input.form-check-input(type='radio', name='role', value='Employee')
+        label.form-check-label(for='exampleRadios1')
+          | Employee
+    .form-group
+      label Team
+      br
+      .form-check
+        input.form-check-input(type='radio', name='team', value='finance')
+        label.form-check-label(for='exampleRadios1')
+          | Finance
+      .form-check
+        input.form-check-input(type='radio', name='team', value='markeing')
+        label.form-check-label(for='exampleRadios1')
+          | Markeing
+      .form-check
+        input.form-check-input(type='radio', name='team', value='testing')
+        label.form-check-label(for='exampleRadios1')
+          | Testing
+      .form-check
+        input.form-check-input(type='radio', name='team', value='engineering')
+        label.form-check-label(for='exampleRadios1')
+          | Engineering
+      .form-check
+        input.form-check-input(type='radio', name='team', value='sales')
+        label.form-check-label(for='exampleRadios1')
+          | Sales
+      .form-check
+        input.form-check-input(type='radio', name='team', value='hr')
+        label.form-check-label(for='exampleRadios1')
+          | HR
+      .form-check
+        input.form-check-input(type='radio', name='team', value='it')
+        label.form-check-label(for='exampleRadios1')
+          | I.T.
+      .form-check
+        input.form-check-input(type='radio', name='team', value='support')
+        label.form-check-label(for='exampleRadios1')
+          | Support
+    .form-group
+      label Job Title:
+      input.form-control(name='title', type='text' value=users.title)
     br
-    input.btn.btn-primary(type='submit', value='Submit')
-
-    //-  .form-group
-    //-     label Name:
-    //-     input.form-control(name='name', type='text')
-    //-   .form-group
-    //-     label Email:
-    //-     input.form-control(name='email', type='text')
-    //-   .form-group
-    //-     label Password:
-    //-     input.form-control(name='password', type='password')
-    //-   .form-group
-    //-     label Username:
-    //-     input.form-control(name='username', type='text')
-    //-   .form-group
-    //-     label Role:
-    //-     br
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='role', value='admin')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | Admin
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='role', value='seniorManagement')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | Senior Management
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='role', value='management')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | Management
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='role', value='Employee')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | Employee
-    //-   .form-group
-    //-     label Team
-    //-     br
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='team', value='finance')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | Finance
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='team', value='markeing')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | Markeing
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='team', value='testing')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | Testing
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='team', value='engineering')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | Engineering
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='team', value='sales')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | Sales
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='team', value='hr')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | HR
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='team', value='it')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | I.T.
-    //-     .form-check
-    //-       input.form-check-input(type='radio', name='team', value='support')
-    //-       label.form-check-label(for='exampleRadios1')
-    //-         | Support
-    //-   .form-group
-    //-     label Job Title:
-    //-     input.form-control(name='title', type='text')
+    a.btn.btn-danger(style="margin-left:15px; width:20%;" href='/users/'+user._id) Cancel
+    input.btn.btn-primary.pull-right(type='submit', value='Submit' style="margin-right:15px; width:20%;")

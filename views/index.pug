@@ -4,10 +4,11 @@ block content
   .container
     .info-wrapper
       .col-md-6.center.float-none
-        h1 Welcome to Performify
         if user
+          h1 Welcome to Performify #{user.name}
           a(class='button btn btn-default btn-success btn-login', href='/users/add') Add Employee
         else 
+          h1 Welcome to Performify
           h2.text-center Please Login
           a(class='button btn btn-default btn-success btn-login', href='/users/login') Login
     .article-wrapper

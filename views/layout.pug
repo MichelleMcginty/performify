@@ -35,6 +35,8 @@ html
           ul.nav.navbar-nav.navbar-right
             if user
               li
+                a(href='/users/'+user._id) Profile
+              li
                 a(href='/users/logout') Logout
             else
               li

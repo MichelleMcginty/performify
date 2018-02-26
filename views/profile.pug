@@ -2,14 +2,24 @@ extends layout
 
 block content
   .container
-    .col-md-6.center
+    .col-md-6.center.float-none
       h2 Profile
-      p hello
-      p= user.name
-      p= user.email
-      p= user.username
-      p= user.role
-      p= user.team
-      p= user.title
-  a.btn.btn-default(href='/users/edit/'+user._id) Edit
-  a.btn.btn-danger.delete-article(href='#', data-id=user._id) Delete
+      table.table.table-bordered
+        thead.thead-light
+          tr
+            th(scope="col") Name
+            th(scope="col") Email
+            th(scope="col") Username
+            th(scope="col") Role
+            th(scope="col") Team
+            th(scope="col") Title
+        tbody
+          tr
+            td= user.name
+            td= user.email
+            td= user.username
+            td= user.role
+            td= user.team
+            td= user.title
+      a.btn.btn-default(style="width:20%;" href='/users/edit/'+user._id) Edit
+      a.btn.btn-danger.delete-article.pull-right(style="width:20%;" href='#', data-id=user._id) Delete

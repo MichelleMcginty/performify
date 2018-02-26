@@ -18,13 +18,6 @@ const db = mongoose.connection;
 // Check connection
 db.once('open', function(){
   console.log('Connected to MongoDB');
-
-    // //Read All the data from the "details" collection.
-    // db.collection("users").find({}).toArray( (err , collection) => {
-    //   if(err) throw err;
-    //   console.log("Record Read successfully");
-    //   console.log(collection);
-    // });
 });
 
 // Check for db errors
@@ -34,6 +27,12 @@ db.on('error', function(err){
 
 const app = express();
 
+
+// app.use(function(req, res, next) {
+//   var error = new Error('Not Found');
+//   error.status = 404;
+//   next(err);
+// });
 // View engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -51,8 +50,6 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-
-
 
 // Express Messages Middleware
 app.use(require('connect-flash')());
@@ -89,6 +86,14 @@ app.use(passport.session());
 app.get('*', function(req, res, next){
   res.locals.user = req.user || null;
   next();
+});
+
+app.get('/form', (req, res) => {
+  res.render('add_review_dyna');
+});
+
+app.get('/create', (req, res) => {
+  res.render('create_form');
 });
 
 app.get('/', function (req, res) {
