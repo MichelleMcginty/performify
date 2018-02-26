@@ -11,6 +11,7 @@ const config = require('./config/database');
 // Article model
 const Article = require('./models/article');
 const User = require('./models/user');
+const Dynamic = require('./models/dynamic');
 
 mongoose.connect(config.database);
 const db = mongoose.connection;
@@ -18,13 +19,6 @@ const db = mongoose.connection;
 // Check connection
 db.once('open', function(){
   console.log('Connected to MongoDB');
-
-    // //Read All the data from the "details" collection.
-    // db.collection("users").find({}).toArray( (err , collection) => {
-    //   if(err) throw err;
-    //   console.log("Record Read successfully");
-    //   console.log(collection);
-    // });
 });
 
 // Check for db errors
@@ -34,6 +28,12 @@ db.on('error', function(err){
 
 const app = express();
 
+
+// app.use(function(req, res, next) {
+//   var error = new Error('Not Found');
+//   error.status = 404;
+//   next(err);
+// });
 // View engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -51,8 +51,6 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-
-
 
 // Express Messages Middleware
 app.use(require('connect-flash')());
@@ -91,6 +89,14 @@ app.get('*', function(req, res, next){
   next();
 });
 
+app.get('/form', (req, res) => {
+  res.render('add_review_dyna');
+});
+
+app.get('/create', (req, res) => {
+  res.render('create_form');
+});
+
 app.get('/', function (req, res) {
   Article.find({}, function(err, articles){
     if(err){
@@ -99,6 +105,19 @@ app.get('/', function (req, res) {
       res.render('index', {
         title: 'Articles', 
         articles: articles
+      });
+    }
+  });
+});
+
+app.get('/', function (req, res) {
+  Dynamic.find({}, function(err, dynamics){
+    if(err){
+      console.error(err);
+    } else {
+      res.render('index', {
+        title: 'Dynamics', 
+        dynamics: dynamics
       });
     }
   });
@@ -177,10 +196,12 @@ app.get("/", function(req, res) {
 // Route Files
 let articles = require('./routes/articles');
 let users = require('./routes/users');
+let dynamics = require('./routes/dynamics');
 // Any routes that goes to '/articles' will go to the 'articles.js' file in route
 app.use('/articles', articles);
 app.use('/users', users);
+app.use('/dynamics', dynamics);
 
 app.listen(3333, function(){
   console.log(`Server started on port 3333`);
-})
+});

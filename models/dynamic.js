@@ -1,37 +1,39 @@
 const mongoose = require('mongoose');
 
-// User Schema
-const UserSchema = mongoose.Schema({
-  name: {
+// Article schema
+const dynamicSchema = mongoose.Schema({
+  date: { 
+    type: Date, 
+    default: Date.now 
+  },
+  teamwork: {
     type: String,
     required: true
   },
-  email: {
-    type: String,
-    unique:true,
-    required: true
-  },
-  password: {
+  results: {
     type: String,
     required: true
   },
-  username: {
-    type: String,
-    unique:true,
-    required: true
-  },
-  role: {
+  communication: {
     type: String,
     required: true
   },
-  team: {
+  passion: {
     type: String,
     required: true
   },
-  title: {
+  development: {
     type: String,
     required: true
   },
+  overallResult: {
+    type: String,
+    required: true
+  },
+  comments: {
+    type: String,
+    required: true
+  }
 });
 
-const User = module.exports = mongoose.model('User', UserSchema);
+const Dynamic = module.exports = mongoose.model('Dynamic', dynamicSchema);

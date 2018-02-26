@@ -1,10 +1,10 @@
 {
-  "name": "node-express",
+  "name": "performify",
   "version": "1.0.0",
   "description": "Simple app using node and express",
   "main": "app.js",
   "scripts": {
-    "start": "npm start"
+    "start": "npm start or nodemon app"
   },
   "author": "Michelle McGinty",
   "license": "ISC",
@@ -15,10 +15,11 @@
     "express": "^4.15.3",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.3",
-    "express-validator": "^3.2.0",
+    "express-validator": "^3.2.1",
     "mongoose": "^4.10.4",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "pug": "^2.0.0-rc.2"
+    "pug": "^2.0.0-rc.2",
+    "sort-by": "^1.2.0"
   }
 }

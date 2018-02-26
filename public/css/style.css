@@ -1,3 +1,7 @@
+body{
+  font-family: 'Open Sans',Arial,sans-serif;
+}
+
 .alert-error {
   color: #a94442;
   background: #f2dede;
@@ -18,9 +22,9 @@
   text-align: center;
 }
 
-.col-md-6, .col-md-10, .col-md-12 {
+/* .col-md-6, .col-md-10, .col-md-12 {
   float: none;
-}
+} */
 
 .form-group {
   margin-left: 15px;
@@ -40,10 +44,9 @@
   color: grey;
 }
 
-.logo {
-  background: url("./logo.png") no-repeat;
-  width: 100%;
-  height: 100%;
+.logo img {
+  margin: 0 auto;
+  display: block;
 }
 
 .form-check {
@@ -62,10 +65,36 @@
   padding-left: 17%;
 }
 
-.col-md-8 {
+/* .col-md-8 {
   float: none;
+} */
+.form-info-col{
+  padding-left: 50px;
+  color: dimgray;
+  font-weight: lighter;
+}
+.label-form{
+  padding-left: 10px;
+  padding-right: 30px;
+  font-weight: lighter;
+}
+.self-review-check{
+  width:auto;
+  display: inline-block;
+  padding-left: 19px;
+}
+.self-review{
+  padding-top:20px;
+  padding-bottom:20px;
 }
 
+.form-title{
+  font-size: 16px;
+}
+
+.float-none{
+  float: none;
+}
 /* .self-review-check-first {
   padding-left: 46px !important;
 } */

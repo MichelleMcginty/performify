@@ -3,7 +3,7 @@ extends layout
 block content
   .col-md-12.center.float-none
     h1 Submit Self Review
-    form(method='POST', action='/articles/add')
+    form(method='POST', action='/dynamics/edit/'+dynamic._id)
       .form-group.self-review
         .row
           .col-md-1.form-label-col(data-toggle="tooltip" title="How we work with peers & customers and role model our values")
@@ -11,23 +11,23 @@ block content
             br
           .col-md-11.form-info-col
             .form-check.self-review-check.self-review-check-first
-              input.form-check-input(type='radio', name='teamwork', value='Unsatisfactory')
+              input.form-check-input(type='radio', name='teamwork', value='Unsatisfactory' id=dynamic.teamwork)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Unsatisfactory
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='teamwork', value='Needs Improvement')
+              input.form-check-input(type='radio', name='teamwork', value='Needs Improvement' id=dynamic.teamwork)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Needs Improvement
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='teamwork', value='Meets Expectations')
+              input.form-check-input(type='radio', name='teamwork', value='Meets Expectations' id=dynamic.teamwork)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Meets Expectations
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='teamwork', value='Exceeds Expectations')
+              input.form-check-input(type='radio', name='teamwork', value='Exceeds Expectations' id=dynamic.teamwork)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Exceeds Expectations
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='teamwork', value='outstanding')
+              input.form-check-input(type='radio', name='teamwork', value='outstanding' id=dynamic.teamwork)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Outstanding
       .form-group.self-review
@@ -37,23 +37,23 @@ block content
             br
           .col-md-11.form-info-col
             .form-check.self-review-check.self-review-check-first
-              input.form-check-input(type='radio', name='results', value='Unsatisfactory')
+              input.form-check-input(type='radio', name='results', value=dynamic.results)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Unsatisfactory
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='Needs Improvement')
+              input.form-check-input(type='radio', name='results', value=dynamic.results)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Needs Improvement
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='Meets Expectations')
+              input.form-check-input(type='radio', name='results', value=dynamic.results)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Meets Expectations
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='Exceeds Expectations')
+              input.form-check-input(type='radio', name='results', value=dynamic.results)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Exceeds Expectations
             .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='outstanding')
+              input.form-check-input(type='radio', name='results', value=dynamic.results)
               label.form-check-label.label-form(for='exampleRadios1')
                 | Outstanding
       .form-group.self-review
@@ -163,7 +163,7 @@ block content
       .form-group
         label.form-title Any Comments:
         br
-        textarea.form-control(name='comments')
+        textarea.form-control(name='comments')=dynamic.comments
       br
       input.btn.btn-primary(type='submit', value='Submit' style="margin-left:15px;")
 
