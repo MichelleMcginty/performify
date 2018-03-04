@@ -7,7 +7,7 @@ block content
         if user
           h1(style="margin-top:0;") Welcome to Performify 
             span.user-name(style="color: gray; text-transform: capitalize; ") #{user.name}
-          a(class='button btn btn-default btn-success btn-login', href='/users/add') Add Employee
+          a(class='button btn btn-primary btn-login',  href='/users/'+user._id) View Profile
         .article-wrapper
           .col-md-12.center.float-none
             .div

@@ -10,7 +10,6 @@ app.use(expressValidator());
 // Article model
 const User = require('../models/user');
 
-//issue with login if there is content in user.pug
 
 
 
