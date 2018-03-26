@@ -60,8 +60,15 @@ html
               else if (user.role == "management")
                 li
                   a(href='/') Home
-                li
-                  a(href='/articles/add') Self-Review
+                li.dropdown
+                  a.dropdown-toggle(data-toggle='dropdown', href='#')
+                    | Reviews
+                    span.caret
+                  ul.dropdown-menu
+                    li
+                      a(href='/articles/add') Self-Review
+                    li
+                      a(href='/manager-dashboard') Manager Review Dashboard
               else if (user.role == "Employee")
                 li
                   a(href='/') Home

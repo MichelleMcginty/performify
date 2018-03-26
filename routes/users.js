@@ -20,10 +20,20 @@ router.post('/login', function (req, res, next) {
 });
 
 // Logout form
-router.get('/logout', function (req, res) {
-  req.logout();
-  req.flash('success', 'You are logged out');
-  res.redirect('/users/login');
+router.get('/logout', function (req, res, next) {
+  if (req.session) {
+    // delete session object
+    req.session.destroy(function(err) {
+      if(err) {
+        return next(err);
+      } else {
+        return res.redirect('/users/login');
+      }
+    });
+  }
+  // req.logout();
+  // req.flash('success', 'You are logged out');
+  // res.redirect('/users/login');
 });
 
 
@@ -116,6 +126,7 @@ router.post('/add', (req, res)  => {
             req.flash('error', 'Username already in the DB');
             res.redirect('/users/add')
           } else {
+            req.session.userId = user._id;
             console.log("employee added")
             console.log("Registering user: " + req.body.name);
             req.flash('success', 'Employee added');

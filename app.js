@@ -8,11 +8,25 @@ const session = require('express-session');
 const passport = require('passport');
 const config = require('./config/database');
 const moment = require('moment');
-
+const cookieParser = require('cookie-parser');
+const app = express();
+const MongoStore = require('connect-mongo')(session);
 // Article model
 const Article = require('./models/article');
 const User = require('./models/user');
 const Dynamic = require('./models/dynamic');
+const perReview = require('./models/performance_review');
+
+// app.set('port', process.env.PORT || 3333);
+// app.use(cookieParser());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+
+// var dbHost = process.env.DB_HOST || '127.0.0.1'
+// var dbPort = process.env.DB_PORT || 27017;
+// var dbName = process.env.DB_NAME || 'performify-start';
+// var dbURL = 'mongodb://'+dbHost+':'+dbPort+'/'+dbName;
+
 
 mongoose.connect(config.database);
 const db = mongoose.connection;
@@ -27,14 +41,6 @@ db.on('error', function(err){
   console.error(err);
 });
 
-const app = express();
-
-
-// app.use(function(req, res, next) {
-//   var error = new Error('Not Found');
-//   error.status = 404;
-//   next(err);
-// });
 // View engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -50,7 +56,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'keyboard cat',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  // store: new MongoStore({ url: dbURL })
 }));
 
 // Express Messages Middleware
@@ -98,7 +105,7 @@ app.get('/create', (req, res) => {
   res.render('create_form');
 });
 
-app.get('/', function (req, res) {
+app.get('/' ,function (req, res) {
   Article.find({}, function(err, articles){
     if(err){
       console.error(err);
@@ -112,87 +119,41 @@ app.get('/', function (req, res) {
   });
 });
 
-// app.get('/', function (req, res) {
-//   Dynamic.find({}, function(err, dynamics){
-//     if(err){
-//       console.error(err);
-//     } else {
-//       res.render('index', {
-//         title: 'Dynamics', 
-//         dynamics: dynamics
-//       });
-//     }
-//   });
-// });
+// var isAuthenticated = function (req, res, next) {
+//   if (req.isAuthenticated())
+//     return next();
+//   res.redirect('/');
+// }
 
-// app.get('/users/list', function (req, res) {
-//   User.find((err, users) => {  
-//     if (err) {
-//         // Note that this error doesn't mean nothing was found,
-//         // it means the database had an error while searching, hence the 500 status
-//         res.status(500).send(err);
-//         console.error(err);
-//     } else {
-//         res.render('list_employees', {
-//         users: users
-//       });
-//     }
-//   });
-// });
-
-// app.get('/pop', function (req, res) {
-//   User.find({}).toArray(function(err, users) {
-//     if (err) {
-//         res.send(err);
-//     } else if (users.length) {
-//       res.render('index', {
-//         'users': users[0].data
-//         });
-//     } else {
-//         res.send('No documents found');
-//     }
-//   });
-// });
-
-// app.get('/use', function (req, res) {
-//   User.find({})
-//     .exec(function (err, users){
-//       if(err){
-//         res.send("uh oh error");
-//       } else {
-//           res.json(users);
-//       }
-//     });
-// });
-
-
-
-// app.get('/', function (req, res) {
-//   User.find({}, function(err, users){
-//     if(err){
-//       console.error(err);
-//     } else 
-//     {
-//       res.render('index', {
-//         title: 'Users', 
-//         users: users
-//       });
-//     }
-//   });
-// });
-
-var userArray = [];
-app.get("/", function(req, res) {
-  db.collection(users).find({}).toArray(function(err, docs) {
-    if (err) {
-      handleError(res, err.message, "Failed to get sections.");
+app.get('/manager-dashboard', (req, res) => {
+  // User.find({team:req.user._id}, function(err, users){
+    User.find({team:"markeing"}, function(err, users){
+    if(err){
+      console.error(err);
     } else {
-      // res.status(200).json(docs);
-      userArray = docs;
-      console.log(userArray)
-    }
+      res.render('manager-dashboard', {
+        users: users
+      });
+    } 
+    // console.log(req.user.userid);
+    // console.log(req.user._id);
+    // console.log(req.user.id);
   });
 });
+
+
+// var userArray = [];
+// app.get("/", function(req, res) {
+//   db.collection(users).find({}).toArray(function(err, docs) {
+//     if (err) {
+//       handleError(res, err.message, "Failed to get sections.");
+//     } else {
+//       // res.status(200).json(docs);
+//       userArray = docs;
+//       console.log(userArray)
+//     }
+//   });
+// });
 
 
 // Route Files
