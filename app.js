@@ -7,6 +7,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const config = require('./config/database');
+const moment = require('moment');
 
 // Article model
 const Article = require('./models/article');
@@ -104,7 +105,8 @@ app.get('/', function (req, res) {
     } else {
       res.render('index', {
         title: 'Articles', 
-        articles: articles
+        articles: articles,
+        moment: moment
       });
     }
   });

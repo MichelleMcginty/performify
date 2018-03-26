@@ -14,8 +14,9 @@ block content
               h3 Reviews
               ul.list-group
                 each article, i in articles
-                  li.list-group-item
-                    a(href='/articles/'+article._id)= article.date
+                  li.list-group-item.list-reviews
+                    //- a(href='/articles/'+article._id)= article.date
+                    a(href='/articles/'+article._id)= moment(article.date).format("MMMM Do YYYY, h:mm:ss a")
       .col-md-6
         .img-border(style="border: 1px solid black; height:500px;")
   else

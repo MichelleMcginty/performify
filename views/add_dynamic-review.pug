@@ -5,57 +5,61 @@ block content
     h1 Submit Self Review (dynamicly)
     form(method='POST', action='/dynamics/add')
       each dynamic in dynamics
-        .form-group.self-review
-          .row.col-md-1.form-label-col(data-toggle="tooltip" title=dynamic.description)
-              label.form-title= dynamic.title
+        .form-group.self-review.self-review-dyna
+          .row.col-md-1.form-label-col(data-toggle="tooltip" title=dynamic.questionOne.description)
+              label.form-title= dynamic.questionOne.title
               br
           .row.col-md-11(style="padding-left:35px;")
             .form-info-col(style="font-size: 15px; padding-left: 65px;")
               .form-check.self-review-check.self-review-check-first(style="padding-left: 15px; padding-right: 15px;")
-                input.form-check-input(type='radio', name='teamwork', value=dynamic.answer1)
+                input.form-check-input(type='radio', name=dynamic.questionOne.title, value=dynamic.questionOne.title)
                 label.form-check-label.label-form(for='exampleRadios1' style="padding-left: 15px; padding-right: 0; font-weight: lighter;") 
-                | #{dynamic.answer1}
+                | #{dynamic.questionOne.one}
               .form-check.self-review-check(style="padding-left: 15px; padding-right: 15px;")
-                input.form-check-input(type='radio', name='teamwork', value=dynamic.answer2)
+                input.form-check-input(type='radio', name=dynamic.questionOne.title, value=dynamic.questionOne.two)
                 label.form-check-label.label-form(for='exampleRadios1' style="padding-left: 15px; padding-right: 0; font-weight: lighter;") 
-                | #{dynamic.answer2}
+                | #{dynamic.questionOne.two}
               .form-check.self-review-check(style="padding-left: 15px; padding-right: 15px;")
-                input.form-check-input(type='radio', name='teamwork', value=dynamic.answer3)
+                input.form-check-input(type='radio', name=dynamic.questionOne.title, value=dynamic.questionOne.three)
                 label.form-check-label.label-form(for='exampleRadios1' style="padding-left: 15px; padding-right: 0; font-weight: lighter;") 
-                | #{dynamic.answer3}
+                | #{dynamic.questionOne.three}
               .form-check.self-review-check(style="padding-left: 15px; padding-right: 15px;")
-                input.form-check-input(type='radio', name='teamwork', value=dynamic.answer4)
+                input.form-check-input(type='radio', name=dynamic.questionOne.title, value=dynamic.questionOne.four)
                 label.form-check-label.label-form(for='exampleRadios1' style="padding-left: 15px; padding-right: 0; font-weight: lighter;") 
-                | #{dynamic.answer4}
+                | #{dynamic.questionOne.four}
               .form-check.self-review-check(style="padding-left: 15px; padding-right: 15px;")
-                input.form-check-input(type='radio', name='teamwork', value=dynamic.answer5)
+                input.form-check-input(type='radio', name=dynamic.questionOne.title, value=dynamic.questionOne.five)
                 label.form-check-label.label-form(for='exampleRadios1' style="padding-left: 15px; padding-right: 0; font-weight: lighter;") 
-                | #{dynamic.answer5}
-      
+                | #{dynamic.questionOne.five}
+      .form-group(style="margin-top:70px;")
+        label.form-title Any Comments:
+        br
+        textarea.form-control(name='comments')
       br 
-      br 
-      br
-      .form-group
-        .form-inline
-          .form-check
-            input#radio120.form-check-input(name='group20', type='radio', checked='checked')
-            label.form-check-label(for='radio120') Option 1
-          .form-check
-            input#radio121.form-check-input(name='group20', type='radio')
-            label.form-check-label(for='radio121') Option 2
-          .form-check
-            input#radio122.form-check-input(name='group20', type='radio')
-            label.form-check-label(for='radio122') Option 3
-        .form-inline
-          .form-check
-            input#radio120.form-check-input(name='group20', type='radio', checked='checked')
-            label.form-check-label(for='radio120') Option 1
-          .form-check
-            input#radio121.form-check-input(name='group20', type='radio')
-            label.form-check-label(for='radio121') Option 2
-          .form-check
-            input#radio122.form-check-input(name='group20', type='radio')
-            label.form-check-label(for='radio122') Option 3
+      input.btn.btn-primary(type='submit', value='Submit' style="margin-left:15px;")
+      //- br 
+      //- br
+      //- .form-group
+      //-   .form-inline
+      //-     .form-check
+      //-       input#radio120.form-check-input(name='group20', type='radio', checked='checked')
+      //-       label.form-check-label(for='radio120') Option 1
+      //-     .form-check
+      //-       input#radio121.form-check-input(name='group20', type='radio')
+      //-       label.form-check-label(for='radio121') Option 2
+      //-     .form-check
+      //-       input#radio122.form-check-input(name='group20', type='radio')
+      //-       label.form-check-label(for='radio122') Option 3
+      //-   .form-inline
+      //-     .form-check
+      //-       input#radio120.form-check-input(name='group20', type='radio', checked='checked')
+      //-       label.form-check-label(for='radio120') Option 1
+      //-     .form-check
+      //-       input#radio121.form-check-input(name='group20', type='radio')
+      //-       label.form-check-label(for='radio121') Option 2
+      //-     .form-check
+      //-       input#radio122.form-check-input(name='group20', type='radio')
+      //-       label.form-check-label(for='radio122') Option 3
 
 
   script.

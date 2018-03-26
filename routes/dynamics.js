@@ -13,7 +13,7 @@ router.get('/add', function(req, res){
       res.render('add_dynamic-review', {
         dynamics: dynamics
       });
-    } console.log(dynamics[0,1])
+    }
   });
 });
 
@@ -53,7 +53,8 @@ router.get('/add', function(req, res){
 // submit new dynamic review
 router.post('/add', function(req, res){
   // Express validator
-  req.checkBody('question', 'question is required').notEmpty();
+  // req.checkBody('title', 'title is required').notEmpty();
+  
   // req.checkBody('results', 'results is required').notEmpty();
   // req.checkBody('communication', 'communication is required').notEmpty();
   // req.checkBody('passion', 'passion is required').notEmpty();
@@ -71,13 +72,24 @@ router.post('/add', function(req, res){
     });
   } else {
     let dynamic = new Dynamic();
-    dynamic.question = req.body.question;
+    dynamic.title = req.body.title;
+    dynamic.description = req.body.description;
+    dynamic.questionOne.one = req.body.one;
+    dynamic.questionOne.two = req.body.two;
+    dynamic.questionOne.three = req.body.three;
+    dynamic.questionOne.four = req.body.four;
+    dynamic.questionOne.five = req.body.five;
+    // dynamic.questionTwo.one = req.body.one;
+    // dynamic.questionTwo.two = req.body.two;
+    // dynamic.questionTwo.three = req.body.three;
+    // dynamic.questionTwo.four = req.body.four;
+    // dynamic.questionTwo.five = req.body.five;
     // dynamic.results = req.body.results;
     // dynamic.communication = req.body.communication;
     // dynamic.passion = req.body.passion;
     // dynamic.development = req.body.development;
     // dynamic.overallResult = req.body.overallResult;
-    // dynamic.comments = req.body.comments;
+    dynamic.comments = req.body.comments;
 
     dynamic.save(function(err){
       if(err) {
@@ -104,7 +116,7 @@ router.get('/edit/:id', function(req, res){
 // update review
 router.post('/edit/:id', function(req, res){
   let dynamic = {};
-  dynamic.question = req.body.question;
+  dynamic.questionOne = req.body.questionOne;
   // dynamic.results = req.body.results;
   // dynamic.communication = req.body.communication;
   // dynamic.passion = req.body.passion;

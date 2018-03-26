@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const moment = require('moment');
 // Article model
 const Article = require('../models/article');
 
@@ -20,7 +20,7 @@ router.post('/add', function(req, res){
   req.checkBody('passion', 'passion is required').notEmpty();
   req.checkBody('development', 'development is required').notEmpty();
   req.checkBody('overallResult', 'overallResult is required').notEmpty();
-  req.checkBody('comments', 'comments is required').notEmpty();
+  // req.checkBody('comments', 'comments is required').notEmpty();
   
   // Get errors
   let errors = req.validationErrors();

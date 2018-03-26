@@ -11,9 +11,6 @@ app.use(expressValidator());
 const User = require('../models/user');
 
 
-
-
-
 router.post('/login', function (req, res, next) {
   passport.authenticate('local-login', {
     successRedirect: '/',
@@ -115,7 +112,9 @@ router.post('/add', (req, res)  => {
         user.save(function (err) {
           if (err) {
             console.error(err);
-            return;
+            console.log("User already in database");
+            req.flash('error', 'Username already in the DB');
+            res.redirect('/users/add')
           } else {
             console.log("employee added")
             console.log("Registering user: " + req.body.name);
