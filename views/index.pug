@@ -9,15 +9,15 @@ block content
             span.user-name(style="color: gray; text-transform: capitalize; ") #{user.name}
           a(class='button btn btn-primary btn-login',  href='/users/'+user._id) View Profile
         .article-wrapper
-          .col-md-12.center.float-none
-            .div
-              h3 Reviews
-              ul.list-group
-                each article, i in articles
-                  li.list-group-item.list-reviews
-                    //- a(href='/articles/'+article._id)= article.date
-                    a(href='/articles/'+article._id)= moment(article.date).format("MMMM Do YYYY, h:mm:ss a")
+          .center.float-none
+            h3 Reviews
+            ul.list-group
+              each article, i in articles
+                li.list-group-item.list-reviews
+                  //- a(href='/articles/'+article._id)= article.date
+                  a(href='/articles/'+article._id)= moment(article.date).format("MMMM Do YYYY, h:mm:ss a")
       .col-md-6
+        p Charts and stuff will go here
         .img-border(style="border: 1px solid black; height:500px;")
   else
     .col-md-6.center.float-none

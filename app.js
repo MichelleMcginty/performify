@@ -112,18 +112,18 @@ app.get('/', function (req, res) {
   });
 });
 
-app.get('/', function (req, res) {
-  Dynamic.find({}, function(err, dynamics){
-    if(err){
-      console.error(err);
-    } else {
-      res.render('index', {
-        title: 'Dynamics', 
-        dynamics: dynamics
-      });
-    }
-  });
-});
+// app.get('/', function (req, res) {
+//   Dynamic.find({}, function(err, dynamics){
+//     if(err){
+//       console.error(err);
+//     } else {
+//       res.render('index', {
+//         title: 'Dynamics', 
+//         dynamics: dynamics
+//       });
+//     }
+//   });
+// });
 
 // app.get('/users/list', function (req, res) {
 //   User.find((err, users) => {  
