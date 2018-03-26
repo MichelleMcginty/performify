@@ -127,7 +127,7 @@ app.get('/' ,function (req, res) {
 
 app.get('/managerdashboard', (req, res) => {
   // User.find({team:req.user._id}, function(err, users){
-    User.find({team:"markeing"}, function(err, users){
+    User.find({team:req.user.team}, function(err, users){
     if(err){
       console.error(err);
     } else {

@@ -21,7 +21,7 @@ const User = require('../models/user');
 
 // new article form
 router.get('/add_employee_review', function(req, res){
-  User.find({team:"markeing"}, function(err, users){
+  User.find({team:req.user.team}, function(err, users){
     if(err){
       console.error(err);
     } else {
@@ -54,8 +54,10 @@ router.post('/add_employee_review', function(req, res){
       errors: errors
     });
   } else {
+    // users:users
     let perReview = new PerReview();
     perReview.userSelected = req.body.userSelected;
+    perReview.author = req.user.name;
     perReview.teamwork = req.body.teamwork;
     perReview.results = req.body.results;
     perReview.communication = req.body.communication;
@@ -63,14 +65,14 @@ router.post('/add_employee_review', function(req, res){
     perReview.development = req.body.development;
     perReview.overallResult = req.body.overallResult;
     perReview.comments = req.body.comments;
-
+    console.log(req.user.name);
     perReview.save(function(err){
       if(err) {
         console.error(err);
         return;
       } else {
         req.flash('success', 'Employee Review Added for ' + req.body.userSelected);
-        res.redirect('/manager-dashboard');
+        res.redirect('/managerdashboard');
       }
     });
   }
