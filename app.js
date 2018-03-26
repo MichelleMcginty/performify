@@ -125,7 +125,7 @@ app.get('/' ,function (req, res) {
 //   res.redirect('/');
 // }
 
-app.get('/manager-dashboard', (req, res) => {
+app.get('/managerdashboard', (req, res) => {
   // User.find({team:req.user._id}, function(err, users){
     User.find({team:"markeing"}, function(err, users){
     if(err){
@@ -160,10 +160,12 @@ app.get('/manager-dashboard', (req, res) => {
 let articles = require('./routes/articles');
 let users = require('./routes/users');
 let dynamics = require('./routes/dynamics');
+let managerdashboard = require('./routes/managerdashboard');
 // Any routes that goes to '/articles' will go to the 'articles.js' file in route
 app.use('/articles', articles);
 app.use('/users', users);
 app.use('/dynamics', dynamics);
+app.use('/managerdashboard', managerdashboard);
 
 app.listen(3333, function(){
   console.log(`Server started on port 3333`);

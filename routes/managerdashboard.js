@@ -1,0 +1,138 @@
+const express = require('express');
+const router = express.Router();
+const moment = require('moment');
+// Performance review for managers model
+const PerReview = require('../models/performance_review');
+const User = require('../models/user');
+
+// app.get('/' ,function (req, res) {
+//   Article.find({}, function(err, articles){
+//     if(err){
+//       console.error(err);
+//     } else {
+//       res.render('index', {
+//         title: 'Articles', 
+//         articles: articles,
+//         moment: moment
+//       });
+//     }
+//   });
+// });
+
+// new article form
+router.get('/add_employee_review', function(req, res){
+  User.find({team:"markeing"}, function(err, users){
+    if(err){
+      console.error(err);
+    } else {
+      res.render('add_employee_review', {
+        title: 'add employee review',
+        users:users
+      });
+    }
+  });
+});
+
+// submit new review for employee
+router.post('/add_employee_review', function(req, res){
+  // Express validator
+  req.checkBody('teamwork', 'teamwork is required').notEmpty();
+  req.checkBody('results', 'results is required').notEmpty();
+  req.checkBody('communication', 'communication is required').notEmpty();
+  req.checkBody('passion', 'passion is required').notEmpty();
+  req.checkBody('development', 'development is required').notEmpty();
+  req.checkBody('overallResult', 'overallResult is required').notEmpty();
+  // req.checkBody('comments', 'comments is required').notEmpty();
+  
+  // Get errors
+  let errors = req.validationErrors();
+
+  if(errors){
+    res.render('add_employee_review', {
+      title: 'Add Employee Review',
+      // user:users,
+      errors: errors
+    });
+  } else {
+    let perReview = new PerReview();
+    perReview.userSelected = req.body.userSelected;
+    perReview.teamwork = req.body.teamwork;
+    perReview.results = req.body.results;
+    perReview.communication = req.body.communication;
+    perReview.passion = req.body.passion;
+    perReview.development = req.body.development;
+    perReview.overallResult = req.body.overallResult;
+    perReview.comments = req.body.comments;
+
+    perReview.save(function(err){
+      if(err) {
+        console.error(err);
+        return;
+      } else {
+        req.flash('success', 'Employee Review Added for ' + req.body.userSelected);
+        res.redirect('/manager-dashboard');
+      }
+    });
+  }
+});
+
+// load edit form
+// router.get('/edit/:id', function(req, res){
+//   Article.findById(req.params.id, function(err, article){
+//     res.render('edit_article', {
+//       title: 'Edit Article',
+//       article: article
+//     });
+//   });
+// });
+
+// update submit new article 
+// router.post('/edit/:id', function(req, res){
+//   let article = {};
+//   article.teamwork = req.body.teamwork;
+//   article.results = req.body.results;
+//   article.communication = req.body.communication;
+//   article.passion = req.body.passion;
+//   article.development = req.body.development;
+//   article.overallResult = req.body.overallResult;
+//   article.comments = req.body.comments;
+
+
+//   let query = {_id: req.params.id};
+
+//   Article.update(query, article, function(err){
+//     if(err) {
+//       console.error(err);
+//       return;
+//     } else {
+//       req.flash('success', 'Article Updated');
+//       res.redirect('/');
+//     }
+//   })
+// });
+
+// // Delete post
+// router.delete('/:id', function(req, res){
+//   let query = {_id: req.params.id};
+
+//   Article.remove(query, function(err){
+//     if(err) {
+//       console.error(err);
+//       return;
+//     } else {
+//       req.flash('success', 'Article Deleted')
+//       res.send('Success');
+//     }
+//   });
+// });
+
+// get single article
+// router.get('/:id', function(req, res){
+//   PerReview.findById(req.params.id, function(err, perReview){
+//     res.render('article', {
+//       article: article
+//     });
+//   });
+// });
+
+module.exports = router;

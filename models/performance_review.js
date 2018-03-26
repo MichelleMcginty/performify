@@ -6,6 +6,10 @@ const perReviewSchema = mongoose.Schema({
     type: Date, 
     default: Date.now 
   },
+  userSelected: {
+    type: String,
+    required: true
+  },
   teamwork: {
     type: String,
     required: true
@@ -36,4 +40,4 @@ const perReviewSchema = mongoose.Schema({
   }
 });
 
-const perReview = module.exports = mongoose.model('perReview', perReviewSchema);
+const perReview = module.exports = mongoose.model('PerReview', perReviewSchema);

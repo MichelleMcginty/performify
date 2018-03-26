@@ -12,6 +12,11 @@ block content
                         ul.list-group
                             each user, i in users 
                                 li.list-group-item.list-reviews #{user.name} 
+                    br
+                    br
+                    br
+                    a(class='button btn btn-default btn-success', style="width: 100%;" href='/managerdashboard/add_employee_review') Submit Review for Employee
+                                    
     else 
         p Uh Oh! You are not supposed to be here.
         a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/') Home
