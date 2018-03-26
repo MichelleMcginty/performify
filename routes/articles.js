@@ -32,6 +32,7 @@ router.post('/add', function(req, res){
     });
   } else {
     let article = new Article();
+    article.author = req.user.name;
     article.teamwork = req.body.teamwork;
     article.results = req.body.results;
     article.communication = req.body.communication;

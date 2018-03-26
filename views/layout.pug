@@ -60,15 +60,17 @@ html
               else if (user.role == "management")
                 li
                   a(href='/') Home
-                li.dropdown
-                  a.dropdown-toggle(data-toggle='dropdown', href='#')
-                    | Reviews
-                    span.caret
-                  ul.dropdown-menu
-                    li
-                      a(href='/articles/add') Self-Review
-                    li
-                      a(href='/managerdashboard') Manager Review Dashboard
+                li
+                  a(href='/managerdashboard') Reviews
+                //- li.dropdown
+                //-   a.dropdown-toggle(data-toggle='dropdown', href='#')
+                //-     | Reviews
+                //-     span.caret
+                //-   ul.dropdown-menu
+                //-     li
+                //-       a(href='/articles/add') Self-Review
+                //-     li
+                //-       a(href='/managerdashboard') Manager Review Dashboard
               else if (user.role == "Employee")
                 li
                   a(href='/') Home

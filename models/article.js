@@ -6,6 +6,9 @@ const articleSchema = mongoose.Schema({
     type: Date, 
     default: Date.now 
   },
+  author: {
+    type: String
+  },
   teamwork: {
     type: String,
     required: true

@@ -8,10 +8,10 @@ block content
         .form-group.self-review
           .row
             .col-md-1.form-label-col(data-toggle="tooltip" title="Select Employee")
-              label(for='sel1').form-title Select Employee:
+              label(for='list-users-in-team').form-title Select Employee:
               br
             .col-md-11.form-info-col
-              select#sel1.form-control(name='userSelected')
+              select#list-users-in-team.form-control(name='userSelected' style="width:20%;")
                 each user in users
                   option #{user.name}
         .form-group.self-review
