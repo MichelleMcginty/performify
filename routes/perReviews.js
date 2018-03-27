@@ -128,13 +128,31 @@ router.post('/add_employee_review', function(req, res){
 //   });
 // });
 
-// get single article
-// router.get('/:id', function(req, res){
-//   PerReview.findById(req.params.id, function(err, perReview){
-//     res.render('article', {
-//       article: article
+// get single review
+router.get('/:id', function(req, res){
+  PerReview.findById(req.params.id, function(err, perReviews){
+    res.render('performance_review', {
+      perReviews:perReviews,
+      moment:moment
+    });
+  });
+});
+
+// app.get('/view-profile', (req, res) => {
+//   Article.find({author:req.user.name}, function(err, articles){
+//     if(err) {/*error!!!*/}
+//     PerReview.find({userSelected:req.user.name}, function(err, perReviews){
+//       if(err) {/*error!!!*/}
+//       res.render('manager-dashboard', {
+//         perReviews: perReviews,
+//         articles: articles,
+//         users: users,
+//         moment: moment
+//       });
 //     });
 //   });
 // });
+
+
 
 module.exports = router;

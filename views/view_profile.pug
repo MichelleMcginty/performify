@@ -1,0 +1,50 @@
+extends layout
+
+block content
+    if user
+        .container
+            .col-md-8.center.float-none
+                h2 Employee Profile
+                .row
+                    .col-md-4
+                        h4 Name
+                        h4 Team
+                        h4 Title
+                    .col-md-8
+                        h4= user.name
+    else
+        .col-md-6.center.float-none
+             h1 Welcome to Performify
+             h2.text-center Please Login
+                .btn-hold
+                    .btn-inner
+                        a(class='button btn btn-default btn-success btn-login', style="width: 30%;" href='/users/login') Login
+                            i.fas.fa-sign-in-alt(style="margin-left:10px;")
+                    //- h4 #{req.params.name}
+                    //- h4= user.team
+                    //- h4= user.title
+                    //-     p= user.req.params.name
+                    //- br
+                    //- br
+                    //- h2 Previous Performance Reviews
+                    //- .row
+                    //-     //- .col-md-4
+                    //-     //-     h4(scope="col") Name
+                    //-     //-     h4(scope="col") Team
+                    //-     //-     h4(scope="col") Title
+                    //-     //- .col-md-8
+                    //-     //-     h4= user.name
+                    //-     //-     h4= user.team
+                    //-     //-     h4= user.title
+                    //- br
+                    //- br
+                    //- h2 Previous Self Reviews
+                    //- .row
+                    //-     //- .col-md-4
+                    //-     //-     h4(scope="col") Name
+                    //-     //-     h4(scope="col") Team
+                    //-     //-     h4(scope="col") Title
+                    //-     //- .col-md-8
+                    //-     //-     h4= user.name
+                    //-     //-     h4= user.team
+                    //-     //-     h4= user.title

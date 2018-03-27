@@ -9,6 +9,9 @@ const articleSchema = mongoose.Schema({
   author: {
     type: String
   },
+  authorTeam: {
+    type: String
+  },
   teamwork: {
     type: String,
     required: true

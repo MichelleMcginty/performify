@@ -8,14 +8,14 @@ block content
           h1(style="margin-top:0;") Welcome to Performify 
             span.user-name(style="color: gray; text-transform: capitalize; ") #{user.name}
           a(class='button btn btn-primary btn-login',  href='/users/'+user._id) View Profile
-        .article-wrapper
-          .center.float-none
-            //- h3 Reviews
-            //- ul.list-group
-            //-   each article, i in articles
-            //-     li.list-group-item.list-reviews
-            //-       //- a(href='/articles/'+article._id)= article.date
-            //-       a(href='/articles/'+article._id)= moment(article.date).format("MMMM Do YYYY, h:mm:ss a")
+        if (user.role == "Employee")
+          .article-wrapper
+            .center.float-none
+              h3 My Self Reviews
+              ul.list-group
+                each article, i in articles
+                  li.list-group-item.list-reviews
+                    a(href='/articles/'+article._id)= moment(article.date).format("MMMM Do YYYY, h:mm:ss a")
       .col-md-6
         p Charts and stuff will go here
         .img-border(style="border: 1px solid black; height:500px;")

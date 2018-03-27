@@ -15,17 +15,7 @@ const MongoStore = require('connect-mongo')(session);
 const Article = require('./models/article');
 const User = require('./models/user');
 const Dynamic = require('./models/dynamic');
-const perReview = require('./models/performance_review');
-
-// app.set('port', process.env.PORT || 3333);
-// app.use(cookieParser());
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// var dbHost = process.env.DB_HOST || '127.0.0.1'
-// var dbPort = process.env.DB_PORT || 27017;
-// var dbName = process.env.DB_NAME || 'performify-start';
-// var dbURL = 'mongodb://'+dbHost+':'+dbPort+'/'+dbName;
+const PerReview = require('./models/performance_review');
 
 
 mongoose.connect(config.database);
@@ -97,14 +87,6 @@ app.get('*', function(req, res, next){
   next();
 });
 
-app.get('/form', (req, res) => {
-  res.render('add_review_dyna');
-});
-
-app.get('/create', (req, res) => {
-  res.render('create_form');
-});
-
 app.get('/' ,function (req, res) {
   Article.find({}, function(err, articles){
     if(err){
@@ -144,30 +126,51 @@ app.get('/managerdashboard', (req, res) => {
 });
 
 
-// var userArray = [];
-// app.get("/", function(req, res) {
-//   db.collection(users).find({}).toArray(function(err, docs) {
-//     if (err) {
-//       handleError(res, err.message, "Failed to get sections.");
-//     } else {
-//       // res.status(200).json(docs);
-//       userArray = docs;
-//       console.log(userArray)
+app.get('/employeedashboard', (req, res) => {
+  Article.find({author:req.user.name}, function(err, articles){
+    if(err) {/*error!!!*/}
+    PerReview.find({userSelected:req.user.name}, function(err, perReviews){
+      if(err) {/*error!!!*/}
+      res.render('manager-dashboard', {
+        perReviews: perReviews,
+        articles: articles,
+        users: users,
+        moment: moment
+      });
+    });
+  });
+});
+
+
+// app.get('/users/:name', function (req, res) {
+//   User.find({user:req.params.name}, function (err, users) {
+//     if(err) {
+//       console.error(err);
+//       res.render('/');
+//     }
+//     else {
+//       res.render('view_profile', {
+//         users: users
+//       });
 //     }
 //   });
+//   console.log(req.params.name + " - selected name");
 // });
 
+// console.log(req.user.userid);
+// console.log(req.user._id);
+// console.log(req.user.id);
 
 // Route Files
 let articles = require('./routes/articles');
 let users = require('./routes/users');
 let dynamics = require('./routes/dynamics');
-let managerdashboard = require('./routes/managerdashboard');
+let perReviews = require('./routes/perReviews');
 // Any routes that goes to '/articles' will go to the 'articles.js' file in route
 app.use('/articles', articles);
 app.use('/users', users);
 app.use('/dynamics', dynamics);
-app.use('/managerdashboard', managerdashboard);
+app.use('/perReviews', perReviews);
 
 app.listen(3333, function(){
   console.log(`Server started on port 3333`);

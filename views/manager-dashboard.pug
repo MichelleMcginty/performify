@@ -2,16 +2,18 @@ extends layout
 
 block content
     if user
-        if (user.role == "management")
-            .container
-                .col-md-6.center.float-none
+        .container
+            .col-md-6.center.float-none
+                if (user.role == "management")
                     h3 Manager Review Dashboard
                     br 
                     br
                     h4 My Employees
                         ul.list-group
                             each user, i in users 
-                                li.list-group-item.list-reviews #{user.name} 
+                                li.list-group-item.list-reviews
+                                    //- | #{user.name} 
+                                    a(href='/users/profile/'+user.name)= user.name
                     br
                     br
                     br
@@ -20,7 +22,25 @@ block content
                     br
                     br  
                     a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review
-                                    
+                else if (user.role == "Employee") 
+                    h3 Employee Review Dashboard
+                    br 
+                    br 
+                    h4 My Self Reviews
+                        ul.list-group
+                            each article, i in articles 
+                                li.list-group-item.list-reviews
+                                    a(href='/articles/'+article._id)= moment(article.date).format("h:mm:ss a, MMMM Do YYYY ")
+                                //- li.list-group-item.list-reviews=moment(article.date).format("MMMM Do YYYY, h:mm:ss a")
+                    br
+                    br
+                    h4 My Reviews From Lead
+                        ul.list-group
+                            each perReview, i in perReviews
+                                li.list-group-item.list-reviews
+                                    a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+                    br  
+                    a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review
     else 
         p Uh Oh! You are not supposed to be here.
         a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/') Home

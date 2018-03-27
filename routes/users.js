@@ -5,10 +5,15 @@ const passport = require('passport');
 const sortBy = require('sort-by');
 const expressValidator = require('express-validator');
 const app = express();
+const moment = require('moment');
 app.use(expressValidator());
 
 // Article model
 const User = require('../models/user');
+const Article = require('../models/article');
+// const Dynamic = require('../models/dynamic');
+// const PerReview = require('../models/performance_review');
+
 
 
 router.post('/login', function (req, res, next) {
@@ -310,8 +315,6 @@ router.get('/list', function (req, res) {
   });
 });
 
-
-
 router.get('/:id', function (req, res) {
   User.findById(req.params.id, function (err, user) {
     res.render('profile', {
@@ -319,6 +322,39 @@ router.get('/:id', function (req, res) {
     });
   });
 });
+
+router.get('/profile/:name', function (req, res) {
+  User.find({name:req.params.name}, function (err, users) {
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    } else {
+    res.render('view_profile', {
+        users: users,
+      });
+    }
+  });
+  console.log({name:req.params.name});
+  // console.log(name);
+  console.log(req.params.name + " - selected name");
+  // console.log(this.n);
+});
+
+// router.get('view_profile/:name', function (req, res) {
+//   User.find({name:req.params.name}, function (err, users) {
+//     res.render('view_profile', {
+//       users: users
+//     });
+//   });
+//   console.log(users.name);
+//   console.log(users.name);
+// });
+
+
+
+
+
+
 
 // update submit new article 
 router.post('/edit/:id', function (req, res) {

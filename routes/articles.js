@@ -33,6 +33,7 @@ router.post('/add', function(req, res){
   } else {
     let article = new Article();
     article.author = req.user.name;
+    article.authorTeam = req.user.team;
     article.teamwork = req.body.teamwork;
     article.results = req.body.results;
     article.communication = req.body.communication;
@@ -46,8 +47,8 @@ router.post('/add', function(req, res){
         console.error(err);
         return;
       } else {
-        req.flash('success', 'Article Added');
-        res.redirect('/');
+        req.flash('success', 'Self Review Added');
+        res.redirect('/employeedashboard');
       }
     });
   }
@@ -86,6 +87,14 @@ router.post('/edit/:id', function(req, res){
       res.redirect('/');
     }
   })
+});
+
+router.get('/mySelfReview', function(req, res){
+  Article.find({author:req.user.id}, function(err, article){
+    res.render('index', {
+      article: article
+    });
+  });
 });
 
 // Delete post
