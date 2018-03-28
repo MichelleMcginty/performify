@@ -2,7 +2,10 @@ extends layout
 
 block content
   .col-md-8.center.float-none
-    h2 Review from your Manager #{perReviews.author}
+    if (user.role =="employee")
+        h2 Review from your Manager #{perReviews.author}
+    else
+        h2 Review for #{perReviews.userSelected}
     br
     h3 Review date: #{moment(perReviews.date).format("h:mm:ss a, MMMM Do YYYY ")}
     .row

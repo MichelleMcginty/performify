@@ -11,6 +11,7 @@ app.use(expressValidator());
 // Article model
 const User = require('../models/user');
 const Article = require('../models/article');
+const PerReview = require('../models/performance_review');
 // const Dynamic = require('../models/dynamic');
 // const PerReview = require('../models/performance_review');
 
@@ -323,22 +324,53 @@ router.get('/:id', function (req, res) {
   });
 });
 
-router.get('/profile/:name', function (req, res) {
+router.get('/view/:name', function (req, res) {
   User.find({name:req.params.name}, function (err, users) {
-    if (err) {
-      res.status(500).send(err);
-      console.error(err);
-    } else {
     res.render('view_profile', {
-        users: users,
-      });
-    }
+      users: users
+    });
+    console.log(users[0].name);
   });
-  console.log({name:req.params.name});
-  // console.log(name);
-  console.log(req.params.name + " - selected name");
-  // console.log(this.n);
 });
+
+
+
+
+  router.get('/profile/:name', (req, res) => {
+    User.find({name:req.params.name}, function (err, users) {
+      if(err) {/*error!!!*/}
+      PerReview.find({userSelected:req.params.name}, function(err, perReviews){
+        if(err) {/*error!!!*/}
+        Article.find({author:req.params.name}, function(err, articles){
+          if(err) {/*error!!!*/}
+          res.render('view_profile', {
+            perReviews: perReviews,
+            articles: articles,
+            users: users,
+            moment: moment
+          });
+        });
+      });
+    });
+  });
+  // router.get('/profile/:name', function (req, res) {
+  //   User.find({name:req.params.name}, function (err, users) {
+  //     if(err) {/*error!!!*/}
+  //     PerReview.find({userSelected:req.params.name}, function(err, perReviews){
+  //       if(err) {/*error!!!*/}
+  //       Article.find({author:req.params.name}, function(err, articles){
+  //         if(err) {/*error!!!*/}
+  //         res.render('view_profile', {
+  //           perReviews: perReviews,
+  //           articles: articles,
+  //           users: users,
+  //           moment: moment
+  //         });
+  //       });
+  //     });
+  //   });
+  //   console.log(req.params.name + " - selected name");
+  // });
 
 // router.get('view_profile/:name', function (req, res) {
 //   User.find({name:req.params.name}, function (err, users) {
@@ -349,12 +381,6 @@ router.get('/profile/:name', function (req, res) {
 //   console.log(users.name);
 //   console.log(users.name);
 // });
-
-
-
-
-
-
 
 // update submit new article 
 router.post('/edit/:id', function (req, res) {
@@ -384,7 +410,7 @@ router.post('/edit/:id', function (req, res) {
 // Delete post
 router.delete('/:id', function (req, res) {
   let query = {
-    _id: req.params.id
+    id: req.params.id
   };
 
   User.remove(query, function (err) {
@@ -392,18 +418,24 @@ router.delete('/:id', function (req, res) {
       console.error(err);
       return;
     } else {
-      req.flash('success', 'User Deleted')
+      req.flash('success', 'User Deleted ' + req.params.name)
       res.send('Success');
     }
   });
 });
 
-
-// router.get('/login', function(req, res) {
-//   res.render('login');
-// });
-
-// Login process
-
+router.delete('/view/:name', function (req, res) {
+  let query = {name: req.params.name};
+  User.remove(query, function (err) {
+    if (err) {
+      console.error(err);
+      return;
+    } else {
+      console.log(req.params.name);
+      req.flash('success', 'User Deleted ' + req.params.name)
+      res.send('Success');
+    }
+  });
+});
 
 module.exports = router;

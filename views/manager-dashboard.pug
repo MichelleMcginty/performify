@@ -17,7 +17,7 @@ block content
                     br
                     br
                     br
-                    a(class='button btn btn-default btn-success', style="width: 100%;" href='/managerdashboard/add_employee_review') Submit Review for Employee
+                    a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_employee_review') Submit Review for Employee
                     br
                     br
                     br  
@@ -41,6 +41,11 @@ block content
                                     a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
                     br  
                     a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review
+                
+
+                else 
+                    p Uh Oh! You are not supposed to be here.
+                    a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/') Home
     else 
         p Uh Oh! You are not supposed to be here.
         a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/') Home

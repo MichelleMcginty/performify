@@ -106,23 +106,56 @@ app.get('/' ,function (req, res) {
 //     return next();
 //   res.redirect('/');
 // }
-
+// if (err) {
+//   res.status(500).send(err);
+//   console.error(err);
+// } else {
+// res.render('view_profile', {
+//     users: users
+//   });
+//   console.log(users);
+// }
 app.get('/managerdashboard', (req, res) => {
-  // User.find({team:req.user._id}, function(err, users){
+  if (req.session) {
     User.find({team:req.user.team}, function(err, users){
-    if(err){
-      // console.error(err);
-      console.log(err);
-      res.render('/');
-    } else {
-      res.render('manager-dashboard', {
-        users: users
-      });
-    } 
-    // console.log(req.user.userid);
-    // console.log(req.user._id);
-    // console.log(req.user.id);
-  });
+      if(err){
+        res.status(500).send(err);
+        console.log(err);
+        res.render('/login');
+      } else {
+        res.render('manager-dashboard', {
+          users: users
+        });
+      } 
+      // console.log(req.user.userid);
+      // console.log(req.user._id);
+      // console.log(req.user.id);
+    });
+
+    // delete session object
+    // req.session.destroy(function(err) {
+    //   if(err) {
+    //     return next(err);
+    //   } else {
+    //     return res.redirect('/users/login');
+    //   }
+    // });
+  }
+  // User.find({team:req.user._id}, function(err, users){
+  //   User.find({team:req.user.team}, function(err, users){
+  //   if(err){
+  //     res.status(500).send(err);
+  //     console.log(err);
+  //     res.render('/login');
+  //   } else {
+  //     res.render('manager-dashboard', {
+  //       users: users
+  //     });
+  //   } 
+  //   // console.log(req.user.userid);
+  //   // console.log(req.user._id);
+  //   // console.log(req.user.id);
+  // });
 });
 
 
