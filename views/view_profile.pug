@@ -4,14 +4,13 @@ block content
     if user
         .container
             .col-md-8.center.float-none
-                if (user.role =="admin")
+                if (user.role =="Administrator")
                     h2 Profile
                     table.table.table-bordered
                         thead.thead-light
                         tr
                             th(scope="col") Name
                             th(scope="col") Email
-                            th(scope="col") Username
                             th(scope="col") Role
                             th(scope="col") Team
                             th(scope="col") Title
@@ -19,12 +18,11 @@ block content
                         tr
                             td= users[0].name
                             td= users[0].email
-                            td= users[0].username
                             td= users[0].role
                             td= users[0].team
                             td= users[0].title
-                    a.btn.btn-default(style="width:20%;" href='/users/edit/'+user._id) Edit
-                    a.btn.btn-danger.delete-user-profile.pull-right(style="width:20%;" href='#', data-id=users[0].name) Delete
+                    a.btn.btn-default(style="width:20%;" href='/users/view/edit/'+users[0].username) Edit
+                    a.btn.btn-danger.delete-user-profile.pull-right(style="width:20%;" href='#', data-id=users[0].username) Delete
                 else
                     h2 Employee Profile
                     .row

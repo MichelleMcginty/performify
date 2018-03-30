@@ -21,7 +21,7 @@ const User = require('../models/user');
 
 // new article form
 router.get('/add_employee_review', function(req, res){
-  User.find({team:req.user.team}, function(err, users){
+  User.find({team:req.user.team, role:"Employee"}, function(err, users){
     if(err){
       console.error(err);
     } else {

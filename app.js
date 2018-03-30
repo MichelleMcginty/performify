@@ -116,8 +116,7 @@ app.get('/' ,function (req, res) {
 //   console.log(users);
 // }
 app.get('/managerdashboard', (req, res) => {
-  if (req.session) {
-    User.find({team:req.user.team}, function(err, users){
+    User.find({team:req.user.team, role:"Employee" }, function(err, users){
       if(err){
         res.status(500).send(err);
         console.log(err);
@@ -140,7 +139,6 @@ app.get('/managerdashboard', (req, res) => {
     //     return res.redirect('/users/login');
     //   }
     // });
-  }
   // User.find({team:req.user._id}, function(err, users){
   //   User.find({team:req.user.team}, function(err, users){
   //   if(err){
@@ -161,9 +159,90 @@ app.get('/managerdashboard', (req, res) => {
 
 app.get('/employeedashboard', (req, res) => {
   Article.find({author:req.user.name}, function(err, articles){
-    if(err) {/*error!!!*/}
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    } 
     PerReview.find({userSelected:req.user.name}, function(err, perReviews){
-      if(err) {/*error!!!*/}
+      if (err) {
+        res.status(500).send(err);
+        console.error(err);
+      } 
+      res.render('manager-dashboard', {
+        perReviews: perReviews,
+        articles: articles,
+        users: users,
+        moment: moment
+      });
+    });
+  });
+});
+// outer.get('/list', function (req, res) {
+//   User.find((err, users) => {
+//     if (err) {
+//       res.status(500).send(err);
+//       console.error(err);
+//     } else {
+//       users.sort(sortBy('name'));
+//       res.render('list_employees', {
+//         users: users.sort(sortBy('name'))
+//       });
+//     }
+//   });
+// });
+
+app.get('/admin-employee-dashboard', (req, res) => {
+  User.find((err, users) => {
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    } 
+    else {
+      res.render('manager-dashboard', {
+        // perReviews: perReviews,
+        // articles: articles,
+        users: users,
+        moment: moment
+      });
+    }
+  });
+});
+
+
+// app.get('/senior-dashboard', (req, res) => {
+//   User.find((err, users) => {
+//     if (err) {
+//       res.status(500).send(err);
+//       console.error(err);
+//     } 
+//     else {
+//       res.render('manager-dashboard', {
+//         perReviews: perReviews,
+//         articles: articles,
+//         users: users,
+//         moment: moment
+//       });
+//     }
+//   });
+// });
+
+app.get('/senior-dashboard', (req, res) => {
+  User.find({team:req.user.team, role:"Management" }, function(err, users){
+    if(err){
+      res.status(500).send(err);
+      console.log(err);
+      res.render('/login');
+    }
+    Article.find({author:req.user.name}, function(err, articles){
+      if (err) {
+        res.status(500).send(err);
+        console.error(err);
+      } 
+    // PerReview.find({userSelected:req.user.name}, function(err, perReviews){
+    //   if (err) {
+    //     res.status(500).send(err);
+    //     console.error(err);
+    //   } 
       res.render('manager-dashboard', {
         perReviews: perReviews,
         articles: articles,

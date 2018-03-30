@@ -22,4 +22,19 @@ block content
             td= user.team
             td= user.title
       a.btn.btn-default(style="width:20%;" href='/users/edit/'+user._id) Edit
-      a.btn.btn-danger.delete-user.pull-right(style="width:20%;" href='#', data-id=user._id) Delete
+      br 
+      br 
+      if (user.role == "Management")
+        h4 My Self Reviews
+            ul.list-group
+                each article, i in articles 
+                    li.list-group-item.list-reviews
+                        a(href='/articles/'+article._id)= moment(article.date).format("h:mm:ss a, MMMM Do YYYY ")
+        br
+        br
+        h4 My Reviews From Lead
+            ul.list-group
+                each perReview, i in perReviews
+                    li.list-group-item.list-reviews
+                        a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+      //- a.btn.btn-danger.delete-user.pull-right(style="width:20%;" href='#', data-id=user._id) Delete

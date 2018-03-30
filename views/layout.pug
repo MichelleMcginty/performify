@@ -24,20 +24,16 @@ html
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
             if user
-              if (user.role =="admin")
+              if (user.role =="Administrator")
                 li
                   a(href='/') Home
-                li.dropdown
-                  a.dropdown-toggle(data-toggle='dropdown', href='#')
-                    | Reviews
-                    span.caret
-                  ul.dropdown-menu
-                    li
-                      a(href='/articles/add') Self-Review
-                    //- li
-                    //-   a(href='/dynamics/add') Dynamic Self-Review 
-                    //- li
-                    //-   a(href='/dynamics/list-review') List Dynamic Self-Review
+                //- li.dropdown
+                //-   a.dropdown-toggle(data-toggle='dropdown', href='#')
+                //-     | Reviews
+                //-     span.caret
+                //-   ul.dropdown-menu
+                //-     li
+                //-       a(href='/articles/add') Self-Review
                 li.dropdown
                   a.dropdown-toggle(data-toggle='dropdown', href='#')
                     | Employees
@@ -47,38 +43,23 @@ html
                       a(href='/users/add') Add Employee
                     li
                       a(href='/users/list') List Employees
-              else if (user.role == "seniorManagement")
+                li
+                  a(href='/admin-employee-dashboard') Employee Dashboard
+              else if (user.role == "Senior Management")
                 li
                   a(href='/') Home
-                li.dropdown
-                  a.dropdown-toggle(data-toggle='dropdown', href='#')
-                    | Reviews
-                    span.caret
-                  ul.dropdown-menu
-                    li
-                      a(href='/articles/add') Self-Review
-              else if (user.role == "management")
+                li 
+                  a(href='/senior-dashboard') Review
+              else if (user.role == "Management")
                 li
                   a(href='/') Home
                 li
                   a(href='/managerdashboard') Reviews
-                //- li.dropdown
-                //-   a.dropdown-toggle(data-toggle='dropdown', href='#')
-                //-     | Reviews
-                //-     span.caret
-                //-   ul.dropdown-menu
-                //-     li
-                //-       a(href='/articles/add') Self-Review
-                //-     li
-                //-       a(href='/managerdashboard') Manager Review Dashboard
               else if (user.role == "Employee")
                 li
                   a(href='/') Home
                 li 
                   a(href='/employeedashboard') Reviews
-                //- li.dropdown
-                //-   li
-                //-     a(href='/articles/add') Submit Self-Review  
               else
                 li
                   a(href='/') Home

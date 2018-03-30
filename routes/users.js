@@ -55,27 +55,6 @@ router.get('/add', function (req, res) {
   });
 });
 
-// router.use(expressValidator({
-//   customValidators: {
-//     isUsernameAvailable(username) {
-//       return new Promise((resolve, reject) => {
-//         User.findOne({
-//           username: username
-//         }, (err, user) => {
-//           console.log(username);
-//           if (err) throw err;
-//           if (user == null) {
-//             resolve();
-//           } else {
-//             console.log('rejecting username @' + " " + username);
-//             reject();
-//           }
-//         });
-//       });
-//     }
-//   }
-// }));
-
 // // submit new article 
 router.post('/add', (req, res)  => {
   const name = req.body.name;
@@ -135,7 +114,7 @@ router.post('/add', (req, res)  => {
             req.session.userId = user._id;
             console.log("employee added")
             console.log("Registering user: " + req.body.name);
-            req.flash('success', 'Employee added');
+            req.flash('success', req.body.name + ' has been added');
             res.redirect('/')
           }
         });
@@ -146,152 +125,6 @@ router.post('/add', (req, res)  => {
 
 
 
-// router.post('/add', (req, res) => {
-//   const name = req.body.name;
-//   const email = req.body.email;
-//   const username = req.body.username;
-//   const password = req.body.password;
-//   const password2 = req.body.password2;
-//   const role = req.body.role;
-//   const team = req.body.team;
-//   const title = req.body.title;
-
-//   // Express validator
-//   req.checkBody('name', 'Name is required').notEmpty();
-//   req.checkBody('email', 'Email is required').notEmpty();
-//   req.checkBody('email', 'Email is required').isEmail();
-//   req.checkBody('username', 'Username is required').notEmpty();
-//   req.checkBody('username', 'Username already in use').isUsernameAvailable();
-//   req.checkBody('password', 'Password is required, Password should have both numbers and letters and minimum length of 4 and maximum of 20 characters').isAlphanumeric().isLength({
-//     min: 4,
-//     max: 20
-//   }).notEmpty();
-//   req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-//   req.checkBody('role', 'Role is required').notEmpty();
-//   req.checkBody('team', 'Team is required').notEmpty();
-//   req.checkBody('title', 'Title is required').notEmpty();
-
-
-//   let errors = req.getValidationResult();
-//   // let errors = req.validationErrors();
-
-//   if (errors) {
-//     res.render('add', {
-//       errors: errors
-//     });
-//     console.log("1")
-//     console.log('Error in SignUp: ' + errors);
-//   }
-//   else {
-//     let user = new User();
-//     user.name = req.body.name;
-//     user.email = req.body.email;
-//     user.username = req.body.username;
-//     user.password = req.body.password;
-//     user.role = req.body.role;
-//     user.team = req.body.team;
-//     user.title = req.body.title;
-//     bcrypt.genSalt(10, function (err, salt) {
-//       bcrypt.hash(user.password, salt, function (err, hash) {
-//         if (err) {
-//           console.error(err);
-//           console.log("2")
-//           req.flash('error', 'uhoh');
-//         }
-//         user.password = hash;
-//         user.save(function (err) {
-//           if (err) {
-//             console.error(err);
-//             res.redirect('/login')
-//             console.log("2")
-//             return;
-//           } else {
-//             console.log("3");
-//             console.log("employee added")
-//             console.log("Registering user: " + req.body.name);
-//             req.flash('success', 'Employee added');
-//             res.redirect('/')
-//           }
-//         });
-//       });
-//     })
-//   }
-// });
-
-  
-//   req.asyncValidationErrors().then(() => {
-//     //no errors, create user
-//     let newUser = new User({
-//       name: name,
-//       email: email,
-//       username: username,
-//       password: password,
-//       role: role,
-//       team: team,
-//       title: title
-//     });
-//     console.log("hello 1");
-//     User.createUser(newUser, (err, user) => {
-//       res.json({
-//         status: 'success',
-//         errors: null,
-//       })
-//       console.log("New user:", newUser);
-//     });
-//   }).catch((errors) => {
-//     if (errors) {
-//       return res.json({
-//         success: false,
-//         errors: errors,
-//       })
-//       console.log("errors");
-//       console.log("hello 2");
-//     };
-//   });
-// });
-  // Get errors
-  // let errors = req.validationErrors();
-
-  // if (errors) {
-  //   res.render('add', {
-  //     errors: errors
-  //   });
-  //   console.log('Error in SignUp: ' + errors);
-  // }
-  // if (user) {
-  //   console.log('User already exists with username: ' + username);
-  //   return done(null, false, req.flash('message', 'User Already Exists'));
-  // } else {
-  //   let user = new User();
-  //   user.name = req.body.name;
-  //   user.email = req.body.email;
-  //   user.username = req.body.username;
-  //   user.password = req.body.password;
-  //   user.role = req.body.role;
-  //   user.team = req.body.team;
-  //   user.title = req.body.title;
-  //   bcrypt.genSalt(10, function (err, salt) {
-  //     bcrypt.hash(user.password, salt, function (err, hash) {
-  //       if (err) {
-  //         console.error(err);
-  //       }
-  //       user.password = hash;
-  //       user.save(function (err) {
-  //         if (err) {
-  //           console.error(err);
-  //           return;
-  //         } else {
-  //           console.log("employee added")
-  //           console.log("Registering user: " + req.body.name);
-  //           req.flash('success', 'Employee added');
-  //           res.redirect('/')
-  //         }
-  //       });
-  //     });
-  //   })
-  // }
-
-
   // load edit form
 router.get('/edit/:id', function (req, res) {
   User.findById(req.params.id, function (err, users) {
@@ -299,6 +132,37 @@ router.get('/edit/:id', function (req, res) {
       title: 'Edit Employee',
       users: users
     });
+  });
+});
+
+
+// router.get('/view/:name', function (req, res) {
+//   User.find({name:req.params.name}, function (err, users) {
+//     res.render('view_profile', {
+//       users: users
+//     });
+//     console.log(users[0].name + "view");
+//   });
+// });
+
+// router.get('/profile/:name', function (req, res) {
+//   User.find({name:req.params.name}, function (err, users) {
+//     res.render('view_profile', {
+//       users: users
+//     });
+//     console.log(users[0].name + "view");
+//   });
+// });
+
+
+
+
+router.get('/view/edit/:username', function (req, res) {
+  User.find({username:req.params.username}, function (err, users) {
+    res.render('edit_profile', {
+      users: users
+    });
+    console.log(users[0].name);
   });
 });
 
@@ -324,53 +188,57 @@ router.get('/:id', function (req, res) {
   });
 });
 
-router.get('/view/:name', function (req, res) {
-  User.find({name:req.params.name}, function (err, users) {
+router.get('/view/:username', function (req, res) {
+  User.find({username:req.params.username}, function (err, users) {
     res.render('view_profile', {
       users: users
     });
-    console.log(users[0].name);
+    console.log(users[0].name + "view");
   });
 });
 
 
 
 
-  router.get('/profile/:name', (req, res) => {
-    User.find({name:req.params.name}, function (err, users) {
+// router.get('/profile/:id', (req, res) => {
+//   User.find({id:req.params.id}, function (err, users) {
+//     if(err) {/*error!!!*/}
+//     PerReview.find({userSelected:req.params.name}, function(err, perReviews){
+//       if(err) {/*error!!!*/}
+//       Article.find({author:req.params.name}, function(err, articles){
+//         if(err) {/*error!!!*/}
+//         res.render('view_profile', {
+//           perReviews: perReviews,
+//           articles: articles,
+//           users: users,
+//           moment: moment
+//         });
+//         console.log("hello three" + user.name);
+//       });
+//       // console.log("hello two" + users[0].name);
+//     });
+//     // console.log("hello one" + user.name);
+//   });
+// });
+router.get('/profile/:username', function (req, res) {
+  User.find({username:req.params.username}, function (err, users) {
+    if(err) {/*error!!!*/}
+    PerReview.find({userSelected:users[0].name}, function(err, perReviews){
       if(err) {/*error!!!*/}
-      PerReview.find({userSelected:req.params.name}, function(err, perReviews){
+      Article.find({author:users[0].name}, function(err, articles){
         if(err) {/*error!!!*/}
-        Article.find({author:req.params.name}, function(err, articles){
-          if(err) {/*error!!!*/}
-          res.render('view_profile', {
-            perReviews: perReviews,
-            articles: articles,
-            users: users,
-            moment: moment
-          });
+        res.render('view_profile', {
+          perReviews: perReviews,
+          articles: articles,
+          users: users,
+          moment: moment
         });
       });
     });
+    console.log(users[0].name + " - selected name");
   });
-  // router.get('/profile/:name', function (req, res) {
-  //   User.find({name:req.params.name}, function (err, users) {
-  //     if(err) {/*error!!!*/}
-  //     PerReview.find({userSelected:req.params.name}, function(err, perReviews){
-  //       if(err) {/*error!!!*/}
-  //       Article.find({author:req.params.name}, function(err, articles){
-  //         if(err) {/*error!!!*/}
-  //         res.render('view_profile', {
-  //           perReviews: perReviews,
-  //           articles: articles,
-  //           users: users,
-  //           moment: moment
-  //         });
-  //       });
-  //     });
-  //   });
-  //   console.log(req.params.name + " - selected name");
-  // });
+  // console.log(req.params.name + " - selected name");
+});
 
 // router.get('view_profile/:name', function (req, res) {
 //   User.find({name:req.params.name}, function (err, users) {
@@ -407,6 +275,33 @@ router.post('/edit/:id', function (req, res) {
   })
 });
 
+router.post('/view/edit/:username', function (req, res) {
+  let users = {};
+  users.name = req.body.name;
+  users.email = req.body.email;
+  // users.username = req.body.username;
+  users.role = req.body.role;
+  users.team = req.body.team;
+  users.title = req.body.title;
+  // console.log(req.body.title + "check one");
+  // console.log(req.params.title + "check two");
+  
+  let query = {
+    username: req.body.username
+  };
+
+  User.update(query, users, function (err) {
+    if (err) {
+      console.error(err);
+      return;
+    } else {
+      req.flash('success', users.name + " Details Updated");
+      res.redirect('/admin-employee-dashboard');
+    }
+  })
+});
+
+
 // Delete post
 router.delete('/:id', function (req, res) {
   let query = {
@@ -424,8 +319,8 @@ router.delete('/:id', function (req, res) {
   });
 });
 
-router.delete('/view/:name', function (req, res) {
-  let query = {name: req.params.name};
+router.delete('/view/:username', function (req, res) {
+  let query = {username: req.params.username};
   User.remove(query, function (err) {
     if (err) {
       console.error(err);

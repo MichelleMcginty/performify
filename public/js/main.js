@@ -20,25 +20,20 @@ $(document).ready(function(){
 $(document).ready(function(){
   $('.delete-user-profile').on('click', function(e){
     $target = $(e.target);
-    const id = $target.attr('data-id');
-    // console.log(name + "hello");
-    $.ajax({
-      type: 'DELETE',
-      url: '/users/view/'+id,
-      success: function (response){
-          if (confirm("Press a button!")) {
-            txt = "You pressed OK!";
-        } else {
-            txt = "You pressed Cancel!";
-        }
-        console.log("deleteing user called " + id);
-        // alert('Deleting User Called' + id);
-        window.location.href='/';
-      },
-      error: function(err){
-        console.error(err);
-      }
-    });
+    const username = $target.attr('data-id');
+    if (confirm('Are you sure you want to delete this user with the username ' + username )) {
+      $.ajax({
+          type: 'DELETE',
+          url: '/users/view/'+username,
+          success: function () {
+            console.log("deleteing user with the username " + username);
+            window.location.href='/';
+          },
+          error: function(err){
+            console.error(err);
+          }
+      });
+    }
   });
 });
 

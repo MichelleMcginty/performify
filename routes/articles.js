@@ -48,7 +48,7 @@ router.post('/add', function(req, res){
         return;
       } else {
         req.flash('success', 'Self Review Added');
-        res.redirect('/employeedashboard');
+        res.redirect('/');
       }
     });
   }
@@ -89,13 +89,13 @@ router.post('/edit/:id', function(req, res){
   })
 });
 
-router.get('/mySelfReview', function(req, res){
-  Article.find({author:req.user.id}, function(err, article){
-    res.render('index', {
-      article: article
-    });
-  });
-});
+// router.get('/mySelfReview', function(req, res){
+//   Article.find({author:req.user.id}, function(err, article){
+//     res.render('index', {
+//       article: article
+//     });
+//   });
+// });
 
 // Delete post
 router.delete('/:id', function(req, res){

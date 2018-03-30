@@ -2,16 +2,16 @@ extends layout
 
 block content
   H2 Edit Profile
-  form(method='POST', action='/users/edit/'+users._id)
+  form(method='POST', action='/users/view/edit/'+users.username)
     .form-group
       label Name:
-      input.form-control(name='name', type='text', value=users.name)
+      input.form-control(name='name', type='text', value=users[0].name)
     .form-group
       label Email:
-      input.form-control(name='email', type='text', value=users.email)
-    .form-group
+      input.form-control(name='email', type='text', value=users[0].email)
+    .form-group(style="display:none;")
       label Username:
-      input.form-control(name='username', type='text' value=users.username)
+      input.form-control(name='username', type='text' value=users[0].username)
     .form-group
       label Role:
       br
@@ -68,7 +68,7 @@ block content
           | Support
     .form-group
       label Job Title:
-      input.form-control(name='title', type='text' value=users.title)
+      input.form-control(name='title', type='text' value=users[0].title)
     br
-    a.btn.btn-danger(style="margin-left:15px; width:20%;" href='/users/'+user._id) Cancel
+    a.btn.btn-danger(style="margin-left:15px; width:20%;" href='/users/view/'+users[0].username) Cancel
     input.btn.btn-primary.pull-right(type='submit', value='Submit' style="margin-right:15px; width:20%;")

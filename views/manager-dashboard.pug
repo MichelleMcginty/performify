@@ -4,7 +4,7 @@ block content
     if user
         .container
             .col-md-6.center.float-none
-                if (user.role == "management")
+                if (user.role == "Management")
                     h3 Manager Review Dashboard
                     br 
                     br
@@ -12,8 +12,7 @@ block content
                         ul.list-group
                             each user, i in users 
                                 li.list-group-item.list-reviews
-                                    //- | #{user.name} 
-                                    a(href='/users/profile/'+user.name)= user.name
+                                    a(href='/users/profile/'+user.username)= user.name
                     br
                     br
                     br
@@ -31,7 +30,6 @@ block content
                             each article, i in articles 
                                 li.list-group-item.list-reviews
                                     a(href='/articles/'+article._id)= moment(article.date).format("h:mm:ss a, MMMM Do YYYY ")
-                                //- li.list-group-item.list-reviews=moment(article.date).format("MMMM Do YYYY, h:mm:ss a")
                     br
                     br
                     h4 My Reviews From Lead
@@ -41,8 +39,29 @@ block content
                                     a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
                     br  
                     a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review
-                
-
+                else if (user.role == "Administrator") 
+                    .col-12.center.float-none
+                        h3 List of Employees
+                        ul.list-group
+                            each user in users
+                                li.list-group-item
+                                    a(href='/users/view/'+user.username)= user.name
+                    br
+                    br
+                    .col-12.center.float-none
+                        a(class='button btn btn-primary', style="width: 100%; " href='/users/add') Add a new Employee
+                else if (user.role == "Senior Management") 
+                    //- h3 Hello #{user.name}
+                    br
+                    br
+                    h4 My Self Reviews
+                        ul.list-group
+                            each article, i in articles 
+                                li.list-group-item.list-reviews
+                                    a(href='/articles/'+article._id)= moment(article.date).format("h:mm:ss a, MMMM Do YYYY ") 
+                    br
+                    br
+                    a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review
                 else 
                     p Uh Oh! You are not supposed to be here.
                     a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/') Home
