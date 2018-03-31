@@ -301,6 +301,10 @@ app.use('/articles', articles);
 app.use('/users', users);
 app.use('/perReviews', perReviews);
 
-app.listen(3333, function(){
-  console.log(`Server started on port 3333`);
+// app.listen(3333, function(){
+//   console.log(`Server started on port 3333`);
+// });
+
+app.listen(process.env.PORT || 3333, function(){
+  console.log('listening on', http.address().port);
 });
