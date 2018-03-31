@@ -1,0 +1,86 @@
+extends layout
+
+block content
+    if user
+        .container
+            .col-md-6.center.float-none
+                if (user.role == "Management")
+                    h3 Manager Review Dashboard
+                    br 
+                    br
+                    h4 My Employees
+                        ul.list-group
+                            each user, i in users 
+                                li.list-group-item.list-reviews
+                                    a(href='/users/profile/'+user.username)= user.name
+                    br
+                    br
+                    br
+                    a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_employee_review') Submit Review for Employee
+                    br
+                    br
+                    br  
+                    a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review
+                else if (user.role == "Employee") 
+                    h3 Employee Review Dashboard
+                    br 
+                    br 
+                    h4 My Self Reviews
+                        ul.list-group
+                            each article, i in articles 
+                                li.list-group-item.list-reviews
+                                    a(href='/articles/'+article._id)= moment(article.date).format("h:mm:ss a, MMMM Do YYYY ")
+                    br
+                    br
+                    h4 My Reviews From Lead
+                        ul.list-group
+                            each perReview, i in perReviews
+                                li.list-group-item.list-reviews
+                                    a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+                    br  
+                    a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review
+                else if (user.role == "Administrator") 
+                    .col-12.center.float-none
+                        h3 List of Employees
+                        ul.list-group
+                            each user in users
+                                li.list-group-item
+                                    a(href='/users/view/'+user.username)= user.name
+                    br
+                    br
+                    .col-12.center.float-none
+                        a(class='button btn btn-primary', style="width: 100%; " href='/users/add') Add a new Employee
+                else if (user.role == "Senior Management") 
+                    br
+                    br
+                    h4 Team Managers
+                        ul.list-group
+                            each user, i in users 
+                                li.list-group-item.list-reviews
+                                    a(href='/users/profile/'+user.username)= user.name
+                    h4 Senior Managers
+                        ul.list-group
+                            each seniors, i  in users
+                                li.list-group-item.list-reviews
+                                    a(href='/users/profile/'+seniors.username)= seniors.name
+                    br
+                    br
+                    h4 Senior Managers
+                        ul.list-group
+                            each users, i  in seniors
+                                li.list-group-item.list-reviews
+                                    a(href='/users/profile/'+users.username)= users.name
+                    br
+                    br
+                    a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_manager_review') Submit Review for Manager
+                    br
+                    br
+                    a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review
+                else 
+                    p Uh Oh! You are not supposed to be here.
+                    a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/') Home
+    else 
+        p Uh Oh! You are not supposed to be here.
+        a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/') Home
+
+

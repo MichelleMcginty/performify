@@ -7,11 +7,16 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const config = require('./config/database');
-
+const moment = require('moment');
+const cookieParser = require('cookie-parser');
+const app = express();
+const MongoStore = require('connect-mongo')(session);
 // Article model
 const Article = require('./models/article');
 const User = require('./models/user');
 const Dynamic = require('./models/dynamic');
+const PerReview = require('./models/performance_review');
+
 
 mongoose.connect(config.database);
 const db = mongoose.connection;
@@ -26,14 +31,6 @@ db.on('error', function(err){
   console.error(err);
 });
 
-const app = express();
-
-
-// app.use(function(req, res, next) {
-//   var error = new Error('Not Found');
-//   error.status = 404;
-//   next(err);
-// });
 // View engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -49,7 +46,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'keyboard cat',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  // store: new MongoStore({ url: dbURL })
 }));
 
 // Express Messages Middleware
@@ -89,118 +87,215 @@ app.get('*', function(req, res, next){
   next();
 });
 
-app.get('/form', (req, res) => {
-  res.render('add_review_dyna');
-});
-
-app.get('/create', (req, res) => {
-  res.render('create_form');
-});
-
-app.get('/', function (req, res) {
+app.get('/' ,function (req, res) {
   Article.find({}, function(err, articles){
     if(err){
       console.error(err);
     } else {
       res.render('index', {
         title: 'Articles', 
-        articles: articles
+        articles: articles,
+        moment: moment
       });
     }
   });
 });
 
-app.get('/', function (req, res) {
-  Dynamic.find({}, function(err, dynamics){
-    if(err){
-      console.error(err);
-    } else {
-      res.render('index', {
-        title: 'Dynamics', 
-        dynamics: dynamics
-      });
-    }
-  });
+// var isAuthenticated = function (req, res, next) {
+//   if (req.isAuthenticated())
+//     return next();
+//   res.redirect('/');
+// }
+// if (err) {
+//   res.status(500).send(err);
+//   console.error(err);
+// } else {
+// res.render('view_profile', {
+//     users: users
+//   });
+//   console.log(users);
+// }
+app.get('/managerdashboard', (req, res) => {
+    User.find({team:req.user.team, role:"Employee" }, function(err, users){
+      if(err){
+        res.status(500).send(err);
+        console.log(err);
+        res.render('/login');
+      } else {
+        res.render('manager-dashboard', {
+          users: users
+        });
+      } 
+      // console.log(req.user.userid);
+      // console.log(req.user._id);
+      // console.log(req.user.id);
+    });
+
+    // delete session object
+    // req.session.destroy(function(err) {
+    //   if(err) {
+    //     return next(err);
+    //   } else {
+    //     return res.redirect('/users/login');
+    //   }
+    // });
+  // User.find({team:req.user._id}, function(err, users){
+  //   User.find({team:req.user.team}, function(err, users){
+  //   if(err){
+  //     res.status(500).send(err);
+  //     console.log(err);
+  //     res.render('/login');
+  //   } else {
+  //     res.render('manager-dashboard', {
+  //       users: users
+  //     });
+  //   } 
+  //   // console.log(req.user.userid);
+  //   // console.log(req.user._id);
+  //   // console.log(req.user.id);
+  // });
 });
 
-// app.get('/users/list', function (req, res) {
-//   User.find((err, users) => {  
-//     if (err) {
-//         // Note that this error doesn't mean nothing was found,
-//         // it means the database had an error while searching, hence the 500 status
-//         res.status(500).send(err);
-//         console.error(err);
-//     } else {
-//         res.render('list_employees', {
-//         users: users
-//       });
-//     }
-//   });
-// });
 
-// app.get('/pop', function (req, res) {
-//   User.find({}).toArray(function(err, users) {
-//     if (err) {
-//         res.send(err);
-//     } else if (users.length) {
-//       res.render('index', {
-//         'users': users[0].data
-//         });
-//     } else {
-//         res.send('No documents found');
-//     }
-//   });
-// });
-
-// app.get('/use', function (req, res) {
-//   User.find({})
-//     .exec(function (err, users){
-//       if(err){
-//         res.send("uh oh error");
-//       } else {
-//           res.json(users);
-//       }
-//     });
-// });
-
-
-
-// app.get('/', function (req, res) {
-//   User.find({}, function(err, users){
-//     if(err){
-//       console.error(err);
-//     } else 
-//     {
-//       res.render('index', {
-//         title: 'Users', 
-//         users: users
-//       });
-//     }
-//   });
-// });
-
-var userArray = [];
-app.get("/", function(req, res) {
-  db.collection(users).find({}).toArray(function(err, docs) {
+app.get('/employeedashboard', (req, res) => {
+  Article.find({author:req.user.name}, function(err, articles){
     if (err) {
-      handleError(res, err.message, "Failed to get sections.");
-    } else {
-      // res.status(200).json(docs);
-      userArray = docs;
-      console.log(userArray)
+      res.status(500).send(err);
+      console.error(err);
+    } 
+    PerReview.find({userSelected:req.user.name}, function(err, perReviews){
+      if (err) {
+        res.status(500).send(err);
+        console.error(err);
+      } 
+      res.render('manager-dashboard', {
+        perReviews: perReviews,
+        articles: articles,
+        users: users,
+        moment: moment
+      });
+    });
+  });
+});
+// outer.get('/list', function (req, res) {
+//   User.find((err, users) => {
+//     if (err) {
+//       res.status(500).send(err);
+//       console.error(err);
+//     } else {
+//       users.sort(sortBy('name'));
+//       res.render('list_employees', {
+//         users: users.sort(sortBy('name'))
+//       });
+//     }
+//   });
+// });
+
+app.get('/admin-employee-dashboard', (req, res) => {
+  User.find((err, users) => {
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    } 
+    else {
+      res.render('manager-dashboard', {
+        // perReviews: perReviews,
+        // articles: articles,
+        users: users,
+        moment: moment
+      });
     }
   });
 });
 
+
+// app.get('/senior-dashboard', (req, res) => {
+//   User.find((err, users) => {
+//     if (err) {
+//       res.status(500).send(err);
+//       console.error(err);
+//     } 
+//     else {
+//       res.render('manager-dashboard', {
+//         perReviews: perReviews,
+//         articles: articles,
+//         users: users,
+//         moment: moment
+//       });
+//     }
+//   });
+// });
+
+app.get('/senior-dashboard', (req, res) => {
+  User.find({role:"Management" }, function(err, users){
+    if(err){
+      res.status(500).send(err);
+      console.log(err);
+      res.render('/login');
+    }
+    // {"blocked.user":{$nin:[11]}}
+    // User.find({role:"Senior Management"  }, function(err, senior){
+    User.find({"role":{$eq:"Senior Management"}, "name":{$ne:req.user.name } }, function(err, seniors){
+      if(err){
+        res.status(500).send(err);
+        console.log(err);
+        res.render('/login');
+      }
+      Article.find({author:req.user.name}, function(err, articles){
+        if (err) {
+          res.status(500).send(err);
+          console.error(err);
+        } 
+        PerReview.find({userSelected:req.user.name}, function(err, perReviews){
+          if (err) {
+            res.status(500).send(err);
+            console.error(err);
+          } 
+          res.render('manager-dashboard', {
+            perReviews: perReviews,
+            articles: articles,
+            users: users,
+            seniors: users,
+            moment: moment
+          });
+        });
+        console.log(users);
+      });
+      console.log(seniors[0].name);
+    });
+  });
+});
+
+
+// app.get('/users/:name', function (req, res) {
+//   User.find({user:req.params.name}, function (err, users) {
+//     if(err) {
+//       console.error(err);
+//       res.render('/');
+//     }
+//     else {
+//       res.render('view_profile', {
+//         users: users
+//       });
+//     }
+//   });
+//   console.log(req.params.name + " - selected name");
+// });
+
+// console.log(req.user.userid);
+// console.log(req.user._id);
+// console.log(req.user.id);
 
 // Route Files
 let articles = require('./routes/articles');
 let users = require('./routes/users');
 let dynamics = require('./routes/dynamics');
+let perReviews = require('./routes/perReviews');
 // Any routes that goes to '/articles' will go to the 'articles.js' file in route
 app.use('/articles', articles);
 app.use('/users', users);
 app.use('/dynamics', dynamics);
+app.use('/perReviews', perReviews);
 
 app.listen(3333, function(){
   console.log(`Server started on port 3333`);

@@ -7,16 +7,17 @@ block content
         if user
           h1(style="margin-top:0;") Welcome to Performify 
             span.user-name(style="color: gray; text-transform: capitalize; ") #{user.name}
-          a(class='button btn btn-default btn-success btn-login', href='/users/add') Add Employee
-        .article-wrapper
-          .col-md-12.center.float-none
-            .div
-              h3 Reviews
+          a(class='button btn btn-primary btn-login',  href='/users/'+user._id) View Profile
+        if (user.role == "Employee")
+          .article-wrapper
+            .center.float-none
+              h3 My Self Reviews
               ul.list-group
                 each article, i in articles
-                  li.list-group-item
-                    a(href='/articles/'+article._id)= article.date
+                  li.list-group-item.list-reviews
+                    a(href='/articles/'+article._id)= moment(article.date).format("MMMM Do YYYY, h:mm:ss a")
       .col-md-6
+        p Charts and stuff will go here
         .img-border(style="border: 1px solid black; height:500px;")
   else
     .col-md-6.center.float-none

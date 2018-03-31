@@ -2,218 +2,67 @@ extends layout
 
 block content
   .col-md-12.center.float-none
-    h1 Submit Self Review Dynamic
+    h1 Submit Self Review (dynamicly)
     form(method='POST', action='/dynamics/add')
-      .form-group.self-review
-        .row
-          .col-md-1.form-label-col(data-toggle="tooltip" title="How we work with peers & customers and role model our values")
-            label.form-title Teamwork:
-            br
-          .col-md-11.form-info-col
-            .form-check.self-review-check.self-review-check-first
-              input.form-check-input(type='radio', name='teamwork', value='Unsatisfactory')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Unsatisfactory
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='teamwork', value='Needs Improvement')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Needs Improvement
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='teamwork', value='Meets Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Meets Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='teamwork', value='Exceeds Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Exceeds Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='teamwork', value='outstanding')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Outstanding
-      .form-group.self-review
-        .row
-          .col-md-1.form-label-col(data-toggle="tooltip" title="How we deliver high quality results")
-            label.form-title Results:
-            br
-          .col-md-11.form-info-col
-            .form-check.self-review-check.self-review-check-first
-              input.form-check-input(type='radio', name='results', value='Unsatisfactory')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Unsatisfactory
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='Needs Improvement')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Needs Improvement
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='Meets Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Meets Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='Exceeds Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Exceeds Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='results', value='outstanding')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Outstanding
-      .form-group.self-review
-        .row
-          .col-md-1.form-label-col(data-toggle="tooltip" title="How we communicate effectively to achieve results")
-            label.form-title Communication:
-            br
-          .col-md-11.form-info-col
-            .form-check.self-review-check.self-review-check-first
-              input.form-check-input(type='radio', name='communication', value='Unsatisfactory')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Unsatisfactory
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='communication', value='Needs Improvement')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Needs Improvement
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='communication', value='Meets Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Meets Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='communication', value='Exceeds Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Exceeds Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='communication', value='outstanding')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Outstanding
-      .form-group.self-review
-        .row
-          .col-md-1.form-label-col(data-toggle="tooltip" title="How we demonstrate commitment to what we do")
-            label.form-title Passion:
-            br
-          .col-md-11.form-info-col
-            .form-check.self-review-check.self-review-check-first
-              input.form-check-input(type='radio', name='passion', value='Unsatisfactory')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Unsatisfactory
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='passion', value='Needs Improvement')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Needs Improvement
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='passion', value='Meets Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Meets Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='passion', value='Exceeds Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Exceeds Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='passion', value='outstanding')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Outstanding
-      .form-group.self-review
-        .row
-          .col-md-1.form-label-col(data-toggle="tooltip" title="How we learn and develop to improve our performance")
-            label.form-title Development:
-            br
-          .col-md-11.form-info-col
-            .form-check.self-review-check.self-review-check-first
-              input.form-check-input(type='radio', name='development', value='Unsatisfactory')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Unsatisfactory
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='development', value='Needs Improvement')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Needs Improvement
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='development', value='Meets Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Meets Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='development', value='Exceeds Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Exceeds Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='development', value='outstanding')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Outstanding
-      .form-group.self-review
-        .row
-          .col-md-1.form-label-col
-            label.form-title Overall Performance Rating:
-            br
-          .col-md-11.form-info-col
-            .form-check.self-review-check.self-review-check-first
-              input.form-check-input(type='radio', name='overallResult', value='Unsatisfactory')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Unsatisfactory
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='overallResult', value='Needs Improvement')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Needs Improvement
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='overallResult', value='Meets Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Meets Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='overallResult', value='Exceeds Expectations')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Exceeds Expectations
-            .form-check.self-review-check
-              input.form-check-input(type='radio', name='overallResult', value='outstanding')
-              label.form-check-label.label-form(for='exampleRadios1')
-                | Outstanding
-      .form-group
+      each dynamic in dynamics
+        .form-group.self-review.self-review-dyna
+          .row.col-md-1.form-label-col(data-toggle="tooltip" title=dynamic.questionOne.description)
+              label.form-title= dynamic.questionOne.title
+              br
+          .row.col-md-11(style="padding-left:35px;")
+            .form-info-col(style="font-size: 15px; padding-left: 65px;")
+              .form-check.self-review-check.self-review-check-first(style="padding-left: 15px; padding-right: 15px;")
+                input.form-check-input(type='radio', name=dynamic.questionOne.title, value=dynamic.questionOne.title)
+                label.form-check-label.label-form(for='exampleRadios1' style="padding-left: 15px; padding-right: 0; font-weight: lighter;") 
+                | #{dynamic.questionOne.one}
+              .form-check.self-review-check(style="padding-left: 15px; padding-right: 15px;")
+                input.form-check-input(type='radio', name=dynamic.questionOne.title, value=dynamic.questionOne.two)
+                label.form-check-label.label-form(for='exampleRadios1' style="padding-left: 15px; padding-right: 0; font-weight: lighter;") 
+                | #{dynamic.questionOne.two}
+              .form-check.self-review-check(style="padding-left: 15px; padding-right: 15px;")
+                input.form-check-input(type='radio', name=dynamic.questionOne.title, value=dynamic.questionOne.three)
+                label.form-check-label.label-form(for='exampleRadios1' style="padding-left: 15px; padding-right: 0; font-weight: lighter;") 
+                | #{dynamic.questionOne.three}
+              .form-check.self-review-check(style="padding-left: 15px; padding-right: 15px;")
+                input.form-check-input(type='radio', name=dynamic.questionOne.title, value=dynamic.questionOne.four)
+                label.form-check-label.label-form(for='exampleRadios1' style="padding-left: 15px; padding-right: 0; font-weight: lighter;") 
+                | #{dynamic.questionOne.four}
+              .form-check.self-review-check(style="padding-left: 15px; padding-right: 15px;")
+                input.form-check-input(type='radio', name=dynamic.questionOne.title, value=dynamic.questionOne.five)
+                label.form-check-label.label-form(for='exampleRadios1' style="padding-left: 15px; padding-right: 0; font-weight: lighter;") 
+                | #{dynamic.questionOne.five}
+      .form-group(style="margin-top:70px;")
         label.form-title Any Comments:
         br
         textarea.form-control(name='comments')
-      br
+      br 
       input.btn.btn-primary(type='submit', value='Submit' style="margin-left:15px;")
+      //- br 
+      //- br
+      //- .form-group
+      //-   .form-inline
+      //-     .form-check
+      //-       input#radio120.form-check-input(name='group20', type='radio', checked='checked')
+      //-       label.form-check-label(for='radio120') Option 1
+      //-     .form-check
+      //-       input#radio121.form-check-input(name='group20', type='radio')
+      //-       label.form-check-label(for='radio121') Option 2
+      //-     .form-check
+      //-       input#radio122.form-check-input(name='group20', type='radio')
+      //-       label.form-check-label(for='radio122') Option 3
+      //-   .form-inline
+      //-     .form-check
+      //-       input#radio120.form-check-input(name='group20', type='radio', checked='checked')
+      //-       label.form-check-label(for='radio120') Option 1
+      //-     .form-check
+      //-       input#radio121.form-check-input(name='group20', type='radio')
+      //-       label.form-check-label(for='radio121') Option 2
+      //-     .form-check
+      //-       input#radio122.form-check-input(name='group20', type='radio')
+      //-       label.form-check-label(for='radio122') Option 3
 
-    script.
-      $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-      });
 
-
-//- //- block variables
-//-   - var totalQuestions = 10
-
-//- block content
-//-     form(action = "/create", method = "POST").form
-//-          .content
-//-          div.span4#headerText
-//-             h3 Enter the details...
-            
-//-             div#userdetails
-//-                 div.form-group
-//-                     label.control-label Your Name:
-//-                     input(type="text", name="username", placeholder="John Doe" id="username", required).form-control.input-lg
-//-                     p Fill in the questions below and submit the form to get the shareable link.
-//-             - var totalQuestions = 10
-//-             - for (var question = 1; question <= questions; question++) {
-//-             - var randomOption = Math.floor(Math.random() * (4 - 1) + 1);
-//-              div.span#questions
-//-                 h4.bold= "Question #" + question
-//-                 - var name = "question" + question
-//-                 input(type="text", name=name, placeholder="Question " + question, required).form-control.input-lg
-//-                 br 
-
-//-                 - var options = 4
-//-                 - for (var option = 1; option <= options; option++) {
-//-                  div.form-group
-//-                      - var optionName = name + "option" + option
-//-                      - var selectedOption = "question" + question + "selected"
-
-//-                       div.radio
-//-                           label#q1op1label.radio-inline.control-label
-//-                               input(type="radio", name=selectedOption, value=option, required)
-//-                               input(type="text", name=optionName, placeholder="Question " + question + " option " + option, id=optionName, required).form-control.expandinginput
-//-                 - }
-//-             - }
-
-//-          input(type="hidden", name="questions", value=questions)
-//-          div.span4#Submitbutton
-//-             button(type = "submit")#sbmitBtn.btn.btn-success Generate Form!
-//-          br 
-//-          em By submitting you confirm that you have read and agree to 
-//-             a(href="/policy") the terms and policies of privacy
-//-             span.
-//-                 . Do not share passwords, credit card information or other sensitive information through these forms.
+  script.
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });

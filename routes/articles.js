@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const moment = require('moment');
 // Article model
 const Article = require('../models/article');
 
@@ -20,7 +20,7 @@ router.post('/add', function(req, res){
   req.checkBody('passion', 'passion is required').notEmpty();
   req.checkBody('development', 'development is required').notEmpty();
   req.checkBody('overallResult', 'overallResult is required').notEmpty();
-  req.checkBody('comments', 'comments is required').notEmpty();
+  // req.checkBody('comments', 'comments is required').notEmpty();
   
   // Get errors
   let errors = req.validationErrors();
@@ -32,6 +32,8 @@ router.post('/add', function(req, res){
     });
   } else {
     let article = new Article();
+    article.author = req.user.name;
+    article.authorTeam = req.user.team;
     article.teamwork = req.body.teamwork;
     article.results = req.body.results;
     article.communication = req.body.communication;
@@ -45,7 +47,7 @@ router.post('/add', function(req, res){
         console.error(err);
         return;
       } else {
-        req.flash('success', 'Article Added');
+        req.flash('success', 'Self Review Added');
         res.redirect('/');
       }
     });
@@ -86,6 +88,14 @@ router.post('/edit/:id', function(req, res){
     }
   })
 });
+
+// router.get('/mySelfReview', function(req, res){
+//   Article.find({author:req.user.id}, function(err, article){
+//     res.render('index', {
+//       article: article
+//     });
+//   });
+// });
 
 // Delete post
 router.delete('/:id', function(req, res){

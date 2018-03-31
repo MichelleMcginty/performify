@@ -88,12 +88,19 @@ body{
   padding-bottom:20px;
 }
 
+.self-review-dyna:first-child{
+  display:none;
+}
+
 .form-title{
   font-size: 16px;
 }
 
 .float-none{
   float: none;
+}
+.list-reviews{
+  text-align: center;
 }
 /* .self-review-check-first {
   padding-left: 46px !important;
