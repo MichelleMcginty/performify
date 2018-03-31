@@ -4,7 +4,7 @@
   "description": "Simple app using node and express",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app"
+    "start": "node app.js"
   },
   "author": "Michelle McGinty",
   "license": "ISC",
