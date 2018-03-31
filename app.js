@@ -11,6 +11,7 @@ const moment = require('moment');
 const cookieParser = require('cookie-parser');
 const app = express();
 const MongoStore = require('connect-mongo')(session);
+var http = require('http').Server(app);
 // Article model
 const Article = require('./models/article');
 const User = require('./models/user');
@@ -305,6 +306,6 @@ app.use('/perReviews', perReviews);
 //   console.log(`Server started on port 3333`);
 // });
 
-app.listen(process.env.PORT || 3333, function(){
+http.listen(process.env.PORT || 3333, function(){
   console.log('listening on', http.address().port);
 });
