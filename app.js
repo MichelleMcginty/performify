@@ -14,7 +14,6 @@ const MongoStore = require('connect-mongo')(session);
 // Article model
 const Article = require('./models/article');
 const User = require('./models/user');
-const Dynamic = require('./models/dynamic');
 const PerReview = require('./models/performance_review');
 
 
@@ -87,6 +86,15 @@ app.get('*', function(req, res, next){
   next();
 });
 
+function requireLogin (req, res, next) {
+  if (!req.user) {
+    req.flash('success', 'Sorry you need to be logged in to view this page');
+    res.redirect('/users/login');
+  } else {
+    next();
+  }
+};
+
 app.get('/' ,function (req, res) {
   Article.find({}, function(err, articles){
     if(err){
@@ -115,7 +123,7 @@ app.get('/' ,function (req, res) {
 //   });
 //   console.log(users);
 // }
-app.get('/managerdashboard', (req, res) => {
+app.get('/managerdashboard', requireLogin, (req, res) => {
     User.find({team:req.user.team, role:"Employee" }, function(err, users){
       if(err){
         res.status(500).send(err);
@@ -157,7 +165,7 @@ app.get('/managerdashboard', (req, res) => {
 });
 
 
-app.get('/employeedashboard', (req, res) => {
+app.get('/employeedashboard', requireLogin,(req, res) => {
   Article.find({author:req.user.name}, function(err, articles){
     if (err) {
       res.status(500).send(err);
@@ -191,7 +199,7 @@ app.get('/employeedashboard', (req, res) => {
 //   });
 // });
 
-app.get('/admin-employee-dashboard', (req, res) => {
+app.get('/admin-employee-dashboard', requireLogin,(req, res) => {
   User.find((err, users) => {
     if (err) {
       res.status(500).send(err);
@@ -226,21 +234,19 @@ app.get('/admin-employee-dashboard', (req, res) => {
 //   });
 // });
 
-app.get('/senior-dashboard', (req, res) => {
+app.get('/senior-dashboard', requireLogin,(req, res) => {
   User.find({role:"Management" }, function(err, users){
+    if(err){
+      res.status(500).send(err);
+      console.log(err);
+    }
+  User.find({role:"Senior Management"  }, function(err, seniors){
+  // User.find({"role":{$eq:"Senior Management"}, "name":{$ne:req.user.name } }, function(err, seniors){
     if(err){
       res.status(500).send(err);
       console.log(err);
       res.render('/login');
     }
-    // {"blocked.user":{$nin:[11]}}
-    // User.find({role:"Senior Management"  }, function(err, senior){
-    User.find({"role":{$eq:"Senior Management"}, "name":{$ne:req.user.name } }, function(err, seniors){
-      if(err){
-        res.status(500).send(err);
-        console.log(err);
-        res.render('/login');
-      }
       Article.find({author:req.user.name}, function(err, articles){
         if (err) {
           res.status(500).send(err);
@@ -259,9 +265,9 @@ app.get('/senior-dashboard', (req, res) => {
             moment: moment
           });
         });
-        console.log(users);
+        console.log("Users:" + users);
       });
-      console.log(seniors[0].name);
+      console.log("Seniors:" + seniors);
     });
   });
 });
@@ -289,12 +295,10 @@ app.get('/senior-dashboard', (req, res) => {
 // Route Files
 let articles = require('./routes/articles');
 let users = require('./routes/users');
-let dynamics = require('./routes/dynamics');
 let perReviews = require('./routes/perReviews');
 // Any routes that goes to '/articles' will go to the 'articles.js' file in route
 app.use('/articles', articles);
 app.use('/users', users);
-app.use('/dynamics', dynamics);
 app.use('/perReviews', perReviews);
 
 app.listen(3333, function(){
