@@ -77,5 +77,24 @@ block content
         label Job Title:
         input.form-control(name='title', type='text')
       .form-group
+        label Gender
+        br
+        .form-check
+          input.form-check-input(type='radio', name='gender', value='Female')
+          label.form-check-label(for='exampleRadios1')
+            | Female
+        .form-check
+          input.form-check-input(type='radio', name='gender', value='Male')
+          label.form-check-label(for='exampleRadios1')
+            | Male
+        .form-check
+          input.form-check-input(type='radio', name='gender', value='Transgender')
+          label.form-check-label(for='exampleRadios1')
+            | Transgender
+        .form-check
+          input.form-check-input(type='radio', name='gender', value='Other')
+          label.form-check-label(for='exampleRadios1')
+            | Other
+      .form-group
         br
         input.btn.btn-primary.btn-login(type='submit', value='Submit')

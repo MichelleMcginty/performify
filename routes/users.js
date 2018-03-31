@@ -98,6 +98,7 @@ router.post('/add', (req, res)  => {
     user.role = req.body.role;
     user.team = req.body.team;
     user.title = req.body.title;
+    user.gender = req.body.gender;
     bcrypt.genSalt(10, function (err, salt) {
       bcrypt.hash(user.password, salt, function (err, hash) {
         if (err) {
@@ -182,9 +183,26 @@ router.get('/list', function (req, res) {
 
 router.get('/:id', function (req, res) {
   User.findById(req.params.id, function (err, user) {
-    res.render('profile', {
-      user: user
+    Article.find({author:user.name}, function(err, articles){
+      if (err) {
+        res.status(500).send(err);
+        console.error(err);
+      } 
+      PerReview.find({userSelected:user.name}, function(err, perReviews){
+        if (err) {
+          res.status(500).send(err);
+          console.error(err);
+        } 
+        res.render('profile', {
+          perReviews: perReviews,
+          articles: articles,
+          user: user,
+          moment: moment
+        });
+      });
     });
+    // console.log(req.params.name + " viewing profile");
+    console.log(user.name + " viewing profile");
   });
 });
 
@@ -220,6 +238,7 @@ router.get('/view/:username', function (req, res) {
 //     // console.log("hello one" + user.name);
 //   });
 // });
+
 router.get('/profile/:username', function (req, res) {
   User.find({username:req.params.username}, function (err, users) {
     if(err) {/*error!!!*/}
@@ -259,6 +278,7 @@ router.post('/edit/:id', function (req, res) {
   user.role = req.body.role;
   user.team = req.body.team;
   user.title = req.body.title;
+  user.gender = req.body.gender;
 
   let query = {
     _id: req.params.id
@@ -283,6 +303,7 @@ router.post('/view/edit/:username', function (req, res) {
   users.role = req.body.role;
   users.team = req.body.team;
   users.title = req.body.title;
+  users.gender = req.body.gender;
   // console.log(req.body.title + "check one");
   // console.log(req.params.title + "check two");
   

@@ -2,8 +2,10 @@ extends layout
 
 block content
   .col-md-8.center.float-none
-    if (user.role =="employee")
+    if (user.role == "Employee")
         h2 Review from your Manager #{perReviews.author}
+    if (user.role == "Management")
+        h2 Review from Senior Manager #{perReviews.author}
     else
         h2 Review for #{perReviews.userSelected}
     br
@@ -26,6 +28,5 @@ block content
         h4= perReviews.overallResult
         h4= perReviews.comments
     
-    hr 
     //- a.btn.btn-default(href='/articles/edit/'+article._id) Edit
     //- a.btn.btn-danger.delete-article(href='#', data-id=article._id) Delete
