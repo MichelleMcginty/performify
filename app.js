@@ -12,8 +12,6 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const MongoStore = require('connect-mongo')(session);
 var http = require('http').Server(app);
-// Article model
-const Article = require('./models/article');
 const User = require('./models/user');
 const PerReview = require('./models/performance_review');
 
@@ -32,7 +30,7 @@ db.on('error', function(err){
 });
 
 // View engine
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/app/views'));
 app.set('view engine', 'pug');
 
 // Body Parser middleware
@@ -97,17 +95,17 @@ function requireLogin (req, res, next) {
 };
 
 app.get('/' ,function (req, res) {
-  // Article.find({}, function(err, articles){
-  //   if(err){
-  //     console.error(err);
-  //   } else {
-      res.render('index', {
-        title: 'Articles', 
-        articles: articles,
-        moment: moment
-      });
-    // }
-  // });
+  res.render('index', {
+    title: 'Index', 
+    moment: moment
+  });
+});
+
+app.get('/home' ,function (req, res) {
+  res.render('home', {
+    title: 'Home', 
+    moment: moment
+  });
 });
 
 // var isAuthenticated = function (req, res, next) {
@@ -167,28 +165,21 @@ app.get('/managerdashboard', requireLogin, (req, res) => {
 
 
 app.get('/employeedashboard', requireLogin,(req, res) => {
-  Article.find({author:req.user.name}, function(err, articles){
+  PerReview.find({userSelected:req.user.name, type:"Performance Review"}, function(err, perReviews){
     if (err) {
       res.status(500).send(err);
       console.error(err);
-    } 
-    PerReview.find({userSelected:req.user.name, type:"Performance Review"}, function(err, perReviews){
+    }
+    PerReview.find({author:req.user.name, type:"Self Review"}, function(err, perReviewss){
       if (err) {
         res.status(500).send(err);
         console.error(err);
-      }
-      PerReview.find({author:req.user.name, type:"Self Review"}, function(err, perReviewss){
-        if (err) {
-          res.status(500).send(err);
-          console.error(err);
-        } 
-        res.render('manager-dashboard', {
-          perReviewss: perReviewss,
-          perReviews: perReviews,
-          articles: articles,
-          users: users,
-          moment: moment
-        });
+      } 
+      res.render('manager-dashboard', {
+        perReviewss: perReviewss,
+        perReviews: perReviews,
+        users: users,
+        moment: moment
       });
     });
   });
@@ -215,8 +206,6 @@ app.get('/admin-employee-dashboard', requireLogin,(req, res) => {
     } 
     else {
       res.render('manager-dashboard', {
-        // perReviews: perReviews,
-        // articles: articles,
         users: users,
         moment: moment
       });
@@ -287,7 +276,6 @@ app.get('/listUsers', function (req, res) {
 //     else {
 //       res.render('manager-dashboard', {
 //         perReviews: perReviews,
-//         articles: articles,
 //         users: users,
 //         moment: moment
 //       });
@@ -301,35 +289,27 @@ app.get('/senior-dashboard', requireLogin,(req, res) => {
       res.status(500).send(err);
       console.log(err);
     }
-    // User.find({role:"Senior Management"  }, function(err, seniors){
     User.find({"role":{$eq:"Senior Management"}, "name":{$ne:req.user.name } }, function(err, use){
       if(err){
         res.status(500).send(err);
         console.log(err);
       }
-      Article.find({author:req.user.name}, function(err, articles){
+      PerReview.find({userSelected:req.user.name}, function(err, perReviews){
         if (err) {
           res.status(500).send(err);
           console.error(err);
-        } 
-        PerReview.find({userSelected:req.user.name}, function(err, perReviews){
+        }
+        PerReview.find({author:req.user.name, type:"Self Review"}, function(err, perReviewss){
           if (err) {
             res.status(500).send(err);
             console.error(err);
-          }
-          PerReview.find({author:req.user.name, type:"Self Review"}, function(err, perReviewss){
-            if (err) {
-              res.status(500).send(err);
-              console.error(err);
-            }  
-            res.render('manager-dashboard', {
-              perReviewss: perReviewss,
-              perReviews: perReviews,
-              articles: articles,
-              users: users,
-              use: users,
-              moment: moment
-            });
+          }  
+          res.render('manager-dashboard', {
+            perReviewss: perReviewss,
+            perReviews: perReviews,
+            users: users,
+            use: users,
+            moment: moment
           });
         });
         // console.log("Users:" + users);
@@ -377,11 +357,9 @@ app.get('/list-senior-managers', requireLogin,(req, res) => {
 // console.log(req.user.id);
 
 // Route Files
-let articles = require('./routes/articles');
 let users = require('./routes/users');
 let perReviews = require('./routes/perReviews');
-// Any routes that goes to '/articles' will go to the 'articles.js' file in route
-app.use('/articles', articles);
+
 app.use('/users', users);
 app.use('/perReviews', perReviews);
 

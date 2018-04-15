@@ -1,25 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const moment = require('moment');
-// Performance review for managers model
 const PerReview = require('../models/performance_review');
 const User = require('../models/user');
 
-// app.get('/' ,function (req, res) {
-//   Article.find({}, function(err, articles){
-//     if(err){
-//       console.error(err);
-//     } else {
-//       res.render('index', {
-//         title: 'Articles', 
-//         articles: articles,
-//         moment: moment
-//       });
-//     }
-//   });
-// });
-
-// new article form
+// new self review form
 router.get('/add_self_review', function(req, res){
   res.render('add_self_review', {
     title: 'Add Self Review'
@@ -64,7 +49,7 @@ router.post('/add_self_review', function(req, res){
         return;
       } else {
         req.flash('success', 'Self Review Added');
-        res.redirect('/');
+        res.redirect('/home');
       }
     });
   }
@@ -160,7 +145,6 @@ router.post('/add_manager_review', function(req, res){
   if(errors){
     res.render('add_manager_review', {
       title: 'Add Manager Review',
-      // user:users,
       errors: errors
     });
   } else {
@@ -316,13 +300,13 @@ router.get('/:id', function(req, res){
 });
 
 // app.get('/view-profile', (req, res) => {
-//   Article.find({author:req.user.name}, function(err, articles){
-//     if(err) {/*error!!!*/}
-//     PerReview.find({userSelected:req.user.name}, function(err, perReviews){
+//     PerReview.find({userSelected:req.user.name ,  type:"Performance Review"}, function(err, perReviews){
 //       if(err) {/*error!!!*/}
+//       PerReview.find({userSelected:req.user.name, type:"Self Review"}, function(err, perReviewss){
+//        if(err) {/*error!!!*/}
 //       res.render('manager-dashboard', {
+//         perReviewss: perReviewss,
 //         perReviews: perReviews,
-//         articles: articles,
 //         users: users,
 //         moment: moment
 //       });

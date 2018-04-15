@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Performify</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">Performify</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/users/login">Login</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-12 center float-none">
+        <h1>Submit Self Review</h1>
+        <form method="POST" action="/perReviews/add_self_review">
+          <div class="form-group self-review">
+            <div class="row">
+              <div class="col-md-1 form-label-col" data-toggle="tooltip" title="How we work with peers &amp; customers and role model our values">
+                <label class="form-title">Teamwork:</label><br>
+              </div>
+              <div class="col-md-11 form-info-col">
+                <div class="form-check self-review-check self-review-check-first">
+                  <input class="form-check-input" type="radio" name="teamwork" value="Unsatisfactory">
+                  <label class="form-check-label label-form" for="exampleRadios1">Unsatisfactory</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="teamwork" value="Needs Improvement">
+                  <label class="form-check-label label-form" for="exampleRadios1">Needs Improvement</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="teamwork" value="Meets Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Meets Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="teamwork" value="Exceeds Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Exceeds Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="teamwork" value="outstanding">
+                  <label class="form-check-label label-form" for="exampleRadios1">Outstanding</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group self-review">
+            <div class="row">
+              <div class="col-md-1 form-label-col" data-toggle="tooltip" title="How we deliver high quality results">
+                <label class="form-title">Results:</label><br>
+              </div>
+              <div class="col-md-11 form-info-col">
+                <div class="form-check self-review-check self-review-check-first">
+                  <input class="form-check-input" type="radio" name="results" value="Unsatisfactory">
+                  <label class="form-check-label label-form" for="exampleRadios1">Unsatisfactory</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="results" value="Needs Improvement">
+                  <label class="form-check-label label-form" for="exampleRadios1">Needs Improvement</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="results" value="Meets Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Meets Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="results" value="Exceeds Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Exceeds Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="results" value="outstanding">
+                  <label class="form-check-label label-form" for="exampleRadios1">Outstanding</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group self-review">
+            <div class="row">
+              <div class="col-md-1 form-label-col" data-toggle="tooltip" title="How we communicate effectively to achieve results">
+                <label class="form-title">Communication:</label><br>
+              </div>
+              <div class="col-md-11 form-info-col">
+                <div class="form-check self-review-check self-review-check-first">
+                  <input class="form-check-input" type="radio" name="communication" value="Unsatisfactory">
+                  <label class="form-check-label label-form" for="exampleRadios1">Unsatisfactory</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="communication" value="Needs Improvement">
+                  <label class="form-check-label label-form" for="exampleRadios1">Needs Improvement</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="communication" value="Meets Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Meets Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="communication" value="Exceeds Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Exceeds Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="communication" value="outstanding">
+                  <label class="form-check-label label-form" for="exampleRadios1">Outstanding</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group self-review">
+            <div class="row">
+              <div class="col-md-1 form-label-col" data-toggle="tooltip" title="How we demonstrate commitment to what we do">
+                <label class="form-title">Passion:</label><br>
+              </div>
+              <div class="col-md-11 form-info-col">
+                <div class="form-check self-review-check self-review-check-first">
+                  <input class="form-check-input" type="radio" name="passion" value="Unsatisfactory">
+                  <label class="form-check-label label-form" for="exampleRadios1">Unsatisfactory</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="passion" value="Needs Improvement">
+                  <label class="form-check-label label-form" for="exampleRadios1">Needs Improvement</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="passion" value="Meets Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Meets Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="passion" value="Exceeds Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Exceeds Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="passion" value="outstanding">
+                  <label class="form-check-label label-form" for="exampleRadios1">Outstanding</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group self-review">
+            <div class="row">
+              <div class="col-md-1 form-label-col" data-toggle="tooltip" title="How we learn and develop to improve our performance">
+                <label class="form-title">Development:</label><br>
+              </div>
+              <div class="col-md-11 form-info-col">
+                <div class="form-check self-review-check self-review-check-first">
+                  <input class="form-check-input" type="radio" name="development" value="Unsatisfactory">
+                  <label class="form-check-label label-form" for="exampleRadios1">Unsatisfactory</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="development" value="Needs Improvement">
+                  <label class="form-check-label label-form" for="exampleRadios1">Needs Improvement</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="development" value="Meets Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Meets Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="development" value="Exceeds Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Exceeds Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="development" value="outstanding">
+                  <label class="form-check-label label-form" for="exampleRadios1">Outstanding</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group self-review">
+            <div class="row">
+              <div class="col-md-1 form-label-col">
+                <label class="form-title">Overall Performance Rating:</label><br>
+              </div>
+              <div class="col-md-11 form-info-col">
+                <div class="form-check self-review-check self-review-check-first">
+                  <input class="form-check-input" type="radio" name="overallResult" value="Unsatisfactory">
+                  <label class="form-check-label label-form" for="exampleRadios1">Unsatisfactory</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="overallResult" value="Needs Improvement">
+                  <label class="form-check-label label-form" for="exampleRadios1">Needs Improvement</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="overallResult" value="Meets Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Meets Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="overallResult" value="Exceeds Expectations">
+                  <label class="form-check-label label-form" for="exampleRadios1">Exceeds Expectations</label>
+                </div>
+                <div class="form-check self-review-check">
+                  <input class="form-check-input" type="radio" name="overallResult" value="outstanding">
+                  <label class="form-check-label label-form" for="exampleRadios1">Outstanding</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-title">Any Comments:</label><br>
+            <textarea class="form-control" name="comments"></textarea>
+          </div><br>
+          <input class="btn btn-primary" type="submit" value="Submit" style="margin-left:15px;">
+        </form>
+      </div>
+      <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script><br>
+      <hr>
+      <footer>
+        <p>Performify &copy; 2018</p>
+      </footer>
+    </nav>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

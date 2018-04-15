@@ -1,0 +1,21 @@
+extends layout
+
+block styles
+  link(rel='stylesheet' href='/app/css/pages/login.css')
+
+block content
+  .row.test
+    .col-md-6.center.float-none
+      .logo
+        img(src="../styles/logo.png" style="margin-auto" width="450")
+      h1 Login
+      form(method='POST', action='/users/login')
+          .form-group
+              .row
+                  label(for='exampleInputEmail1') Employee username
+                  input#exampleInputEmail1.form-control(name='username', type='text', aria-describedby='emailHelp', placeholder='Enter username')
+          .form-group
+              .row
+                  label Password
+                  input.form-control(type="password", name="password"  placeholder='Enter password') 
+          button.btn.btn-default.btn-success.btn-login(type="submit", value="Submit") Log in
