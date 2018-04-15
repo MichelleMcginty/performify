@@ -18,7 +18,7 @@ const PerReview = require('../models/performance_review');
 
 
 router.post('/login', function (req, res, next) {
-  passport.authenticate('local-login', {
+  passport.authenticate('local-login', {  
     successRedirect: '/',
     failureRedirect: '/users/login',
     failureFlash: true
@@ -188,16 +188,23 @@ router.get('/:id', function (req, res) {
         res.status(500).send(err);
         console.error(err);
       } 
-      PerReview.find({userSelected:user.name}, function(err, perReviews){
+      PerReview.find({userSelected:user.name , type:"Performance Review"}, function(err, perReviews){
         if (err) {
           res.status(500).send(err);
           console.error(err);
-        } 
-        res.render('profile', {
-          perReviews: perReviews,
-          articles: articles,
-          user: user,
-          moment: moment
+        }
+        PerReview.find({author:user.name, type:"Self Review"}, function(err, perReviewss){
+          if (err) {
+            res.status(500).send(err);
+            console.error(err);
+          }
+          res.render('profile', {
+            perReviewss:perReviewss,
+            perReviews: perReviews,
+            articles: articles,
+            user: user,
+            moment: moment
+          });
         });
       });
     });
@@ -241,14 +248,26 @@ router.get('/view/:username', function (req, res) {
 
 router.get('/profile/:username', function (req, res) {
   User.find({username:req.params.username}, function (err, users) {
-    if(err) {/*error!!!*/}
-    PerReview.find({userSelected:users[0].name}, function(err, perReviews){
-      if(err) {/*error!!!*/}
-      Article.find({author:users[0].name}, function(err, articles){
-        if(err) {/*error!!!*/}
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    }
+    PerReview.find({userSelected:users[0].name , type:"Performance Review"}, function(err, perReviews){
+      if (err) {
+        res.status(500).send(err);
+        console.error(err);
+      }
+      PerReview.find({author:users[0].name, type:"Self Review"}, function(err, perReviewss){
+        if (err) {
+          res.status(500).send(err);
+          console.error(err);
+        }
+      // Article.find({author:users[0].name}, function(err, articles){
+      //   if(err) {/*error!!!*/}
         res.render('view_profile', {
+          perReviewss: perReviewss,
           perReviews: perReviews,
-          articles: articles,
+          // articles: articles,
           users: users,
           moment: moment
         });

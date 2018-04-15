@@ -11,11 +11,12 @@ block content
         if (user.role == "Employee")
           .article-wrapper
             .center.float-none
-              h3 My Self Reviews
-              ul.list-group
-                each article, i in articles
-                  li.list-group-item.list-reviews
-                    a(href='/articles/'+article._id)= moment(article.date).format("MMMM Do YYYY, h:mm:ss a")
+              h3 Hello and welcome
+              //- h3 My Self Reviews
+              //- ul.list-group
+              //-   each article, i in articles
+              //-     li.list-group-item.list-reviews
+              //-       a(href='/articles/'+article._id)= moment(article.date).format("MMMM Do YYYY, h:mm:ss a")
       .col-md-6
         p Charts and stuff will go here
         .img-border(style="border: 1px solid black; height:500px;")

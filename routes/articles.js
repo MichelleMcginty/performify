@@ -6,7 +6,7 @@ const Article = require('../models/article');
 
 // new article form
 router.get('/add', function(req, res){
-  res.render('add_article', {
+  res.render('add_self_review', {
     title: 'Add Article'
   });
 });
@@ -26,7 +26,7 @@ router.post('/add', function(req, res){
   let errors = req.validationErrors();
 
   if(errors){
-    res.render('add_article', {
+    res.render('add_self_review', {
       title: 'Add Article',
       errors: errors
     });

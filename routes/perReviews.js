@@ -20,6 +20,57 @@ const User = require('../models/user');
 // });
 
 // new article form
+router.get('/add_self_review', function(req, res){
+  res.render('add_self_review', {
+    title: 'Add Self Review'
+  });
+});
+
+// submit new article 
+router.post('/add_self_review', function(req, res){
+  // Express validator
+  req.checkBody('teamwork', 'teamwork is required').notEmpty();
+  req.checkBody('results', 'results is required').notEmpty();
+  req.checkBody('communication', 'communication is required').notEmpty();
+  req.checkBody('passion', 'passion is required').notEmpty();
+  req.checkBody('development', 'development is required').notEmpty();
+  req.checkBody('overallResult', 'overallResult is required').notEmpty();
+  // req.checkBody('comments', 'comments is required').notEmpty();
+  
+  // Get errors
+  let errors = req.validationErrors();
+
+  if(errors){
+    res.render('add_self_review', {
+      title: 'Add Self Review',
+      errors: errors
+    });
+  } else {
+    let perReview = new PerReview();
+    perReview.author = req.user.name;
+    perReview.userSelected = req.user.name;
+    perReview.type = "Self Review";
+    perReview.teamwork = req.body.teamwork;
+    perReview.results = req.body.results;
+    perReview.communication = req.body.communication;
+    perReview.passion = req.body.passion;
+    perReview.development = req.body.development;
+    perReview.overallResult = req.body.overallResult;
+    perReview.comments = req.body.comments;
+
+    perReview.save(function(err){
+      if(err) {
+        console.error(err);
+        return;
+      } else {
+        req.flash('success', 'Self Review Added');
+        res.redirect('/');
+      }
+    });
+  }
+});
+
+// new per review form
 router.get('/add_employee_review', function(req, res){
   User.find({team:req.user.team, role:"Employee"}, function(err, users){
     if(err){
@@ -58,6 +109,7 @@ router.post('/add_employee_review', function(req, res){
     let perReview = new PerReview();
     perReview.userSelected = req.body.userSelected;
     perReview.author = req.user.name;
+    perReview.type = "Performance Review";
     perReview.teamwork = req.body.teamwork;
     perReview.results = req.body.results;
     perReview.communication = req.body.communication;
@@ -78,7 +130,6 @@ router.post('/add_employee_review', function(req, res){
   }
 });
 
-// new article form
 router.get('/add_manager_review', function(req, res){
   User.find({role:"Management"}, function(err, users){
     if(err){
@@ -117,6 +168,7 @@ router.post('/add_manager_review', function(req, res){
     let perReview = new PerReview();
     perReview.userSelected = req.body.userSelected;
     perReview.author = req.user.name;
+    perReview.type = "Performance Review";
     perReview.teamwork = req.body.teamwork;
     perReview.results = req.body.results;
     perReview.communication = req.body.communication;
@@ -175,6 +227,7 @@ router.post('/add_senior_manager_review', function(req, res){
     // users:users
     let perReview = new PerReview();
     perReview.userSelected = req.body.userSelected;
+    perReview.type = "Performance Review";
     perReview.author = req.user.name;
     perReview.teamwork = req.body.teamwork;
     perReview.results = req.body.results;

@@ -6,6 +6,9 @@ const perReviewSchema = mongoose.Schema({
     type: Date, 
     default: Date.now 
   },
+  type: {
+    type: String
+  },
   author: {
     type: String
   },

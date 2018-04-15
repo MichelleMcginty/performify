@@ -97,17 +97,17 @@ function requireLogin (req, res, next) {
 };
 
 app.get('/' ,function (req, res) {
-  Article.find({}, function(err, articles){
-    if(err){
-      console.error(err);
-    } else {
+  // Article.find({}, function(err, articles){
+  //   if(err){
+  //     console.error(err);
+  //   } else {
       res.render('index', {
         title: 'Articles', 
         articles: articles,
         moment: moment
       });
-    }
-  });
+    // }
+  // });
 });
 
 // var isAuthenticated = function (req, res, next) {
@@ -172,16 +172,23 @@ app.get('/employeedashboard', requireLogin,(req, res) => {
       res.status(500).send(err);
       console.error(err);
     } 
-    PerReview.find({userSelected:req.user.name}, function(err, perReviews){
+    PerReview.find({userSelected:req.user.name, type:"Performance Review"}, function(err, perReviews){
       if (err) {
         res.status(500).send(err);
         console.error(err);
-      } 
-      res.render('manager-dashboard', {
-        perReviews: perReviews,
-        articles: articles,
-        users: users,
-        moment: moment
+      }
+      PerReview.find({author:req.user.name, type:"Self Review"}, function(err, perReviewss){
+        if (err) {
+          res.status(500).send(err);
+          console.error(err);
+        } 
+        res.render('manager-dashboard', {
+          perReviewss: perReviewss,
+          perReviews: perReviews,
+          articles: articles,
+          users: users,
+          moment: moment
+        });
       });
     });
   });
@@ -309,13 +316,20 @@ app.get('/senior-dashboard', requireLogin,(req, res) => {
           if (err) {
             res.status(500).send(err);
             console.error(err);
-          } 
-          res.render('manager-dashboard', {
-            perReviews: perReviews,
-            articles: articles,
-            users: users,
-            use: users,
-            moment: moment
+          }
+          PerReview.find({author:req.user.name, type:"Self Review"}, function(err, perReviewss){
+            if (err) {
+              res.status(500).send(err);
+              console.error(err);
+            }  
+            res.render('manager-dashboard', {
+              perReviewss: perReviewss,
+              perReviews: perReviews,
+              articles: articles,
+              users: users,
+              use: users,
+              moment: moment
+            });
           });
         });
         // console.log("Users:" + users);
