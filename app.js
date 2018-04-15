@@ -201,7 +201,7 @@ app.get('/employeedashboard', requireLogin,(req, res) => {
 // });
 
 app.get('/admin-employee-dashboard', requireLogin,(req, res) => {
-  User.find((err, users) => {
+  User.find({"role":{$ne:req.user.role }}, function(err, users){
     if (err) {
       res.status(500).send(err);
       console.error(err);
@@ -216,6 +216,59 @@ app.get('/admin-employee-dashboard', requireLogin,(req, res) => {
     }
   });
 });
+
+app.get('/listUsers', function (req, res) {
+  User.find((err, users) => {
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    } else {
+      // users.sort(sortBy('name'));
+      
+      // users = data;
+      // console.log(data);
+      res.render('list_employees',{
+        users: users
+      });
+      console.log(users[0].name);
+      // var ctx = document.getElementById('myCharto').getContext('2d');
+      // var users = users;
+      // var usersName = users.name;
+      // var chart = new Chart(ctx, {
+      //     // The type of chart we want to create
+      //     type: 'bar',
+          
+      //     // The data for our dataset
+      //     data: {
+      //         labels: [usersName],
+      //         datasets: [{
+      //             label: "My First dataset",
+      //             backgroundColor: 'rgb(255, 99, 132)',
+      //             borderColor: 'rgb(255, 99, 132)',
+      //             data: [usersName],
+      //         }]
+      //     },
+
+      //     // Configuration options go here
+      //     options: {}
+      //   });
+        
+    }
+  });
+});
+
+
+// var chartData;
+// $(function(){
+//   $.AJAX({
+//     url: 'http://localhost:3333/listUsers',
+//     type: 'GET',
+//     success : function(data) {
+//       chartData = data;
+//       console.log(data);
+//     }
+//   });
+// });
 
 
 // app.get('/senior-dashboard', (req, res) => {
@@ -241,13 +294,12 @@ app.get('/senior-dashboard', requireLogin,(req, res) => {
       res.status(500).send(err);
       console.log(err);
     }
-  User.find({role:"Senior Management"  }, function(err, seniors){
-  // User.find({"role":{$eq:"Senior Management"}, "name":{$ne:req.user.name } }, function(err, seniors){
-    if(err){
-      res.status(500).send(err);
-      console.log(err);
-      res.render('/login');
-    }
+    // User.find({role:"Senior Management"  }, function(err, seniors){
+    User.find({"role":{$eq:"Senior Management"}, "name":{$ne:req.user.name } }, function(err, use){
+      if(err){
+        res.status(500).send(err);
+        console.log(err);
+      }
       Article.find({author:req.user.name}, function(err, articles){
         if (err) {
           res.status(500).send(err);
@@ -262,17 +314,34 @@ app.get('/senior-dashboard', requireLogin,(req, res) => {
             perReviews: perReviews,
             articles: articles,
             users: users,
-            seniors: users,
+            use: users,
             moment: moment
           });
         });
-        console.log("Users:" + users);
+        // console.log("Users:" + users);
       });
-      console.log("Seniors:" + seniors);
+      // console.log("Seniors:" + seniors);
     });
   });
 });
 
+
+app.get('/list-senior-managers', requireLogin,(req, res) => {
+  User.find({role:"Senior Management"}, function(err, users){
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    } 
+    else {
+      res.render('list-senior-managers', {
+        users: users,
+        moment: moment
+      });
+    console.log("hello" + users);
+    }
+    // console.log("hello");
+  });
+});
 
 // app.get('/users/:name', function (req, res) {
 //   User.find({user:req.params.name}, function (err, users) {

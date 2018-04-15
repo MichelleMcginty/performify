@@ -1,10 +1,12 @@
 extends layout
 
 block content
-  .col-md-8.center.float-none
+  .col-md-6.center.float-none
     if (user.role == "Employee")
         h2 Review from your Manager #{perReviews.author}
     if (user.role == "Management")
+        h2 Review from Senior Manager #{perReviews.author}
+    if (user.role == "Senior Management")
         h2 Review from Senior Manager #{perReviews.author}
     else
         h2 Review for #{perReviews.userSelected}

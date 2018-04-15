@@ -303,7 +303,7 @@ router.post('/view/edit/:username', function (req, res) {
   users.role = req.body.role;
   users.team = req.body.team;
   users.title = req.body.title;
-  users.gender = req.body.gender;
+  // users.gender = req.body.gender;
   // console.log(req.body.title + "check one");
   // console.log(req.params.title + "check two");
   

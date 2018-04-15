@@ -42,10 +42,26 @@ block content
                 else if (user.role == "Administrator") 
                     .col-12.center.float-none
                         h3 List of Employees
-                        ul.list-group
-                            each user in users
-                                li.list-group-item
-                                    a(href='/users/view/'+user.username)= user.name
+                        table.table.table-bordered.table-hover
+                                thead
+                                    tr
+                                    th Name
+                                    th Team
+                                    th Role
+                                    th 
+                                each user in users
+                                    tbody
+                                        tr
+                                        td #{user.name}
+                                        td #{user.team}
+                                        td #{user.role}
+                                        td 
+                                            a(href='/users/view/'+user.username)
+                                              |  View Profile
+                        //- ul.list-group
+                        //-     each user in users
+                        //-         li.list-group-item
+                        //-             a(href='/users/view/'+user.username)= user.name
                     br
                     br
                     .col-12.center.float-none
@@ -59,21 +75,26 @@ block content
                                 li.list-group-item.list-reviews
                                     a(href='/users/profile/'+user.username)= user.name
                     //- include 
-                    h4 Senior Managers
-                        ul.list-group
-                            each seniors, i  in users
-                                li.list-group-item.list-reviews
-                                    a(href='/users/profile/'+seniors.username)= seniors.name
-                    br
-                    br
-                    h4 Senior Managers
-                        ul.list-group
-                            each users, i  in seniors
-                                li.list-group-item.list-reviews
-                                    a(href='/users/profile/'+users.username)= users.name
+                    //- h4 Senior Managers
+                    //-     ul.list-group
+                    //-         each use, i  in users
+                    //-             li.list-group-item.list-reviews
+                    //-                 a(href='/users/profile/'+use.username)= use.name
+                    //- include ./list-senior-managers.pug
+
+                    //- br
+                    //- br
+                    //- h4 Senior Managers
+                    //-     ul.list-group
+                    //-         each users, i  in seniors
+                    //-             li.list-group-item.list-reviews
+                    //-                 a(href='/users/profile/'+users.username)= users.name
                     br
                     br
                     a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_manager_review') Submit Review for Manager
+                    br
+                    br
+                    a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_Senior_manager_review') Submit Review for Senior Manager
                     br
                     br
                     a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review

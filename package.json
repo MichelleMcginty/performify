@@ -12,6 +12,7 @@
     "async": "^2.6.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
+    "chart.js": "^2.7.2",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^2.0.1",
     "cookie-parser": "^1.4.3",
@@ -20,11 +21,13 @@
     "express-messages": "^1.0.1",
     "express-session": "^1.15.3",
     "express-validator": "^3.2.1",
+    "fusioncharts": "^3.12.2",
     "moment": "^2.21.0",
     "mongoose": "^4.10.4",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pug": "^2.0.0-rc.2",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "zingchart": "^2.6.3"
   }
 }

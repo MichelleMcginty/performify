@@ -138,6 +138,64 @@ router.post('/add_manager_review', function(req, res){
   }
 });
 
+router.get('/add_senior_manager_review', function(req, res){
+  User.find({"role":{$eq:"Senior Management"}, "name":{$ne:req.user.name } }, function(err, users){
+    if(err){
+      console.error(err);
+    } else {
+      res.render('add_senior_manager_review', {
+        title: 'Add Senior Manager Review',
+        users:users
+      });
+    }
+  });
+});
+
+// submit new review for employee
+router.post('/add_senior_manager_review', function(req, res){
+  // Express validator
+  req.checkBody('teamwork', 'teamwork is required').notEmpty();
+  req.checkBody('results', 'results is required').notEmpty();
+  req.checkBody('communication', 'communication is required').notEmpty();
+  req.checkBody('passion', 'passion is required').notEmpty();
+  req.checkBody('development', 'development is required').notEmpty();
+  req.checkBody('overallResult', 'overallResult is required').notEmpty();
+  // req.checkBody('comments', 'comments is required').notEmpty();
+  
+  // Get errors
+  let errors = req.validationErrors();
+
+  if(errors){
+    res.render('add_senior_manager_review', {
+      title: 'Add Senior Manager Review',
+      // user:users,
+      errors: errors
+    });
+  } else {
+    // users:users
+    let perReview = new PerReview();
+    perReview.userSelected = req.body.userSelected;
+    perReview.author = req.user.name;
+    perReview.teamwork = req.body.teamwork;
+    perReview.results = req.body.results;
+    perReview.communication = req.body.communication;
+    perReview.passion = req.body.passion;
+    perReview.development = req.body.development;
+    perReview.overallResult = req.body.overallResult;
+    perReview.comments = req.body.comments;
+    console.log(req.user.name + "jwjeje");
+    console.log(req.body.name + "heheheh");
+    perReview.save(function(err){
+      if(err) {
+        console.error(err);
+        return;
+      } else {
+        req.flash('success', 'Senior Manager Review Added for ' + req.body.userSelected);
+        res.redirect('/senior-dashboard');
+      }
+    });
+  }
+});
 
 
 
