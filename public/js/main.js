@@ -1,21 +1,21 @@
-$(document).ready(function(){
-  $('.delete-article').on('click', function(e){
-    $target = $(e.target);
-    const id = $target.attr('data-id');
+// $(document).ready(function(){
+//   $('.delete-article').on('click', function(e){
+//     $target = $(e.target);
+//     const id = $target.attr('data-id');
 
-    $.ajax({
-      type: 'DELETE',
-      url: '/articles/'+id,
-      success: function (response){
-        alert('Deleting article');
-        window.location.href='/';
-      },
-      error: function(err){
-        console.error(err);
-      }
-    });
-  });
-});
+//     $.ajax({
+//       type: 'DELETE',
+//       url: '/articles/'+id,
+//       success: function (response){
+//         alert('Deleting article');
+//         window.location.href='/';
+//       },
+//       error: function(err){
+//         console.error(err);
+//       }
+//     });
+//   });
+// });
 
 $(document).ready(function(){
   $('.delete-user-profile').on('click', function(e){
@@ -27,7 +27,7 @@ $(document).ready(function(){
           url: '/users/view/'+username,
           success: function () {
             console.log("deleteing user with the username " + username);
-            window.location.href='/';
+            window.location.href='/home';
           },
           error: function(err){
             console.error(err);
@@ -48,7 +48,7 @@ $(document).ready(function(){
       success: function (response){
         console.log("deleteing user called");
         alert('Deleting User');
-        window.location.href='/';
+        window.location.href='/home';
       },
       error: function(err){
         console.error(err);
@@ -67,7 +67,7 @@ $(document).ready(function(){
       url: '/dynamics/'+id,
       success: function (response){
         alert('Deleting dynamic review');
-        window.location.href='/';
+        window.location.href='/home';
       },
       error: function(err){
         console.error(err);
