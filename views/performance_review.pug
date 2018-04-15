@@ -3,11 +3,23 @@ extends layout
 block content
   .col-md-6.center.float-none
     if (user.role == "Employee")
-        h2 Review from your Manager #{perReviews.author}
-    if (user.role == "Management")
-        h2 Review from Senior Manager #{perReviews.author}
-    if (user.role == "Senior Management")
-        h2 Review from Senior Manager #{perReviews.author}
+        if (perReviews.type == "Performance Review")
+            h2 Review from your Manager #{perReviews.author}
+            h2 For #{perReviews.userSelected}
+        else
+            h2 #{perReviews.userSelected}'s Self Review
+    else if (user.role == "Management")
+        if (perReviews.type == "Performance Review")
+            h2 Review from #{perReviews.author}
+            h2 For #{perReviews.userSelected}
+        else
+            h2 #{perReviews.userSelected}'s Self Review
+    else if (user.role == "Senior Management")
+        if (perReviews.type == "Performance Review")
+           h2 Review from #{perReviews.author}
+           h2 For #{perReviews.userSelected}
+        else
+            h2 #{perReviews.userSelected}'s Self Review
     else
         h2 Review for #{perReviews.userSelected}
     br
