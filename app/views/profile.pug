@@ -1,0 +1,66 @@
+extends layout
+
+block content
+	.container
+		.col-md-8.center.float-none
+			h2 Profile
+			table.table.table-bordered
+				thead.thead-light
+					tr
+						th(scope="col") Name
+						th(scope="col") Email
+						th(scope="col") Username
+						th(scope="col") Role
+						th(scope="col") Team
+						th(scope="col") Title
+				tbody
+					tr
+						td= user.name
+						td= user.name
+						td= user.username
+						td= user.role
+						td= user.team
+						td= user.title
+			a.btn.btn-default(style="width:20%;" href='/users/edit/'+user._id) Edit
+			br 
+			br 
+			if (user.role == "Management")
+				br
+				br
+				h4 My Self Reviews
+					ul.list-group
+						each perReview, i in perReviewss
+							//- if (perReview.type="Self Review")
+							li.list-group-item.list-reviews
+								a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+					//- else
+					//-   p lol no
+					//- each perReview, i in perReviews
+					//-     li.list-group-item.list-reviews
+					//-         a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+				//- br
+				//- br
+				br
+				br
+				h4 My Reviews From Senior Management
+					ul.list-group
+						each perReview, i in perReviews
+							li.list-group-item.list-reviews
+								a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+			if (user.role =="Senior Management")
+				br
+				br
+				h4 My Self Reviews New
+					ul.list-group
+						each perReview, i in perReviewss
+							//- if (perReview.type="Self Review")
+							li.list-group-item.list-reviews
+								a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss, MMMM Do YYYY ") 
+				br
+				br
+				h4 My Reviews From Senior Management
+					ul.list-group
+						each perReview, i in perReviews
+							li.list-group-item.list-reviews
+								a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+//- a.btn.btn-danger.delete-user.pull-right(style="width:20%;" href='#', data-id=user._id) Delete

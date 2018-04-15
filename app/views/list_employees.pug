@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  .container
+    .article-wrapper
+      .col-md-6.center.float-none
+        h3 Employees
+        ul.list-group
+          each user in users
+            li.list-group-item
+              a(href='/users/view/'+user.name)= user.name
+        //- div#myChart
+        canvas#myCharto
+        script.
+          //- var users = users;
+          //- zingchart.render({
+          //-   id: 'myChart',
+          //-   data: {
+          //-     type: 'pie',
+          //-     series: [{
+          //-       values: [users],
+          //-     }]
+          //-   }
+          //- });
+          var ctx = document.getElementById('myCharto').getContext('2d');
+          var users = usr
+          var usersName = users.name;
+          var chart = new Chart(ctx, {
+              // The type of chart we want to create
+              type: 'bar',
+              
+              // The data for our dataset
+              data: {
+                  labels: [usersName],
+                  datasets: [{
+                      label: "My First dataset",
+                      backgroundColor: 'rgb(255, 99, 132)',
+                      borderColor: 'rgb(255, 99, 132)',
+                      data: [usersName],
+                  }]
+              },
+
+              // Configuration options go here
+              options: {}
+          });

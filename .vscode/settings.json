@@ -1,0 +1,9 @@
+{
+    "workbench.colorTheme": "Visual Studio Dark",
+    "window.zoomLevel": -1,
+    "editor.multiCursorModifier": "alt",
+    "extensions.ignoreRecommendations": true,
+    "editor.detectIndentation": true,
+    "editor.tabSize": 2,
+    "eslint.enable": false
+}

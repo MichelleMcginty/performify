@@ -10,7 +10,6 @@ app.use(expressValidator());
 
 // Article model
 const User = require('../models/user');
-const Article = require('../models/article');
 const PerReview = require('../models/performance_review');
 // const Dynamic = require('../models/dynamic');
 // const PerReview = require('../models/performance_review');
@@ -18,8 +17,8 @@ const PerReview = require('../models/performance_review');
 
 
 router.post('/login', function (req, res, next) {
-  passport.authenticate('local-login', {
-    successRedirect: '/',
+  passport.authenticate('local-login', {  
+    successRedirect: '/home',
     failureRedirect: '/users/login',
     failureFlash: true
   })(req, res, next);
@@ -33,7 +32,7 @@ router.get('/logout', function (req, res, next) {
       if(err) {
         return next(err);
       } else {
-        return res.redirect('/users/login');
+        return res.redirect('/home');
       }
     });
   }
@@ -50,7 +49,7 @@ router.get('/login', function (req, res) {
 
 // new article form
 router.get('/add', function (req, res) {
-  res.render('add', {
+  res.render('add_employee', {
     title: 'Add Employee'
   });
 });
@@ -85,7 +84,7 @@ router.post('/add', (req, res)  => {
   let errors = req.validationErrors();
 
   if (errors) {
-    res.render('add', {
+    res.render('add_employee', {
       errors: errors
     });
     console.log('Error in SignUp: ' + errors);
@@ -113,18 +112,16 @@ router.post('/add', (req, res)  => {
             res.redirect('/users/add')
           } else {
             req.session.userId = user._id;
-            console.log("employee added")
+            console.log("Employee added")
             console.log("Registering user: " + req.body.name);
             req.flash('success', req.body.name + ' has been added');
-            res.redirect('/')
+            res.redirect('/home')
           }
         });
       });
     })
   }
 });
-
-
 
   // load edit form
 router.get('/edit/:id', function (req, res) {
@@ -156,8 +153,6 @@ router.get('/edit/:id', function (req, res) {
 // });
 
 
-
-
 router.get('/view/edit/:username', function (req, res) {
   User.find({username:req.params.username}, function (err, users) {
     res.render('edit_profile', {
@@ -183,25 +178,24 @@ router.get('/list', function (req, res) {
 
 router.get('/:id', function (req, res) {
   User.findById(req.params.id, function (err, user) {
-    Article.find({author:user.name}, function(err, articles){
+    PerReview.find({userSelected:user.name , type:"Performance Review"}, function(err, perReviews){
       if (err) {
         res.status(500).send(err);
         console.error(err);
-      } 
-      PerReview.find({userSelected:user.name}, function(err, perReviews){
+      }
+      PerReview.find({author:user.name, type:"Self Review"}, function(err, perReviewss){
         if (err) {
           res.status(500).send(err);
           console.error(err);
-        } 
+        }
         res.render('profile', {
+          perReviewss:perReviewss,
           perReviews: perReviews,
-          articles: articles,
           user: user,
           moment: moment
         });
       });
     });
-    // console.log(req.params.name + " viewing profile");
     console.log(user.name + " viewing profile");
   });
 });
@@ -241,14 +235,23 @@ router.get('/view/:username', function (req, res) {
 
 router.get('/profile/:username', function (req, res) {
   User.find({username:req.params.username}, function (err, users) {
-    if(err) {/*error!!!*/}
-    PerReview.find({userSelected:users[0].name}, function(err, perReviews){
-      if(err) {/*error!!!*/}
-      Article.find({author:users[0].name}, function(err, articles){
-        if(err) {/*error!!!*/}
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    }
+    PerReview.find({userSelected:users[0].name , type:"Performance Review"}, function(err, perReviews){
+      if (err) {
+        res.status(500).send(err);
+        console.error(err);
+      }
+      PerReview.find({author:users[0].name, type:"Self Review"}, function(err, perReviewss){
+        if (err) {
+          res.status(500).send(err);
+          console.error(err);
+        }
         res.render('view_profile', {
+          perReviewss: perReviewss,
           perReviews: perReviews,
-          articles: articles,
           users: users,
           moment: moment
         });
@@ -256,7 +259,6 @@ router.get('/profile/:username', function (req, res) {
     });
     console.log(users[0].name + " - selected name");
   });
-  // console.log(req.params.name + " - selected name");
 });
 
 // router.get('view_profile/:name', function (req, res) {
@@ -269,7 +271,7 @@ router.get('/profile/:username', function (req, res) {
 //   console.log(users.name);
 // });
 
-// update submit new article 
+// update submit new user 
 router.post('/edit/:id', function (req, res) {
   let user = {};
   user.name = req.body.name;
@@ -290,7 +292,7 @@ router.post('/edit/:id', function (req, res) {
       return;
     } else {
       req.flash('success', 'User Updated');
-      res.redirect('/');
+      res.redirect('/home');
     }
   })
 });
@@ -303,7 +305,7 @@ router.post('/view/edit/:username', function (req, res) {
   users.role = req.body.role;
   users.team = req.body.team;
   users.title = req.body.title;
-  users.gender = req.body.gender;
+  // users.gender = req.body.gender;
   // console.log(req.body.title + "check one");
   // console.log(req.params.title + "check two");
   
