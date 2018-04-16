@@ -5,5 +5,5 @@
     border: none; }
     .index nav.navbar .navbar-header > a {
       color: white; }
-    .index nav.navbar ul.navbar-right > a {
+    .index nav.navbar ul.navbar-right > li > a {
       color: white; }
