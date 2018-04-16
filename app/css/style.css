@@ -9,6 +9,11 @@
       font-size: 17px; }
     .index .index-header nav.navbar ul.navbar-right > li > a:hover {
       background: transparent; }
+    @media (max-width: 767px) {
+      .index .index-header nav.navbar .navbar-toggle {
+        border: 1px solid white; }
+        .index .index-header nav.navbar .navbar-toggle span.icon-bar {
+          background-color: white; } }
   .index .index-header .header-background {
     top: -15px;
     position: absolute;
@@ -27,6 +32,9 @@
         height: .9em;
         width: .9em;
         margin-bottom: 12px; }
+    @media (max-width: 767px) {
+      .index .index-header .header-content .header-text {
+        font-size: 28px; } }
 
 .engagement_form .container {
   margin-top: 30px; }
