@@ -6,3 +6,5 @@
     .index nav.navbar .navbar-header > a, .index nav.navbar ul.navbar-right > li > a {
       color: white;
       font-size: 16px; }
+    .index nav.navbar ul.navbar-right > li > a:hover {
+      background: transparent; }
