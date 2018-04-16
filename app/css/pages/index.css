@@ -3,7 +3,7 @@
   .index nav.navbar {
     margin-top: 15px;
     border: none; }
-    .index nav.navbar .navbar-header {
+    .index nav.navbar .navbar-header > a {
       color: white; }
-    .index nav.navbar ul.navbar-right {
+    .index nav.navbar ul.navbar-right > a {
       color: white; }
