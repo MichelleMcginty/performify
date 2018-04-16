@@ -17,6 +17,7 @@ html
   body.index
     block pageHeader
       header.index-header
+        .header-background
         nav.navbar
           .container
             .navbar-header
@@ -30,18 +31,22 @@ html
               ul.nav.navbar-nav.navbar-right
                 li
                   a(href='/users/login') Login
-        .container
-          != messages('message', locals)
-          if errors
-            each error, i in errors
-              div(class='alert alert-danger') #{error.msg}  
+        .header-content
+          .container
+            h1.header-text Welcome to Performify
+            h1.header-text Full Project Coming Soon, Watch this Space!
+            != messages('message', locals)
+            if errors
+              each error, i in errors
+                div(class='alert alert-danger') #{error.msg}  
+    
     block pageBody
-      section.welcome
-        .container
-          h1 Welcome
+      .container
+        section.welcome
     br
     footer
-      p Performify &copy; 2018
+      .container
+        p Performify &copy; 2018
     script(src='/bower_components/jquery/dist/jquery.js')
     script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
     script(src='/js/main.js')

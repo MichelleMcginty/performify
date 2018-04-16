@@ -1,0 +1,136 @@
+extends layout
+
+block pageBody
+  .engagement_form
+    .container
+      h2 Employee Engagement form
+      .stepwizard.col-md-12
+        .stepwizard-row.setup-panel
+          .stepwizard-step
+            a.btn.btn-primary.btn-circle(href='#step-1', type='button') 1
+            p Question 1
+          .stepwizard-step
+            a.btn.btn-default.btn-circle(href='#step-2', type='button') 2
+            p Question 2
+          .stepwizard-step
+            a.btn.btn-default.btn-circle(href='#step-3', type='button') 3
+            p Submit
+      form(role='form', method='POST', action='/engagements/submit_engagement_survey')
+        #step-1.row.setup-content
+          .col-md-8.center.float-none
+            .col-md-12
+              h3  Question 1
+              .form-group
+                label The people I work with treat me with respect
+                br
+                //- Strongly DisagreeDisagree Neutral AgreeStrongly AgreeDon’t Know
+                .form-check
+                  input.form-check-input(type='radio', name='q1', value='Strongly Disagree')
+                  label.form-check-label(for='exampleRadios1')
+                    | Strongly Disagree
+                .form-check
+                  input.form-check-input(type='radio', name='q1', value='Disagree')
+                  label.form-check-label(for='exampleRadios1')
+                    | Disagree
+                .form-check
+                  input.form-check-input(type='radio', name='q1', value='Neutral')
+                  label.form-check-label(for='exampleRadios1')
+                    | Neutral
+                .form-check
+                  input.form-check-input(type='radio', name='q1', value='Agree')
+                  label.form-check-label(for='exampleRadios1')
+                    | Agree
+                .form-check
+                  input.form-check-input(type='radio', name='q1', value='Strongly Agree')
+                  label.form-check-label(for='exampleRadios1')
+                    | Strongly Agree
+              //- button.btn.btn-primary.prevBtn.btn-lg.pull-left(type='button') Previous
+              button.btn.btn-primary.nextBtn.pull-right(type='button') Next
+        #step-2.row.setup-content
+          .col-md-8.center.float-none
+            .col-md-12
+              h3  Question 2
+              .form-group
+                label y supervisor creates a motivating and energizing workplace.
+                br
+                //- Strongly DisagreeDisagree Neutral AgreeStrongly AgreeDon’t Know
+                .form-check
+                  input.form-check-input(type='radio', name='q2', value='Strongly Disagree')
+                  label.form-check-label(for='exampleRadios1')
+                    | Strongly Disagree
+                .form-check
+                  input.form-check-input(type='radio', name='q2', value='Disagree')
+                  label.form-check-label(for='exampleRadios1')
+                    | Disagree
+                .form-check
+                  input.form-check-input(type='radio', name='q2', value='Neutral')
+                  label.form-check-label(for='exampleRadios1')
+                    | Neutral
+                .form-check
+                  input.form-check-input(type='radio', name='q2', value='Agree')
+                  label.form-check-label(for='exampleRadios1')
+                    | Agree
+                .form-check
+                  input.form-check-input(type='radio', name='q2', value='Strongly Agree')
+                  label.form-check-label(for='exampleRadios1')
+                    | Strongly Agree
+              button.btn.btn-primary.prevBtn.pull-left(type='button') Previous
+              button.btn.btn-primary.nextBtn.pull-right(type='button') Next
+        #step-3.row.setup-content
+          .col-md-8.center.float-none
+            .col-md-12
+              h3 Submit
+              button.btn.btn-primary.prevBtn.pull-left(type='button') Previous
+              button.btn.btn-success.pull-right(type='submit') Submit
+    script.
+      $(document).ready(function () {
+        var navListItems = $('div.setup-panel div a'),
+                allWells = $('.setup-content'),
+                allNextBtn = $('.nextBtn'),
+                allPrevBtn = $('.prevBtn');
+
+        allWells.hide();
+
+        navListItems.click(function (e) {
+            e.preventDefault();
+            var $target = $($(this).attr('href')),
+                    $item = $(this);
+
+            if (!$item.hasClass('disabled')) {
+                navListItems.removeClass('btn-primary').addClass('btn-default');
+                $item.addClass('btn-primary');
+                allWells.hide();
+                $target.show();
+                $target.find('input:eq(0)').focus();
+            }
+        });
+        
+        allPrevBtn.click(function(){
+            var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+
+                prevStepWizard.removeAttr('disabled').trigger('click');
+        });
+
+        allNextBtn.click(function(){
+            var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                curInputs = curStep.find("input[type='text'],input[type='url']"),
+                isValid = true;
+
+            $(".form-group").removeClass("has-error");
+            for(var i=0; i<curInputs.length; i++){
+                if (!curInputs[i].validity.valid){
+                    isValid = false;
+                    $(curInputs[i]).closest(".form-group").addClass("has-error");
+                }
+            }
+
+            if (isValid)
+                nextStepWizard.removeAttr('disabled').trigger('click');
+        });
+
+        $('div.setup-panel div a.btn-primary').trigger('click');
+      });

@@ -13,6 +13,7 @@ const app = express();
 const MongoStore = require('connect-mongo')(session);
 var http = require('http').Server(app);
 const User = require('./models/user');
+const Engagement = require('./models/engagement_form')
 const PerReview = require('./models/performance_review');
 
 
@@ -106,6 +107,13 @@ app.get('/home' ,function (req, res) {
   res.render('home', {
     title: 'Home', 
     moment: moment
+  });
+});
+
+app.get('/engagement_form' ,function (req, res) {
+  res.render('engagement_form', {
+    title: 'Enagement Survey', 
+    // moment: moment
   });
 });
 
@@ -338,31 +346,14 @@ app.get('/list-senior-managers', requireLogin,(req, res) => {
   });
 });
 
-// app.get('/users/:name', function (req, res) {
-//   User.find({user:req.params.name}, function (err, users) {
-//     if(err) {
-//       console.error(err);
-//       res.render('/');
-//     }
-//     else {
-//       res.render('view_profile', {
-//         users: users
-//       });
-//     }
-//   });
-//   console.log(req.params.name + " - selected name");
-// });
-
-// console.log(req.user.userid);
-// console.log(req.user._id);
-// console.log(req.user.id);
-
 // Route Files
 let users = require('./routes/users');
 let perReviews = require('./routes/perReviews');
+let engagements = require('./routes/engagements');
 
 app.use('/users', users);
 app.use('/perReviews', perReviews);
+app.use('/engagements', engagements);
 
 // app.listen(3333, function(){
 //   console.log(`Server started on port 3333`);
