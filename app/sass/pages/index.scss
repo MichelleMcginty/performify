@@ -28,8 +28,12 @@
     .header-content{
       position: relative;
       .header-text {
-
         color: white;
+        .emoji{
+          height: .9em;
+          width: .9em;
+          margin-bottom: 12px;
+        }
       }
     }
   }

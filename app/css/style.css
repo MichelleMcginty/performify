@@ -23,6 +23,10 @@
     position: relative; }
     .index .index-header .header-content .header-text {
       color: white; }
+      .index .index-header .header-content .header-text .emoji {
+        height: .9em;
+        width: .9em;
+        margin-bottom: 12px; }
 
 .engagement_form .container {
   margin-top: 30px; }

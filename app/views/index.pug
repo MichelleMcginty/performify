@@ -5,6 +5,7 @@ html
     link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet' href='../styles/style.css')
     link(rel='stylesheet' href='../css/style.css')
+    link(href='https://afeld.github.io/emoji-css/emoji.css', rel='stylesheet')
     //- link(href='https://use.fontawesome.com/releases/v5.0.6/css/all.css', rel='stylesheet')
     script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')
     script(defer src='https://use.fontawesome.com/releases/v5.0.6/js/all.js')
@@ -34,7 +35,8 @@ html
         .header-content
           .container
             h1.header-text Welcome to Performify
-            h1.header-text Full Project Coming Soon, Watch this Space!
+            h1.header-text Full Project Coming Soon, Watch this Space     
+               i.em.em---1.emoji
             != messages('message', locals)
             if errors
               each error, i in errors
