@@ -6,7 +6,6 @@
   .index nav.navbar {
     margin-top: 15px;
     border: none; }
-    .index nav.navbar .navbar-header > a {
-      color: white; }
-    .index nav.navbar ul.navbar-right > li > a {
-      color: white; }
+    .index nav.navbar .navbar-header > a, .index nav.navbar ul.navbar-right > li > a {
+      color: white;
+      font-size: 16px; }
