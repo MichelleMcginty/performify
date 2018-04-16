@@ -1,2 +1,9 @@
 .index {
   background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%); }
+  .index nav.navbar {
+    margin-top: 15px;
+    border: none; }
+    .index nav.navbar .navbar-header {
+      color: white; }
+    .index nav.navbar ul.navbar-right {
+      color: white; }

@@ -16,7 +16,7 @@ html
 
   body.index
     block pageHeader
-      header
+      header.index-header
         nav.navbar
           .container
             .navbar-header
@@ -36,9 +36,10 @@ html
             each error, i in errors
               div(class='alert alert-danger') #{error.msg}  
     block pageBody
-      section
+      section.welcome
+        .container
+          h1 Welcome
     br
-    hr
     footer
       p Performify &copy; 2018
     script(src='/bower_components/jquery/dist/jquery.js')
