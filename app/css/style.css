@@ -1,5 +1,2 @@
-.row {
-  background: red; }
-
-body .row .test {
-  background: blue; }
+.login .row .test {
+  background: #ff0000; }
