@@ -1,13 +1,14 @@
 extends layout
 
 block styles
-  link(rel='stylesheet' href='/app/css/pages/login.css')
+  //- link(rel='stylesheet' href='/app/css/pages/login.css')
 
 block content
   .row.test
     .col-md-6.center.float-none
       .logo
-        img(src="../styles/logo.png" style="margin-auto" width="450")
+        //- img(src="../styles/logo.png" style="margin-auto" width="450")
+        img(src="./images/logo/logo.png" style="margin-auto" width="450")
       h1 Login
       form(method='POST', action='/users/login')
           .form-group
