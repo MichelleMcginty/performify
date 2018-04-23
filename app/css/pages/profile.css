@@ -1,0 +1,5 @@
+.profile .engagement-view li {
+  display: none; }
+
+.profile .engagement-view li:first-child {
+  display: block; }

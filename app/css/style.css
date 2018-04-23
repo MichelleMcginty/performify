@@ -74,3 +74,9 @@
     font-size: 12px;
     line-height: 1.428571429;
     border-radius: 15px; }
+
+.profile .engagement-view li {
+  display: none; }
+
+.profile .engagement-view li:first-child {
+  display: block; }

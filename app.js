@@ -184,28 +184,23 @@ app.get('/employeedashboard', requireLogin,(req, res) => {
         res.status(500).send(err);
         console.error(err);
       } 
-      res.render('manager-dashboard', {
-        perReviewss: perReviewss,
-        perReviews: perReviews,
-        users: users,
-        moment: moment
+      Engagement.find({author:req.user.name}).sort('-date').exec(function(err, engagements){
+        if (err) {
+          res.status(500).send(err);
+          console.error(err);
+        }
+        res.render('manager-dashboard', {
+          engagements:engagements,
+          perReviewss: perReviewss,
+          perReviews: perReviews,
+          users: users,
+          moment: moment
+        });
       });
     });
   });
 });
-// outer.get('/list', function (req, res) {
-//   User.find((err, users) => {
-//     if (err) {
-//       res.status(500).send(err);
-//       console.error(err);
-//     } else {
-//       users.sort(sortBy('name'));
-//       res.render('list_employees', {
-//         users: users.sort(sortBy('name'))
-//       });
-//     }
-//   });
-// });
+
 
 app.get('/admin-employee-dashboard', requireLogin,(req, res) => {
   User.find({"role":{$ne:req.user.role }}, function(err, users){

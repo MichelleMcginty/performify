@@ -11,8 +11,7 @@ app.use(expressValidator());
 // Article model
 const User = require('../models/user');
 const PerReview = require('../models/performance_review');
-// const Dynamic = require('../models/dynamic');
-// const PerReview = require('../models/performance_review');
+const Engagement = require('../models/engagement_form');
 
 
 
@@ -188,11 +187,24 @@ router.get('/:id', function (req, res) {
           res.status(500).send(err);
           console.error(err);
         }
-        res.render('profile', {
-          perReviewss:perReviewss,
-          perReviews: perReviews,
-          user: user,
-          moment: moment
+        // Engagement.find({author:user.name}).sort('-date').exec(function(err, docs) { ... });
+        Engagement.find({author:user.name}).sort('-date').exec(function(err, engagements){
+          if (err) {
+            res.status(500).send(err);
+            console.error(err);
+          }
+          // Engagement.find({author:user.name}, function(err, engagements){
+          //   if (err) {
+          //     res.status(500).send(err);
+          //     console.error(err);
+          //   }
+          res.render('profile', {
+            engagements: engagements,
+            perReviewss:perReviewss,
+            perReviews: perReviews,
+            user: user,
+            moment: moment
+          });
         });
       });
     });

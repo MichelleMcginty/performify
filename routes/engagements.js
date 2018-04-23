@@ -287,7 +287,7 @@ router.post('/submit_engagement_survey', function(req, res){
 // get single review
 router.get('/:id', function(req, res){
   Engagement.findById(req.params.id, function(err, engagements){
-    res.render('performance_review', {
+    res.render('engagement_view', {
       engagements:engagements,
       moment:moment
     });

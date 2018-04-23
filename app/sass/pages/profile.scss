@@ -1,0 +1,11 @@
+.profile{
+
+  .engagement-view{
+    li {
+      display:none;
+    }
+    li:first-child {
+        display:block;
+    }
+  }
+}
