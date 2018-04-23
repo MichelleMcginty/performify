@@ -187,7 +187,6 @@ router.get('/:id', function (req, res) {
           res.status(500).send(err);
           console.error(err);
         }
-        // Engagement.find({author:user.name}).sort('-date').exec(function(err, docs) { ... });
         Engagement.find({author:user.name}).sort('-date').exec(function(err, engagements){
           if (err) {
             res.status(500).send(err);

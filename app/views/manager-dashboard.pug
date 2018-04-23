@@ -74,10 +74,6 @@ block pageBody
 									td 
 										a(href='/users/view/'+user.username)
 											|  View Profile
-						//- ul.list-group
-						//-     each user in users
-						//-         li.list-group-item
-						//-             a(href='/users/view/'+user.username)= user.name
 					br
 					br
 					.col-12.center.float-none
@@ -120,5 +116,3 @@ block pageBody
 	else 
 		p Uh Oh! You are not supposed to be here.
 		a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
-
-

@@ -1,6 +1,6 @@
 import Chart from 'chart.js';
 // var myChart = new Chart(ctx, {...});
-import UsersService from "../../../routes/users";
+import userGender from "../../../routes/users";
 import store from '../../store/store';
 
 export default {

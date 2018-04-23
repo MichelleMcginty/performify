@@ -218,123 +218,25 @@ app.get('/admin-employee-dashboard', requireLogin,(req, res) => {
   });
 });
 
-app.get('/listUsersGen', function (req, res) {
-  User.find((err, users) => {
-    if (err) {
-      res.status(500).send(err);
-      console.error(err);
-    } else {
-      // var genders = []
-      // for (var i = 0; i < users.length; i++) {
-      //   genders.push(users[i].gender)
-      // }
-      // console.log(genders);
-      res.json(users);
-    }
-  });
-});
-
-
 app.get('/listUsers', function (req, res) {
   User.find((err, users) => {
     if (err) {
       res.status(500).send(err);
       console.error(err);
-    } else {
-      // users.sort(sortBy('name'));
-      
-      // users = data;
-      // console.log(data);
-
+    } 
+    else {
       var genders = []
       for (var i = 0; i < users.length; i++) {
         genders.push(users[i].gender)
       }
-      
-      // console.log(genders)
       var g = genders
-      // console.log(g)
-    //   var ctx = "myChart";
-    //   var myChart = new Chart(ctx, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: g,
-    //         datasets: [{
-    //             label: '# of Votes',
-    //             data: g,
-    //             backgroundColor: [
-    //                 'rgba(255, 99, 132, 0.2)',
-    //                 'rgba(54, 162, 235, 0.2)',
-    //                 'rgba(255, 206, 86, 0.2)',
-    //                 'rgba(75, 192, 192, 0.2)',
-    //                 'rgba(153, 102, 255, 0.2)',
-    //                 'rgba(255, 159, 64, 0.2)'
-    //             ],
-    //             borderColor: [
-    //                 'rgba(255,99,132,1)',
-    //                 'rgba(54, 162, 235, 1)',
-    //                 'rgba(255, 206, 86, 1)',
-    //                 'rgba(75, 192, 192, 1)',
-    //                 'rgba(153, 102, 255, 1)',
-    //                 'rgba(255, 159, 64, 1)'
-    //             ],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         scales: {
-    //             yAxes: [{
-    //                 ticks: {
-    //                     beginAtZero:true
-    //                 }
-    //             }]
-    //         }
-    //     }
-    // });
-    res.render('list_employees',{
-      users: users,
-      genders:genders
-      // myChart: myChart
-    });
-      // var ctx = document.getElementById('myCharto').getContext('2d');
-      // var users = users;
-      // var usersName = users.name;
-      // var chart = new Chart(ctx, {
-      //     // The type of chart we want to create
-      //     type: 'bar',
-          
-      //     // The data for our dataset
-      //     data: {
-      //         labels: [usersName],
-      //         datasets: [{
-      //             label: "My First dataset",
-      //             backgroundColor: 'rgb(255, 99, 132)',
-      //             borderColor: 'rgb(255, 99, 132)',
-      //             data: [usersName],
-      //         }]
-      //     },
-
-      //     // Configuration options go here
-      //     options: {}
-      //   });
-        
+      res.render('list_employees',{
+        users: users,
+        genders:genders
+      });
     }
   });
 });
-
-
-// var chartData;
-// $(function(){
-//   $.AJAX({
-//     url: 'http://localhost:3333/listUsers',
-//     type: 'GET',
-//     success : function(data) {
-//       chartData = data;
-//       console.log(data);
-//     }
-//   });
-// });
-
 
 // app.get('/senior-dashboard', (req, res) => {
 //   User.find((err, users) => {
@@ -410,10 +312,12 @@ app.get('/list-senior-managers', requireLogin,(req, res) => {
 let users = require('./routes/users');
 let perReviews = require('./routes/perReviews');
 let engagements = require('./routes/engagements');
+let chartsEndpoints = require('./routes/chartsEndpoints');
 
 app.use('/users', users);
 app.use('/perReviews', perReviews);
 app.use('/engagements', engagements);
+app.use('/chartsEndpoints', chartsEndpoints);
 
 // app.listen(3333, function(){
 //   console.log(`Server started on port 3333`);

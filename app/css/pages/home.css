@@ -1,0 +1,7 @@
+.home .container {
+  padding-top: 50px; }
+  .home .container .home-right-col .gen-chart {
+    height: 375px;
+    width: 375px; }
+    .home .container .home-right-col .gen-chart h2 {
+      text-align: center; }
