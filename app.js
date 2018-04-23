@@ -13,6 +13,7 @@ const app = express();
 const MongoStore = require('connect-mongo')(session);
 var http = require('http').Server(app);
 const User = require('./models/user');
+var Chart = require('chart.js');
 const Engagement = require('./models/engagement_form')
 const PerReview = require('./models/performance_review');
 
@@ -217,6 +218,23 @@ app.get('/admin-employee-dashboard', requireLogin,(req, res) => {
   });
 });
 
+app.get('/listUsersGen', function (req, res) {
+  User.find((err, users) => {
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    } else {
+      // var genders = []
+      // for (var i = 0; i < users.length; i++) {
+      //   genders.push(users[i].gender)
+      // }
+      // console.log(genders);
+      res.json(users);
+    }
+  });
+});
+
+
 app.get('/listUsers', function (req, res) {
   User.find((err, users) => {
     if (err) {
@@ -227,10 +245,57 @@ app.get('/listUsers', function (req, res) {
       
       // users = data;
       // console.log(data);
-      res.render('list_employees',{
-        users: users
-      });
-      console.log(users[0].name);
+
+      var genders = []
+      for (var i = 0; i < users.length; i++) {
+        genders.push(users[i].gender)
+      }
+      
+      // console.log(genders)
+      var g = genders
+      // console.log(g)
+    //   var ctx = "myChart";
+    //   var myChart = new Chart(ctx, {
+    //     type: 'bar',
+    //     data: {
+    //         labels: g,
+    //         datasets: [{
+    //             label: '# of Votes',
+    //             data: g,
+    //             backgroundColor: [
+    //                 'rgba(255, 99, 132, 0.2)',
+    //                 'rgba(54, 162, 235, 0.2)',
+    //                 'rgba(255, 206, 86, 0.2)',
+    //                 'rgba(75, 192, 192, 0.2)',
+    //                 'rgba(153, 102, 255, 0.2)',
+    //                 'rgba(255, 159, 64, 0.2)'
+    //             ],
+    //             borderColor: [
+    //                 'rgba(255,99,132,1)',
+    //                 'rgba(54, 162, 235, 1)',
+    //                 'rgba(255, 206, 86, 1)',
+    //                 'rgba(75, 192, 192, 1)',
+    //                 'rgba(153, 102, 255, 1)',
+    //                 'rgba(255, 159, 64, 1)'
+    //             ],
+    //             borderWidth: 1
+    //         }]
+    //     },
+    //     options: {
+    //         scales: {
+    //             yAxes: [{
+    //                 ticks: {
+    //                     beginAtZero:true
+    //                 }
+    //             }]
+    //         }
+    //     }
+    // });
+    res.render('list_employees',{
+      users: users,
+      genders:genders
+      // myChart: myChart
+    });
       // var ctx = document.getElementById('myCharto').getContext('2d');
       // var users = users;
       // var usersName = users.name;
