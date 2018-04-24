@@ -34,6 +34,7 @@ router.post('/add_self_review', function(req, res){
     let perReview = new PerReview();
     perReview.author = req.user.name;
     perReview.userSelected = req.user.name;
+    perReview.authorTeam = req.user.team;
     perReview.type = "Self Review";
     perReview.teamwork = req.body.teamwork;
     perReview.results = req.body.results;
@@ -94,6 +95,7 @@ router.post('/add_employee_review', function(req, res){
     let perReview = new PerReview();
     perReview.userSelected = req.body.userSelected;
     perReview.author = req.user.name;
+    perReview.authorTeam = req.user.team;
     perReview.type = "Performance Review";
     perReview.teamwork = req.body.teamwork;
     perReview.results = req.body.results;
@@ -152,6 +154,7 @@ router.post('/add_manager_review', function(req, res){
     let perReview = new PerReview();
     perReview.userSelected = req.body.userSelected;
     perReview.author = req.user.name;
+    perReview.team = req.user.team;
     perReview.type = "Performance Review";
     perReview.teamwork = req.body.teamwork;
     perReview.results = req.body.results;
@@ -211,6 +214,7 @@ router.post('/add_senior_manager_review', function(req, res){
     // users:users
     let perReview = new PerReview();
     perReview.userSelected = req.body.userSelected;
+    perReview.authorTeam = req.user.team;
     perReview.type = "Performance Review";
     perReview.author = req.user.name;
     perReview.teamwork = req.body.teamwork;

@@ -2,9 +2,9 @@ extends layout
 
 block pageBody
 	if user
-		.container
-			.col-md-6.center.float-none
-				if (user.role == "Management")
+		.container.padding-top-sm
+			if (user.role == "Management")
+				.col-md-6.center.float-none
 					h3 Manager Review Dashboard
 					br 
 					br
@@ -24,7 +24,8 @@ block pageBody
 					br
 					br
 					a(class='button btn btn-default btn-success', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Employee Enagagement Survay
-				else if (user.role == "Employee") 
+			else if (user.role == "Employee")
+				.col-md-6.center.float-none 
 					h3 Employee Review Dashboard
 					br 
 					br 
@@ -55,37 +56,39 @@ block pageBody
 					br
 					a(class='button btn btn-default btn-success', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Employee Enagagement Survay
 					//- a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review
-				else if (user.role == "Administrator") 
-					.col-12.center.float-none
-						h3 List of Employees
-						table.table.table-bordered.table-hover
-							thead
+			else if (user.role == "Administrator")
+				.col-md-6
+					h3.margin-top-none List of Employees
+					table.table.table-bordered.table-hover
+						thead
+							tr
+							th Name
+							th Team
+							th Role
+							th 
+						each user in users
+							tbody
 								tr
-								th Name
-								th Team
-								th Role
-								th 
-							each user in users
-								tbody
-									tr
-									td #{user.name}
-									td #{user.team}
-									td #{user.role}
-									td 
-										a(href='/users/view/'+user.username)
-											|  View Profile
+								td #{user.name}
+								td #{user.team}
+								td #{user.role}
+								td 
+									a(href='/users/view/'+user.username)
+										|  View Profile
 					br
 					br
-					.col-12.center.float-none
-						a(class='button btn btn-primary', style="width: 100%; " href='/users/add') Add a new Employee
-				else if (user.role == "Senior Management") 
-					br
-					br
-					h4 Team Managers
-						ul.list-group
-							each user, i in users 
-								li.list-group-item.list-reviews
-									a(href='/users/profile/'+user.username)= user.name
+					a(class='button btn btn-primary', style="width: 100%; " href='/users/add') Add a new Employee
+				.col-md-6 
+					.center.float-none
+						canvas#NumberPeopleOnTeams(width="250" height="250")
+			else if (user.role == "Senior Management") 
+				br
+				br
+				h4 Team Managers
+					ul.list-group
+						each user, i in users 
+							li.list-group-item.list-reviews
+								a(href='/users/profile/'+user.username)= user.name
 					//- include 
 					//- h4 Senior Managers
 					//-     ul.list-group
@@ -110,9 +113,97 @@ block pageBody
 					br
 					br
 					a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_self_review') New Submit Self Review
-				else 
-					p Uh Oh! You are not supposed to be here.
-					a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
+			else 
+				p Uh Oh! You are not supposed to be here.
+				a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
 	else 
 		p Uh Oh! You are not supposed to be here.
 		a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
+	script.
+		$.get('http://localhost:3333/chartsEndpoints/listUsers2', {}, function(data){
+			var g = data;
+			let Finance = 0;
+			let Marketing = 0;
+			let Testing = 0;
+			let Engineering = 0;
+			let Sales = 0;
+			let HR = 0;
+			let IT = 0;
+			let Support = 0;
+			//- Finance Marketing Testing Engineering Sales HR IT Support
+			for (var i = 0; i < g.length; i++) {
+				if (g[i].team === 'Finance') {
+					Finance += 1;
+				}
+				else if (g[i].team === 'Marketing') {
+					Marketing += 1;
+				}
+				else if (g[i].team === 'Testing') {
+					Testing += 1;
+				}
+				else if (g[i].team === 'Engineering') {
+					Engineering += 1;
+				}
+				else if (g[i].team === 'Sales') {
+					Sales += 1;
+				}
+				else if (g[i].team === 'HR') {
+					HR += 1;
+				}
+				else if (g[i].team === 'IT') {
+					IT += 1;
+				}
+				else {
+					Support+= 1;
+				}
+			}
+			let teamLabels = ['Finance', 'Marketing', 'Testing', 'Engineering', 'Sales', 'HR', 'IT', 'Support'];
+			var ctx = document.getElementById("NumberPeopleOnTeams").getContext('2d');
+			var NumberPeopleOnTeams = new Chart(ctx, {
+				type: 'doughnut',
+				data: {
+						labels: teamLabels,
+						datasets: [{
+								label: '# of Votes',
+								data:[Finance, Marketing, Testing, Engineering, Sales, HR, IT, Support],
+								backgroundColor: [
+										'rgba(255, 99, 132)',
+										'rgba(75, 192, 192, 0.5)',
+										'rgba(153, 102, 255, 0.5)',
+										'rgba(255, 159, 64, 0.5)',
+										'rgba(229, 158, 175, 0.5)',
+										'rgba(65,79,111)',
+										'rgba(153,153,204)',
+										'rgba(254,255,163, 0.85)'
+								],
+								borderColor: [
+										'rgba(255,99,132,1)',
+										//- 'rgba(54, 162, 235, 1)',
+										'rgba(255, 206, 86, 1)',
+										'rgba(75, 192, 192, 1)',
+										'rgba(153, 102, 255, 1)',
+										'rgba(255, 159, 64, 1)'
+								],
+								borderWidth: 0
+						}]
+				},
+				options: {
+					responsive: true,
+					title: {
+						display: true,
+						position: "top",
+						text: "Team Breakdown & Number of Teams: " + teamLabels.length,				
+						fontSize: 20,
+						fontColor: "#111"
+					},
+					legend: {
+						display: true,
+						position: "bottom",
+						labels: {
+							fontColor: "#333",
+							fontSize: 16
+						}
+					}
+				}
+			});
+		});

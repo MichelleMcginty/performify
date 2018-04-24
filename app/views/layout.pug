@@ -77,17 +77,18 @@ html
             else
               li
                 a(href='/users/login') Login
-    .container
-      != messages('message', locals)
-      if errors
-        each error, i in errors
-          div(class='alert alert-danger') #{error.msg}
-      //- block pageHeader
-      block pageBody
-      br
-      hr
-      footer
-        p Performify &copy; 2018
+    .body-container
+      .container.padding-top-md
+        != messages('message', locals)
+        if errors
+          each error, i in errors
+            div(class='alert alert-danger') #{error.msg}
+        //- block pageHeader
+        block pageBody
+        br
+      //- hr
+      //- footer
+      //-   p Performify &copy; 2018
     //- script(src='/bower_components/jquery/dist/jquery.js')
     //- script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
     script(src='../js/main.js')

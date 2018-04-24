@@ -1,0 +1,159 @@
+hr {
+  margin: 0;
+  border: solid rgba(0, 0, 0, 0.05);
+  border-width: 1px 0 0 0; }
+
+.margin-reset {
+  margin: 0; }
+
+.margin-auto {
+  margin: auto; }
+
+.margin-horizontal-auto {
+  margin-right: auto;
+  margin-left: auto; }
+
+.margin-vertical-auto {
+  margin-top: auto;
+  margin-bottom: auto; }
+
+.margin-top-none {
+  margin-top: 0; }
+
+.margin-top-xs {
+  margin-top: .5rem; }
+
+.margin-bottom-xs {
+  margin-bottom: .5rem; }
+
+.margin-left-xs {
+  margin-left: .5rem; }
+
+.margin-right-xs {
+  margin-right: .5rem; }
+
+.margin-top-sm {
+  margin-top: 1.5rem; }
+
+.margin-bottom-sm {
+  margin-bottom: 1.5rem; }
+
+.margin-left-sm {
+  margin-left: 1.5rem; }
+
+.margin-right-sm {
+  margin-right: 1.5rem; }
+
+.margin-top-md {
+  margin-top: 3rem; }
+
+.margin-bottom-md {
+  margin-bottom: 3rem; }
+
+.margin-left-md {
+  margin-left: 3rem; }
+
+.margin-right-md {
+  margin-right: 3rem; }
+
+.margin-top-lg {
+  margin-top: 7rem; }
+
+.margin-bottom-lg {
+  margin-bottom: 7rem; }
+
+.margin-left-lg {
+  margin-left: 7rem; }
+
+.margin-right-lg {
+  margin-right: 7rem; }
+
+.margin-top-xl {
+  margin-top: 12rem; }
+
+.margin-bottom-xl {
+  margin-bottom: 12rem; }
+
+.margin-left-xl {
+  margin-left: 12rem; }
+
+.margin-right-xl {
+  margin-right: 12rem; }
+
+.padding-reset {
+  padding: 0; }
+
+.padding-xs {
+  padding: .5rem; }
+
+.padding-top-xs {
+  padding-top: .5rem; }
+
+.padding-bottom-xs {
+  padding-bottom: .5rem; }
+
+.padding-left-xs {
+  padding-left: .5rem; }
+
+.padding-right-xs {
+  padding-right: .5rem; }
+
+.padding-sm {
+  padding: 1.5rem; }
+
+.padding-top-sm {
+  padding-top: 1.5rem; }
+
+.padding-bottom-sm {
+  padding-bottom: 1.5rem; }
+
+.padding-left-sm {
+  padding-left: 1.5rem; }
+
+.padding-right-sm {
+  padding-right: 1.5rem; }
+
+.padding-md {
+  padding: 3rem; }
+
+.padding-top-md {
+  padding-top: 3rem; }
+
+.padding-bottom-md {
+  padding-bottom: 3rem; }
+
+.padding-left-md {
+  padding-left: 3rem; }
+
+.padding-right-md {
+  padding-right: 3rem; }
+
+.padding-lg {
+  padding: 7rem; }
+
+.padding-top-lg {
+  padding-top: 7rem; }
+
+.padding-bottom-lg {
+  padding-bottom: 7rem; }
+
+.padding-left-lg {
+  padding-left: 7rem; }
+
+.padding-right-lg {
+  padding-right: 7rem; }
+
+.padding-xl {
+  padding: 12rem; }
+
+.padding-top-xl {
+  padding-top: 12rem; }
+
+.padding-bottom-xl {
+  padding-bottom: 12rem; }
+
+.padding-left-xl {
+  padding-left: 12rem; }
+
+.padding-right-xl {
+  padding-right: 12rem; }
