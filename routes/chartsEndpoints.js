@@ -53,4 +53,16 @@ router.get('/team', function (req, res) {
   });
 });
 
+router.get('/teamOverallResult', function (req, res) {
+  PerReview.find({authorTeam:req.user.team, "userSelected":{$ne:req.user.name }}, function(err, perreviews){
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    } else {
+      // console.log(users);
+      res.json(perreviews);
+    }
+  });
+});
+
 module.exports = router;
