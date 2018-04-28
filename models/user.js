@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const PerReview = require('./performance_review');
 
 // User Schema
 const UserSchema = mongoose.Schema({
@@ -35,6 +36,24 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  reviews: [{
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PerReview'
+    },
+    date: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'PerReview'
+    },
+    userSelected:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'PerReview'
+    },
+    overallRes: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'PerReview'
+    }
+  }]
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
