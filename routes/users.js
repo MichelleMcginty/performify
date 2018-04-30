@@ -7,6 +7,7 @@ const expressValidator = require('express-validator');
 const app = express();
 var mongoose = require('mongoose');
 const moment = require('moment');
+const nodemailer = require('nodemailer');
 app.use(expressValidator());
 
 // models
@@ -15,6 +16,20 @@ const PerReview = require('../models/performance_review');
 const Engagement = require('../models/engagement_form');
 
 
+
+//nodemailer set up
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  port: 25,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: 'performifyapp@gmail.com', // generated ethereal user
+    pass: 'michellefyp999'  // generated ethereal password
+  },
+  tls:{
+    rejectUnauthorized:false
+  }
+});
 
 router.post('/login', function (req, res, next) {
   passport.authenticate('local-login', {  
@@ -115,6 +130,33 @@ router.post('/add', (req, res)  => {
             req.flash('error', 'Username already in the DB');
             res.redirect('/users/add')
           } else {
+            const email = req.body.email;
+            const output = `
+              <h1 style='color:blue;'>Welcome to Performify <span style="color:grey; font-style: italic;"> ${req.body.name} </span> </h1>
+              <br>
+              <h2> Your generated username is <span style="color:grey; font-style: italic;">${req.body.username}</span></h2>
+              <h2> Your generated password is <span style="color:grey; font-style: italic;">${req.body.password}</span></h2>
+              <br>
+              <h3> We highly recommend you to change your password once you login </h3>
+            `;
+
+            let mailOptions = {
+              from: '"Performify" <performifyapp@gmail.com>', // sender address
+              to: email, // list of receivers
+              subject: 'Welcome to performify', // Subject line
+              html: output // html body
+            };
+            
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                return console.log(error);
+              }
+              console.log('Message sent: %s', info.messageId);
+              console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+              console.log('User added, Email sent')
+            });
+
+
             req.session.userId = user._id;
             console.log("Employee added")
             console.log("Registering user: " + req.body.name);

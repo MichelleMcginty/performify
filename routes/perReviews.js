@@ -3,6 +3,24 @@ const router = express.Router();
 const moment = require('moment');
 const PerReview = require('../models/performance_review');
 const User = require('../models/user');
+const nodemailer = require('nodemailer');
+
+
+//nodemailer set up
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  port: 25,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: 'performifyapp@gmail.com', // generated ethereal user
+    pass: 'michellefyp999'  // generated ethereal password
+  },
+  tls:{
+    rejectUnauthorized:false
+  }
+});
+
+
 
 // new self review form
 router.get('/add_self_review', function(req, res){
@@ -35,6 +53,7 @@ router.post('/add_self_review', function(req, res){
     perReview.author = req.user.name;
     perReview.userSelected = req.user.name;
     perReview.authorTeam = req.user.team;
+    perReview.authorRef = req.user.id;
     perReview.type = "Self Review";
     perReview.teamwork = req.body.teamwork;
     perReview.results = req.body.results;
@@ -62,6 +81,7 @@ router.get('/add_employee_review', function(req, res){
     if(err){
       console.error(err);
     } else {
+      console.log(users);
       res.render('add_employee_review', {
         title: 'add employee review',
         users:users
@@ -94,8 +114,10 @@ router.post('/add_employee_review', function(req, res){
     // users:users
     let perReview = new PerReview();
     perReview.userSelected = req.body.userSelected;
+    perReview.userEmail = req.body.userEmail;
     perReview.author = req.user.name;
     perReview.authorTeam = req.user.team;
+    perReview.authorRef = req.user.id;
     perReview.type = "Performance Review";
     perReview.teamwork = req.body.teamwork;
     perReview.results = req.body.results;
@@ -105,11 +127,14 @@ router.post('/add_employee_review', function(req, res){
     perReview.overallResult = req.body.overallResult;
     perReview.comments = req.body.comments;
     console.log(req.user.name);
+    console.log(req.body.email);
+    console.log(req.body.userEmail);
     perReview.save(function(err){
       if(err) {
         console.error(err);
         return;
       } else {
+        
         req.flash('success', 'Employee Review Added for ' + req.body.userSelected);
         res.redirect('/managerdashboard');
       }
@@ -215,6 +240,7 @@ router.post('/add_senior_manager_review', function(req, res){
     let perReview = new PerReview();
     perReview.userSelected = req.body.userSelected;
     perReview.authorTeam = req.user.team;
+    perReview.authorRef = req.user.id;
     perReview.type = "Performance Review";
     perReview.author = req.user.name;
     perReview.teamwork = req.body.teamwork;

@@ -22,6 +22,9 @@ const perReviewSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  userEmail: {
+    type: String
+  },
   teamwork: {
     type: String,
     required: true
