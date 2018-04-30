@@ -24,6 +24,7 @@
     "fusioncharts": "^3.12.2",
     "moment": "^2.21.0",
     "mongoose": "^4.10.4",
+    "mongoose-deep-populate": "^3.1.1",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pug": "^2.0.0-rc.2",

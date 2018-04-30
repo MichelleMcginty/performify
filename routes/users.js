@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 const moment = require('moment');
 app.use(expressValidator());
 
-// Article model
+// models
 const User = require('../models/user');
 const PerReview = require('../models/performance_review');
 const Engagement = require('../models/engagement_form');
@@ -102,11 +102,6 @@ router.post('/add', (req, res)  => {
     user.team = req.body.team;
     user.title = req.body.title;
     user.gender = req.body.gender;
-    // user.reviews = [{
-    //   userSelected: user._id,
-    //   // postedBy: overallRes._id
-    // }];
-    // user.reviews = reviews._id ;
     bcrypt.genSalt(10, function (err, salt) {
       bcrypt.hash(user.password, salt, function (err, hash) {
         if (err) {
@@ -132,15 +127,6 @@ router.post('/add', (req, res)  => {
   }
 });
 
-router.get('/test', function (req, res) {
-  User.find({}, function (err, user) {
-    populate('userSelected')
-    .populate('reviews.userSelected')
-    .exec(function(error, user) {
-        console.log(JSON.stringify(user, null, "\t"))
-    })
-  });
-});
 
 
   // load edit form
@@ -195,6 +181,39 @@ router.get('/list', function (req, res) {
     }
   });
 });
+
+// router.get('/test', function (req, res) {
+//   User.findOne({ id: req.params.id }, function(error, user) {
+//     if (error) {
+//       return handleError(error);
+//     }
+//     user.reviews = reviews;
+//     console.log(user.reviews.type); // prints "Ian Fleming"
+//   });
+// });
+// router.get('/test', function (req, res) {
+//   User.findById(req.params.id)
+//     .populate('reviews')
+//     .exec(function (err, user, docs) {
+//     // if (err) return handleError(err);
+//       console.log(docs);
+//       // console.log(user.reviews);
+//     // prints "The author is Ian Fleming"
+//   });
+// });
+
+
+
+// router.get('/getUser', function (req, res) {
+//   User.findById(req.params.id, function (err, user) {
+//     .populate('reviews')
+// 		res.render('profile', { 
+//       user: user
+//     }); 
+//     console.log(user.reviews);
+// 	}); 
+// });
+
 
 router.get('/:id', function (req, res) {
   User.findById(req.params.id, function (err, user) {

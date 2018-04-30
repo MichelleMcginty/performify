@@ -1,12 +1,29 @@
 .home{
   .container{
     .home-right-col{
-      .gen-chart{
-        height: 375px;
-        width: 375px;
+      .chart-col-4{
+        position: relative;
+        height: 375px!important;
+        width: 375px!important;
         h2{
           text-align: center;
         }
+      }
+      .card {
+        -webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.20);
+        -moz-box-shadow:    0px 0px 15px 0px rgba(50, 50, 50, 0.20);
+        box-shadow:         0px 0px 15px 0px rgba(50, 50, 50, 0.20);
+        background: white;
+        border-radius: 4px;
+        padding: 10px;
+      }
+    }
+    .home-left-col{
+      .chart-col-8{
+        display:block;
+        position: relative;
+        height: 375px!important;
+        width: auto!important;
       }
     }
   }

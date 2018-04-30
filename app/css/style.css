@@ -1,3 +1,14 @@
+.layout .navbar {
+  background: #51A8FF;
+  border: none;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05); }
+
+.layout .navbar-brand {
+  color: white; }
+
+.layout .navbar-nav > li > a {
+  color: white; }
+
 .index .index-header {
   height: 400px;
   position: relative; }
@@ -81,11 +92,26 @@
 .profile .engagement-view li:first-child {
   display: block; }
 
-.home .container .home-right-col .gen-chart {
-  height: 375px;
-  width: 375px; }
-  .home .container .home-right-col .gen-chart h2 {
+.home .container .home-right-col .chart-col-4 {
+  position: relative;
+  height: 375px !important;
+  width: 375px !important; }
+  .home .container .home-right-col .chart-col-4 h2 {
     text-align: center; }
+
+.home .container .home-right-col .card {
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
+  box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
+  background: white;
+  border-radius: 4px;
+  padding: 10px; }
+
+.home .container .home-left-col .chart-col-8 {
+  display: block;
+  position: relative;
+  height: 375px !important;
+  width: auto !important; }
 
 hr {
   margin: 0;
@@ -256,7 +282,8 @@ canvas {
   -moz-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
   box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
   background: white;
-  border-radius: 4px; }
+  border-radius: 4px;
+  padding: 10px; }
 
 .alert-error {
   color: #a94442;
@@ -425,3 +452,18 @@ body {
 
 .list-reviews {
   text-align: center; }
+
+hr {
+  border-width: 2px 0 0 0;
+  width: 80%;
+  margin: auto; }
+
+footer {
+  width: 80%;
+  margin: auto; }
+  footer p {
+    color: #666; }
+
+.btn-primary {
+  background: #51A8FF;
+  border: none; }

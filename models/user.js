@@ -37,23 +37,20 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   reviews: [{
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'PerReview'
-    },
-    date: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'PerReview'
-    },
-    userSelected:{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'PerReview'
-    },
-    overallRes: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'PerReview'
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'PerReview',
+    required: false
   }]
 });
+
+// module.exports.getAll = function(callback){ 
+// 	User.find().exec(callback);	
+// }
+
+// module.exports.getUser= function(req,id, callback){
+//   User.findOne(req.params.id)
+//     .populate('reviews')
+//     .exec(callback);
+// }
 
 const User = module.exports = mongoose.model('User', UserSchema);
