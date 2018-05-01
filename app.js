@@ -12,8 +12,10 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const MongoStore = require('connect-mongo')(session);
 var http = require('http').Server(app);
-const User = require('./models/user');
 var Chart = require('chart.js');
+const nodemail = require('nodemailer');
+
+const User = require('./models/user');
 const Engagement = require('./models/engagement_form')
 const PerReview = require('./models/performance_review');
 

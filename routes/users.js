@@ -16,6 +16,9 @@ const PerReview = require('../models/performance_review');
 const Engagement = require('../models/engagement_form');
 
 
+// .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i");
+
+
 
 //nodemailer set up
 const transporter = nodemailer.createTransport({
@@ -23,8 +26,8 @@ const transporter = nodemailer.createTransport({
   port: 25,
   secure: false, // true for 465, false for other ports
   auth: {
-    user: 'performifyapp@gmail.com', // generated ethereal user
-    pass: 'michellefyp999'  // generated ethereal password
+    user: 'performifyapp@gmail.com', //  user
+    pass: 'michellefyp999'  // password
   },
   tls:{
     rejectUnauthorized:false
@@ -69,7 +72,7 @@ router.get('/add', function (req, res) {
   });
 });
 
-// // submit new article 
+// add new employee to the system 
 router.post('/add', (req, res)  => {
   const name = req.body.name;
   const email = req.body.email;
@@ -79,10 +82,6 @@ router.post('/add', (req, res)  => {
   const role = req.body.role;
   const team = req.body.team;
   const title = req.body.title;
-  // const reviews = reviews._id;
-  // _id: new mongoose.Types.ObjectId();
-
-
 
   // Express validator
   req.checkBody('name', 'Name is required').notEmpty();
@@ -130,7 +129,9 @@ router.post('/add', (req, res)  => {
             req.flash('error', 'Username already in the DB');
             res.redirect('/users/add')
           } else {
+            //get new users email
             const email = req.body.email;
+            // body of email
             const output = `
               <h1 style='color:blue;'>Welcome to Performify <span style="color:grey; font-style: italic;"> ${req.body.name} </span> </h1>
               <br>
@@ -139,24 +140,24 @@ router.post('/add', (req, res)  => {
               <br>
               <h3> We highly recommend you to change your password once you login </h3>
             `;
-
+            //setting up to and from for the email
             let mailOptions = {
               from: '"Performify" <performifyapp@gmail.com>', // sender address
               to: email, // list of receivers
               subject: 'Welcome to performify', // Subject line
-              html: output // html body
+              html: output // body of email 
             };
-            
+            //send mail and console the id
             transporter.sendMail(mailOptions, (error, info) => {
               if (error) {
                 return console.log(error);
               }
               console.log('Message sent: %s', info.messageId);
-              console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+              
               console.log('User added, Email sent')
             });
 
-
+            // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
             req.session.userId = user._id;
             console.log("Employee added")
             console.log("Registering user: " + req.body.name);

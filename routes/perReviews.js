@@ -127,6 +127,8 @@ router.post('/add_employee_review', function(req, res){
     perReview.overallResult = req.body.overallResult;
     perReview.comments = req.body.comments;
     console.log(req.user.name);
+    console.log(req.user.email);
+    // console.log(req.users.email);
     console.log(req.body.email);
     console.log(req.body.userEmail);
     perReview.save(function(err){

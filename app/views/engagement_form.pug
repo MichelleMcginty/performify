@@ -21,31 +21,14 @@ block pageBody
             .col-md-12
               h3  Question 1
               .form-group
-                label The people I work with treat me with respect
+                label On a scale of 1 - 10 do people I work with treat me with respect
                 br
-                //- Strongly DisagreeDisagree Neutral AgreeStrongly AgreeDon’t Know
-                .form-check
-                  input.form-check-input(type='radio', name='q1', value='Strongly Disagree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Strongly Disagree
-                .form-check
-                  input.form-check-input(type='radio', name='q1', value='Disagree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Disagree
-                .form-check
-                  input.form-check-input(type='radio', name='q1', value='Neutral')
-                  label.form-check-label(for='exampleRadios1')
-                    | Neutral
-                .form-check
-                  input.form-check-input(type='radio', name='q1', value='Agree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Agree
-                .form-check
-                  input.form-check-input(type='radio', name='q1', value='Strongly Agree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Strongly Agree
+                br
+                br
+                input#ex1(style="width:100%;" data-slider-id='ex1Slider', name="q1" ,type='text', data-slider-min='0', data-slider-max='10', data-slider-step='1', data-slider-value='14')
               //- button.btn.btn-primary.prevBtn.btn-lg.pull-left(type='button') Previous
               button.btn.btn-primary.nextBtn.pull-right(type='button') Next
+              
         #step-2.row.setup-content
           .col-md-8.center.float-none
             .col-md-12
@@ -131,6 +114,13 @@ block pageBody
             if (isValid)
                 nextStepWizard.removeAttr('disabled').trigger('click');
         });
-
+        $('#ex1').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
         $('div.setup-panel div a.btn-primary').trigger('click');
+
+        $("#ex16a").slider({ min: 0, max: 10, value: 0, focus: true });
       });

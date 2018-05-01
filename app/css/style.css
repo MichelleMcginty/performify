@@ -467,3 +467,6 @@ footer {
 .btn-primary {
   background: #51A8FF;
   border: none; }
+
+.slider .slider-track .slider-selection {
+  background: lightgray; }
