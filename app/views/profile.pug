@@ -33,14 +33,14 @@ block pageBody
 							each perReview, i in perReviewss
 								//- if (perReview.type="Self Review")
 								li.list-group-item.list-reviews
-									a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+									a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm a, Do MMMM YYYY ")
 					br
 					br
 					h4 My Reviews From Senior Management
 						ul.list-group
 							each perReview, i in perReviews
 								li.list-group-item.list-reviews
-									a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+									a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm a, Do MMMM YYYY ")
 					br
 					br
 					h4 Last Submitted Engagement Survay
@@ -48,7 +48,7 @@ block pageBody
 							each engagement, i in engagements
 								li.list-group-item.list-reviews
 									//- p= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
-									p= moment(engagement.date).format("h:mm:ss a, MMMM Do YYYY ")
+									p= moment(engagement.date).format("h:mm a, Do MMMM YYYY ")
 				if (user.role =="Senior Management")
 					br
 					br

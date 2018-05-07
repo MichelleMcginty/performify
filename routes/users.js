@@ -142,9 +142,9 @@ router.post('/add', (req, res)  => {
             `;
             //setting up to and from for the email
             let mailOptions = {
-              from: '"Performify" <performifyapp@gmail.com>', // sender address
-              to: email, // list of receivers
-              subject: 'Welcome to performify', // Subject line
+              from: '"Performify" <performifyapp@gmail.com>', // sender email address
+              to: email, // receiver of email - new employee
+              subject: 'Welcome to Performify', // subject of email
               html: output // body of email 
             };
             //send mail and console the id
@@ -153,7 +153,6 @@ router.post('/add', (req, res)  => {
                 return console.log(error);
               }
               console.log('Message sent: %s', info.messageId);
-              
               console.log('User added, Email sent')
             });
 

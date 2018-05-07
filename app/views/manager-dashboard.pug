@@ -113,12 +113,12 @@ block pageBody
 					br
 					br
 					a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_self_review') New Submit Self Review
-			else 
-				p Uh Oh! You are not supposed to be here.
-				a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
-	else 
-		p Uh Oh! You are not supposed to be here.
-		a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
+			//- else 
+			//- 	p Uh Oh! You are not supposed to be here.
+			//- 	a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
+	//- else 
+	//- 	p Uh Oh! You are not supposed to be here.
+	//- 	a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
 	script.
 		$.get('http://localhost:3333/chartsEndpoints/listUsers2', {}, function(data){
 			var g = data;

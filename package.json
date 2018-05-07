@@ -4,7 +4,8 @@
   "description": "Simple app using node and express",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js && gulp css"
+    "start": "node app.js",
+    "postinstall": "gulp css"
   },
   "author": "Michelle McGinty",
   "license": "ISC",

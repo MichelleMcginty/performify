@@ -74,6 +74,14 @@ block pageBody
 
         allWells.hide();
 
+        const slider = $('#ex1').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+
+
         navListItems.click(function (e) {
             e.preventDefault();
             var $target = $($(this).attr('href')),
@@ -112,14 +120,11 @@ block pageBody
             }
 
             if (isValid)
+                console.log('going to next page');
+                console.log('slider', slider[0].value);
                 nextStepWizard.removeAttr('disabled').trigger('click');
         });
-        $('#ex1').slider({
-          formatter: function(value) {
-            return 'Current value: ' + value;
-            console.log(value);
-          }
-        });
+
         $('div.setup-panel div a.btn-primary').trigger('click');
 
         $("#ex16a").slider({ min: 0, max: 10, value: 0, focus: true });

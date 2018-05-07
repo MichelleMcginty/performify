@@ -43,6 +43,10 @@ const UserSchema = mongoose.Schema({
   }]
 });
 
+const User = module.exports = mongoose.model('User', UserSchema);
+
+
+
 // module.exports.getAll = function(callback){ 
 // 	User.find().exec(callback);	
 // }
@@ -53,4 +57,3 @@ const UserSchema = mongoose.Schema({
 //     .exec(callback);
 // }
 
-const User = module.exports = mongoose.model('User', UserSchema);
