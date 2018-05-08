@@ -37,7 +37,7 @@ const transporter = nodemailer.createTransport({
 router.post('/login', function (req, res, next) {
   passport.authenticate('local-login', {  
     successRedirect: '/home',
-    failureRedirect: '/users/login',
+    failureRedirect: '/',
     failureFlash: true
   })(req, res, next);
 });
@@ -50,7 +50,7 @@ router.get('/logout', function (req, res, next) {
       if(err) {
         return next(err);
       } else {
-        return res.redirect('/users/login');
+        return res.redirect('/');
       }
     });
   }

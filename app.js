@@ -93,14 +93,14 @@ app.get('*', function(req, res, next){
 function requireLogin (req, res, next) {
   if (!req.user) {
     req.flash('success', 'Sorry you need to be logged in to view this page');
-    res.redirect('/users/login');
+    res.redirect('/');
   } else {
     next();
   }
 };
 
 app.get('/' ,function (req, res) {
-  res.render('index', {
+  res.render('login', {
     title: 'Index', 
     moment: moment
   });
