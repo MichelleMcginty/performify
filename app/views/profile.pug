@@ -2,67 +2,167 @@ extends layout
 
 block pageBody
 	.profile
+		if user
 		.container
-			.col-md-8.center.float-none
-				h2 Profile
-				table.table.table-bordered
-					thead.thead-light
-						tr
-							th(scope="col") Name
-							th(scope="col") Email
-							th(scope="col") Username
-							th(scope="col") Role
-							th(scope="col") Team
-							th(scope="col") Title
-					tbody
-						tr
-							td= user.name
-							td= user.name
-							td= user.username
-							td= user.role
-							td= user.team
-							td= user.title
-				a.btn.btn-default(style="width:20%;" href='/users/edit/'+user._id) Edit
-				br 
-				br 
-				if (user.role == "Management")
+			if (user.role == "Administrator")
+				.col-md-12.padding-top-md.padding-bottom-md
+					.card.info-card
+						.col-md-6.padding-top-md.padding-bottom-md
+							.img-hold
+								img(src="../images/user.jpeg", alt="", srcset="")
+						.col-md-6.padding-top-md.padding-bottom-md
+							.col-md-6.padding-left-lg.padding-bottom-md
+								h4 Name:
+								h4 Email:
+								h4 Role:
+								h4 Team:
+								h4 Job Title:
+							.col-md-6.padding-bottom-md
+								h4= user.name
+								h4= user.email
+								h4= user.role
+								h4= user.team
+								h4= user.title
+						br
+						.test.padding-left-md.padding-right-md.padding-bottom-sm
+							a.btn.btn-primary.center(style="display:flow-root; padding-left:5%; padding-right:5%; " href='/users/edit/'+user._id) Edit
+			else 
+				.col-md-5
+					.card.info-card
+						.hold
+							.img-hold
+								img(src="../images/user.jpeg", alt="", srcset="")
+							.col-md-6.padding-left-lg.padding-bottom-md
+								h4 Name:
+								h4 Email:
+								h4 Role:
+								h4 Team:
+								h4 Job Title:
+							.col-md-6.padding-bottom-md
+								h4= user.name
+								h4= user.email
+								h4= user.role
+								h4= user.team
+								h4= user.title
+						br
+						.test.padding-left-md.padding-right-md.padding-bottom-sm
+							a.btn.btn-primary.center(style="display:flow-root; padding-left:5%; padding-right:5%; " href='/users/edit/'+user._id) Edit
+					br 
+					br 
+					if (user.role == "Management")
+						h4 My Self Reviews
+							ul.list-group
+								each perReview, i in perReviewss
+									//- if (perReview.type="Self Review")
+									li.list-group-item.list-reviews
+										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm a, Do MMMM YYYY ")
+						br
+						br
+						h4 Last Submitted Engagement Survay
+							ul.list-group.engagement-view
+								each engagement, i in engagements
+									li.list-group-item.list-reviews
+										//- p= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
+										p= moment(engagement.date).format("h:mm a, Do MMMM YYYY ")
+					if (user.role =="Senior Management")
+						h4 My Self Reviews
+							ul.list-group
+								each perReview, i in perReviewss
+									li.list-group-item.list-reviews
+										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss, MMMM Do YYYY ") 
+						br
+						br
+						h4 Last Submitted Engagement Survay
+							ul.list-group.engagement-view
+								each engagement, i in engagements
+									li.list-group-item.list-reviews
+										//- p= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
+										p= moment(engagement.date).format("h:mm a, Do MMMM YYYY ")
+				.col-md-7
+					.center.float-none
+						canvas#userReviews(width="auto" height="507")
 					br
 					br
-					h4 My Self Reviews
-						ul.list-group
-							each perReview, i in perReviewss
-								//- if (perReview.type="Self Review")
-								li.list-group-item.list-reviews
-									a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
-					br
-					br
-					h4 My Reviews From Senior Management
-						ul.list-group
-							each perReview, i in perReviews
-								li.list-group-item.list-reviews
-									a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
-					br
-					br
-					h4 Last Submitted Engagement Survay
-						ul.list-group.engagement-view
-							each engagement, i in engagements
-								li.list-group-item.list-reviews
-									//- p= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
-									p= moment(engagement.date).format("h:mm:ss a, MMMM Do YYYY ")
-				if (user.role =="Senior Management")
-					br
-					br
-					h4 My Self Reviews New
-						ul.list-group
-							each perReview, i in perReviewss
-								//- if (perReview.type="Self Review")
-								li.list-group-item.list-reviews
-									a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss, MMMM Do YYYY ") 
-					br
-					br
-					h4 My Reviews From Senior Management
-						ul.list-group
-							each perReview, i in perReviews
-								li.list-group-item.list-reviews
-									a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
-	//- a.btn.btn-danger.delete-user.pull-right(style="width:20%;" href='#', data-id=user._id) Delete
+					if (user.role == "Management")
+						h4 My Reviews From Senior Management
+							ul.list-group
+								each perReview, i in perReviews
+									li.list-group-item.list-reviews
+										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm a, Do MMMM YYYY ")
+					if (user.role =="Senior Management")
+						h4 My Reviews From Senior Management
+							ul.list-group
+								each perReview, i in perReviews
+									li.list-group-item.list-reviews
+										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+
+
+	script.
+		$.get('http://localhost:3333/chartsEndpoints/getUserReviews', {}, function(data){
+			console.log(data);
+			let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
+			for (i in colors){
+				console.log(colors[i]);
+			}
+			let datasets = [];
+			let labels = [];
+			let scores = [];
+			for (let i of data) {
+				scores.push(i.overallResult);
+				//- console.log(i.userSelected);
+				//- console.log(i.overallResult);
+			};
+			datasets.push({
+				label: i.userSelected,
+				backgroundColor: colors[i],
+				data: scores,
+				opacity: 0.2,
+			});
+			var ctx = document.getElementById("userReviews").getContext('2d');
+			var userReviews = new Chart(ctx, {
+				type: 'line',
+				labels: ['Review 1', 'Review 2', 'Review 3'],
+				data: {
+						xLabels: ['Review 1',  'Review 2', 'Review 3'],
+						yLabels: ['outstanding',  'Exceeds Expectations' ,  'Meets Expectations' ,  'Needs Improvement', 'Unsatisfactory'],
+						datasets: datasets,
+				},
+				options: {
+					scales: {
+						xAxes: [{
+							display: true,
+							scaleLabel: {
+								display: true,
+								labelString: 'Review'
+							}
+						}],
+						yAxes: [{
+							type: 'category',
+							position: 'left',
+							display: true,
+							scaleLabel: {
+								display: true,
+								labelString: 'Review Result'
+							}
+						}]
+					},
+					maintainAspectRatio: false,
+					responsive: true,
+					title: {
+						display: true,
+						position: "top",
+						text: "My Last Three Performance Reviews ",				
+						fontSize: 20,
+						fontColor: "#111"
+					},
+					legend: {
+						display: false,
+						position: "bottom",
+						labels: {
+							fontColor: "#333",
+							fontSize: 16
+						}
+					}
+				}
+			});
+		});

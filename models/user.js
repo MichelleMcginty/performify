@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const PerReview = require('./performance_review');
 
 // User Schema
 const UserSchema = mongoose.Schema({
@@ -35,6 +36,25 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  // refrenece to performance review schema
+  reviews: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'PerReview',
+    required: false
+  }]
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
+
+
+
+// module.exports.getAll = function(callback){ 
+// 	User.find().exec(callback);	
+// }
+
+// module.exports.getUser= function(req,id, callback){
+//   User.findOne(req.params.id)
+//     .populate('reviews')
+//     .exec(callback);
+// }
+

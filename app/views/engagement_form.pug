@@ -10,10 +10,22 @@ block pageBody
             a.btn.btn-primary.btn-circle(href='#step-1', type='button') 1
             p Question 1
           .stepwizard-step
-            a.btn.btn-default.btn-circle(href='#step-2', type='button') 2
+            a.btn.btn-primary.btn-circle(href='#step-2', type='button' ) 2
             p Question 2
           .stepwizard-step
-            a.btn.btn-default.btn-circle(href='#step-3', type='button') 3
+            a.btn.btn-primary.btn-circle(href='#step-3', type='button') 3
+            p Question 3
+          .stepwizard-step
+            a.btn.btn-primary.btn-circle(href='#step-4', type='button') 4
+            p Question 4
+          .stepwizard-step
+            a.btn.btn-primary.btn-circle(href='#step-5', type='button') 5
+            p Question 5
+          .stepwizard-step
+            a.btn.btn-primary.btn-circle(href='#step-6', type='button') 6
+            p Question 6
+          .stepwizard-step
+            a.btn.btn-primary.btn-circle(href='#step-7', type='button') 7
             p Submit
       form(role='form', method='POST', action='/engagements/submit_engagement_survey')
         #step-1.row.setup-content
@@ -21,31 +33,13 @@ block pageBody
             .col-md-12
               h3  Question 1
               .form-group
-                label The people I work with treat me with respect
+                label On a scale of 1 - 10 do people I work with treat me with respect
                 br
-                //- Strongly DisagreeDisagree Neutral AgreeStrongly AgreeDon’t Know
-                .form-check
-                  input.form-check-input(type='radio', name='q1', value='Strongly Disagree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Strongly Disagree
-                .form-check
-                  input.form-check-input(type='radio', name='q1', value='Disagree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Disagree
-                .form-check
-                  input.form-check-input(type='radio', name='q1', value='Neutral')
-                  label.form-check-label(for='exampleRadios1')
-                    | Neutral
-                .form-check
-                  input.form-check-input(type='radio', name='q1', value='Agree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Agree
-                .form-check
-                  input.form-check-input(type='radio', name='q1', value='Strongly Agree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Strongly Agree
+                br
+                br
+                input#ex1(style="width:100%;" data-slider-id='ex1Slider', name="q1" ,type='text', data-slider-min='0', data-slider-max='10', data-slider-step='1', data-slider-value='14')
               //- button.btn.btn-primary.prevBtn.btn-lg.pull-left(type='button') Previous
-              button.btn.btn-primary.nextBtn.pull-right(type='button') Next
+              button.btn.btn-primary.nextBtn.pull-right(type='button') Next      
         #step-2.row.setup-content
           .col-md-8.center.float-none
             .col-md-12
@@ -53,30 +47,50 @@ block pageBody
               .form-group
                 label My supervisor creates a motivating and energizing workplace.
                 br
-                //- Strongly DisagreeDisagree Neutral AgreeStrongly AgreeDon’t Know
-                .form-check
-                  input.form-check-input(type='radio', name='q2', value='Strongly Disagree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Strongly Disagree
-                .form-check
-                  input.form-check-input(type='radio', name='q2', value='Disagree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Disagree
-                .form-check
-                  input.form-check-input(type='radio', name='q2', value='Neutral')
-                  label.form-check-label(for='exampleRadios1')
-                    | Neutral
-                .form-check
-                  input.form-check-input(type='radio', name='q2', value='Agree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Agree
-                .form-check
-                  input.form-check-input(type='radio', name='q2', value='Strongly Agree')
-                  label.form-check-label(for='exampleRadios1')
-                    | Strongly Agree
+                input#ex2(style="width:100%;" data-slider-id='ex2Slider', name="q2" ,type='text', data-slider-min='0', data-slider-max='10', data-slider-step='1', data-slider-value='14')
               button.btn.btn-primary.prevBtn.pull-left(type='button') Previous
               button.btn.btn-primary.nextBtn.pull-right(type='button') Next
         #step-3.row.setup-content
+          .col-md-8.center.float-none
+            .col-md-12
+              h3  Question 3
+              .form-group
+                label My supervisor creates a motivating and energizing workplace.
+                br
+                input#ex3(style="width:100%;" data-slider-id='ex3Slider', name="q3" ,type='text', data-slider-min='0', data-slider-max='10', data-slider-step='1', data-slider-value='14')
+              button.btn.btn-primary.prevBtn.pull-left(type='button') Previous
+              button.btn.btn-primary.nextBtn.pull-right(type='button') Next
+        #step-4.row.setup-content
+          .col-md-8.center.float-none
+            .col-md-12
+              h3  Question 4
+              .form-group
+                label My supervisor creates a motivating and energizing workplace.
+                br
+                input#ex4(style="width:100%;" data-slider-id='ex4Slider', name="q4" ,type='text', data-slider-min='0', data-slider-max='10', data-slider-step='1', data-slider-value='14')
+              button.btn.btn-primary.prevBtn.pull-left(type='button') Previous
+              button.btn.btn-primary.nextBtn.pull-right(type='button') Next
+        #step-5.row.setup-content
+          .col-md-8.center.float-none
+            .col-md-12
+              h3  Question 5
+              .form-group
+                label My supervisor creates a motivating and energizing workplace.
+                br
+                input#ex5(style="width:100%;" data-slider-id='ex5Slider', name="q5" ,type='text', data-slider-min='0', data-slider-max='10', data-slider-step='1', data-slider-value='14')
+              button.btn.btn-primary.prevBtn.pull-left(type='button') Previous
+              button.btn.btn-primary.nextBtn.pull-right(type='button') Next
+        #step-6.row.setup-content
+          .col-md-8.center.float-none
+            .col-md-12
+              h3  Question 6
+              .form-group
+                label My supervisor creates a motivating and energizing workplace.
+                br
+                input#ex6(style="width:100%;" data-slider-id='ex6Slider', name="q6" ,type='text', data-slider-min='0', data-slider-max='10', data-slider-step='1', data-slider-value='14')
+              button.btn.btn-primary.prevBtn.pull-left(type='button') Previous
+              button.btn.btn-primary.nextBtn.pull-right(type='button') Next
+        #step-7.row.setup-content
           .col-md-8.center.float-none
             .col-md-12
               h3 Submit
@@ -89,7 +103,51 @@ block pageBody
                 allNextBtn = $('.nextBtn'),
                 allPrevBtn = $('.prevBtn');
 
-        allWells.hide();
+      allWells.hide();
+
+        const slider1 = $('#ex1').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+        const slider2 = $('#ex2').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+        const slider3 = $('#ex3').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+        const slider4 = $('#ex4').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+        const slider5 = $('#ex5').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+        const slider6 = $('#ex6').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+        
+        //- const slider = $('#ex').slider({
+        //-   formatter: function(value) {
+        //-     return 'Current value: ' + value;
+        //-     console.log(value);
+        //-   }
+        //- });
 
         navListItems.click(function (e) {
             e.preventDefault();
@@ -129,8 +187,15 @@ block pageBody
             }
 
             if (isValid)
+                console.log('slider1', slider1[0].value);
+                console.log('slider2', slider2[0].value);
+                console.log('slider3', slider3[0].value);
+                console.log('slider4', slider4[0].value);
+                console.log('slider5', slider5[0].value);
+                console.log('slider6', slider6[0].value);
                 nextStepWizard.removeAttr('disabled').trigger('click');
         });
 
         $('div.setup-panel div a.btn-primary').trigger('click');
+
       });

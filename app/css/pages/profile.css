@@ -1,3 +1,9 @@
+.profile .info-card .img-hold {
+  display: flex; }
+  .profile .info-card .img-hold img {
+    width: 50%;
+    margin: auto; }
+
 .profile .engagement-view li {
   display: none; }
 

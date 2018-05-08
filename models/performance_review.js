@@ -12,12 +12,18 @@ const perReviewSchema = mongoose.Schema({
   author: {
     type: String
   },
+  authorRef: {
+    type: String
+  },
   authorTeam: {
     type: String
   },
   userSelected: {
     type: String,
     required: true
+  },
+  userEmail: {
+    type: String
   },
   teamwork: {
     type: String,

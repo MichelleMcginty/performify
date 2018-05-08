@@ -5,20 +5,60 @@ block pageBody
     if user
       .container
         if (user.role == "Employee")
-          .col-md-6.home-left-col
-            h1(style="margin-top:0;") Welcome to Performify 
-              span.user-name(style="color: gray; text-transform: capitalize; ") #{user.name}
-            a(class='button btn btn-primary btn-login',  href='/users/'+user._id) View Profile
-          .col-md-6.home-right-col
-            p Charts and stuff will go here
-              .img-border(style="border: 1px solid black; height:500px;")
+          .padding-top-sm
+            .col-md-5.home-left-col
+              h3(style="margin-top:0; padding-bottom: 15px;") Welcome to Performify 
+                span.user-name(style="color: gray; text-transform: capitalize; ") #{user.name}
+              br
+              h4 My Self Reviews
+              ul.list-group
+                each perReview, i in perReviewss
+                  li.list-group-item.list-reviews
+                    a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss, MMMM Do YYYY ") 
+              br
+              br
+              h4 My Reviews From Lead
+                ul.list-group
+                  each perReview, i in perReviews
+                    li.list-group-item.list-reviews
+                      a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+              br
+              br
+              h4 Last Submitted Engagement Survay
+                ul.list-group.engagement-view
+                  each engagement, i in engagements
+                    li.list-group-item.list-reviews
+                      p= moment(engagement.date).format("h:mm:ss a, MMMM Do YYYY ")
+            .col-md-7.home-right-col
+              .center.float-none
+                canvas#userReviews(width="auto" height="507")
+              br
+              br
+              a(class='button btn btn-default1 ', style="width: 100%;" href='/perReviews/add_self_review') Submit Self Review
+              br
+              br
+              br
+              a(class='button btn btn-default1', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Employee Enagagement Survay
         else if (user.role == "Management")
-          h3(style="margin-top:0;") Welcome 
+          h3(style="margin-top:0; padding-bottom: 15px;") Welcome 
             span.user-name(style="color: gray; text-transform: capitalize; ") #{ user.name}
-          .col-md-6.home-left-col
-          .col-md-6.home-right-col
-            .gen-chart.center.float-none
-              canvas#GenderRatioOnTeam(width="250" height="250")
+          .row
+            .col-md-7.home-left-col
+              .chart-col-8
+                canvas#PerformanceReviewAverage(width="250" height="250" style="display:block; height:400px; width:522px;")
+            .col-md-5.home-right-col
+              .chart-col-4.center.float-none
+                canvas#GenderRatioOnTeam(width="250" height="250")
+          .row.padding-top-md
+            .col-md-7.home-left-col
+              .div.center.padding-top-sm(style="width:60%")
+                .float-none.padding-top-md
+                  a(class='button btn btn-default1 btn-primary center', style="width: 100%; " href='/perReviews/add_employee_review') Submit Review for Employee
+            .col-md-5.home-right-col
+              .card.center.float-none(style="width:375px")
+                .center
+                  h3(style="font-size:20px; font-weight:700; margin-top: 10px; text-align:center;") Average Team Overall Result From Performance Review 
+                  h4#average(style="font-size:17px;  margin-top: 10px; text-align:center; color: slategrey; text-decoration: underline;")
         else if (user.role == "Senior Management")
           .col-md-6.home-left-col
             h1(style="margin-top:0;") Welcome
@@ -31,6 +71,8 @@ block pageBody
           h3(style="margin-top:0;") Welcome 
             span.user-name(style="color: gray; text-transform: capitalize; ") #{user.name}
           .col-md-6.home-left-col
+            .gen-chart.center.float-none
+              canvas#NumberPeopleOnTeams(width="250" height="250")
           .col-md-6.home-right-col
             .gen-chart.center.float-none
               canvas#GenderRatioChart(width="250" height="250")
@@ -40,17 +82,19 @@ block pageBody
         h2.text-center Please Login
         .btn-hold
           .btn-inner
-            a(class='button btn btn-default btn-success btn-login', style="width: 30%; margin-left: 35%;" href='/users/login') Login
+            a(class='button btn btn-default1 btn-login', style="width: 30%; margin-left: 35%;" href='/users/login') Login
               i.fas.fa-sign-in-alt(style="margin-left:10px;")
     script.
+      function randColour() {
+        return Math.ceil(Math.random() * 255);
+      }
+
       $.get('http://localhost:3333/chartsEndpoints/ListUsers', {}, function(data){
-        //- console.log(data);
         var g = data;
         let Female = 0;
         let Male = 0;
         let Transgender = 0;
         let Other = 0
-        
         for (var i = 0; i < g.length; i++) {
           if (g[i].gender === 'Female') {
             Female += 1;
@@ -72,49 +116,22 @@ block pageBody
           data: {
               labels: genderLabels,
               datasets: [{
-                  label: '# of Votes',
+                  label: 'Gender Ratio',
                   data:[Male , Female , Transgender , Other],
-                  backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
-                      //- 'rgba(54, 162, 235, 0.2)',
-                      //- 'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)'
-                  ],
-                  borderColor: [
-                      'rgba(255,99,132,1)',
-                      //- 'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)'
-                  ],
+                  backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(75, 192, 192, 0.2)','rgba(153, 102, 255, 0.2)','rgba(255, 159, 64, 0.2)'],
+                  borderColor: ['rgba(255,99,132,1)','rgba(255, 206, 86, 1)','rgba(75, 192, 192, 1)','rgba(153, 102, 255, 1)'],
                   borderWidth: 0
               }]
           },
           options: {
             responsive: true,
-            title: {
-              display: true,
-              position: "top",
-              text: "Gender Ratio",
-              fontSize: 20,
-              fontColor: "#111"
-            },
-            legend: {
-              display: true,
-              position: "bottom",
-              labels: {
-                fontColor: "#333",
-                fontSize: 16
-              }
-            }
+            title: { display: true, position: "top", text: "Gender Ratio", fontSize: 20, fontColor: "#111"},
+            legend: { display: true, position: "bottom", labels: { fontColor: "#333", fontSize: 16} }
           }
         });
       });
       $.get('http://localhost:3333/chartsEndpoints/team', {}, function(data){
-        console.log(data);
+        //- console.log(data);
         var g = data;
         let Female = 0;
         let Male = 0;
@@ -135,7 +152,7 @@ block pageBody
             Other+= 1;
           }
         }
-        console.log(g[0].team)
+        //- console.log(g[0].team)
         let genderLabels = ['Male', 'Female', 'Trangender' , 'Other'];
         var ctx = document.getElementById("GenderRatioOnTeam").getContext('2d');
         var GenderRatioOnTeam = new Chart(ctx, {
@@ -171,7 +188,7 @@ block pageBody
             title: {
               display: true,
               position: "top",
-              text: "Gender Ratio On Team:" + g[0].team,				
+              text: "Gender Ratio On Team: " + g[0].team,				
               fontSize: 20,
               fontColor: "#111"
             },
@@ -186,4 +203,313 @@ block pageBody
           }
         });
       });
+      $.get('http://localhost:3333/chartsEndpoints/teamOverallResult', {}, function(data){
+        //- console.log('graph' , data);
+          let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
+          for (i in colors){
+            console.log(colors[i]);
+          }
+          let datasets = [];
+          for (let user of data) {
+            let reviews = user.reviews;
+            let labels = [];
+            let scores = [];
+            for (let review of reviews) {
+              scores.push(review.overallResult);
+            }
+            datasets.push({
+              label: user.name,
+              backgroundColor: colors[Math.round(Math.random() * colors.length)],
+              data: scores,
+              opacity: 0.2,
+            })
+          }
+          console.log('----------------------',datasets);
+          var ctx = document.getElementById("PerformanceReviewAverage").getContext('2d');
+          var PerformanceReviewAverage = new Chart(ctx, {
+            type: 'line',
+            labels: ['Review 1', 'Review 2', 'Review 3'],
+            data: {
+                xLabels: ['Review 1',  'Review 2', 'Review 3'],
+                yLabels: ['outstanding',  'Exceeds Expectations' ,  'Meets Expectations' ,  'Needs Improvement', 'Unsatisfactory'],
+                datasets: datasets,
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Review'
+                  }
+                }],
+                yAxes: [{
+                  type: 'category',
+                  position: 'left',
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Review Result'
+                  }
+                }]
+              },
+              maintainAspectRatio: false,
+              responsive: true,
+              title: {
+                display: true,
+                position: "top",
+                text: "Team Performance Review Average ",				
+                fontSize: 20,
+                fontColor: "#111"
+              },
+              legend: {
+                display: true,
+                position: "bottom",
+                labels: {
+                  fontColor: "#333",
+                  fontSize: 16
+                }
+              }
+            }
+          });
+      });
+      $.get('http://localhost:3333/chartsEndpoints/listTeamAverage', {}, function(data){
+        console.log(data);
+        var div = document.getElementById('average');
+        div.innerHTML += data;
+      });
+      $.get('http://localhost:3333/chartsEndpoints/listUsers2', {}, function(data){
+        var g = data;
+        let Finance = 0;
+        let Marketing = 0;
+        let Testing = 0;
+        let Engineering = 0;
+        let Sales = 0;
+        let HR = 0;
+        let IT = 0;
+        let Support = 0;
+        //- Finance Marketing Testing Engineering Sales HR IT Support
+        for (var i = 0; i < g.length; i++) {
+          if (g[i].team === 'Finance') {
+            Finance += 1;
+          }
+          else if (g[i].team === 'Marketing') {
+            Marketing += 1;
+          }
+          else if (g[i].team === 'Testing') {
+            Testing += 1;
+          }
+          else if (g[i].team === 'Engineering') {
+            Engineering += 1;
+          }
+          else if (g[i].team === 'Sales') {
+            Sales += 1;
+          }
+          else if (g[i].team === 'HR') {
+            HR += 1;
+          }
+          else if (g[i].team === 'IT') {
+            IT += 1;
+          }
+          else {
+            Support+= 1;
+          }
+        }
+        let teamLabels = ['Finance', 'Marketing', 'Testing', 'Engineering', 'Sales', 'HR', 'IT', 'Support'];
+        var ctx = document.getElementById("NumberPeopleOnTeams").getContext('2d');
+        var NumberPeopleOnTeams = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+              labels: teamLabels,
+              datasets: [{
+                  label: '# of Votes',
+                  data:[Finance, Marketing, Testing, Engineering, Sales, HR, IT, Support],
+                  backgroundColor: [
+                      'rgba(255, 99, 132)',
+                      'rgba(75, 192, 192, 0.5)',
+                      'rgba(153, 102, 255, 0.5)',
+                      'rgba(255, 159, 64, 0.5)',
+                      'rgba(229, 158, 175, 0.5)',
+                      'rgba(65,79,111)',
+                      'rgba(153,153,204)',
+                      'rgba(254,255,163, 0.85)'
+                  ],
+                  borderColor: [
+                      'rgba(255,99,132,1)',
+                      //- 'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 0
+              }]
+          },
+          options: {
+            responsive: true,
+            title: {
+              display: true,
+              position: "top",
+              text: "Team Breakdown & Number of Teams: " + teamLabels.length,				
+              fontSize: 20,
+              fontColor: "#111"
+            },
+            legend: {
+              display: true,
+              position: "bottom",
+              labels: {
+                fontColor: "#333",
+                fontSize: 16
+              }
+            }
+          }
+        });
+      });
+      $.get('http://localhost:3333/chartsEndpoints/getUserReviews', {}, function(data){
+        console.log(data);
+        let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
+        for (i in colors){
+          console.log(colors[i]);
+        }
+        let datasets = [];
+        let labels = [];
+        let scores = [];
+        for (let i of data) {
+          scores.push(i.overallResult);
+          //- console.log(i.userSelected);
+          //- console.log(i.overallResult);
+        };
+        datasets.push({
+          label: i.userSelected,
+          backgroundColor: colors[i],
+          data: scores,
+          opacity: 0.2,
+        });
+        var ctx = document.getElementById("userReviews").getContext('2d');
+        var userReviews = new Chart(ctx, {
+          type: 'line',
+          labels: ['Review 1', 'Review 2', 'Review 3'],
+          data: {
+              xLabels: ['Review 1',  'Review 2', 'Review 3'],
+              yLabels: ['outstanding',  'Exceeds Expectations' ,  'Meets Expectations' ,  'Needs Improvement', 'Unsatisfactory'],
+              datasets: datasets,
+          },
+          options: {
+            scales: {
+              xAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Review'
+                }
+              }],
+              yAxes: [{
+                type: 'category',
+                position: 'left',
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Review Result'
+                }
+              }]
+            },
+            maintainAspectRatio: false,
+            responsive: true,
+            title: {
+              display: true,
+              position: "top",
+              text: "My Last Three Performance Reviews ",				
+              fontSize: 20,
+              fontColor: "#111"
+            },
+            legend: {
+              display: false,
+              position: "bottom",
+              labels: {
+                fontColor: "#333",
+                fontSize: 16
+              }
+            }
+          }
+        });
+      });
+      //- $.get('http://localhost:3333/chartsEndpoints/teamOverallResult', {}, function(data){
+      //-   var ctx = document.getElementById("PerformanceReviewAverage").getContext('2d');
+      //-   var PerformanceReviewAverage = new Chart(ctx, {
+      //-     type: 'line',
+      //-     labels: ['Review 1', 'Review 2', 'Review 3', 'Review 4', 'Review 5'],
+      //- });
+      
+      
+      //- window.onload = function() {
+      //-   var ctx = document.getElementById('PerformanceReviewAverage').getContext('2d');
+      //-   var PerformanceReviewAverage = new Chart(ctx, {
+      //-     type: 'line',
+      //-     data: {
+      //-       xLabels: ['Review 1',  'Review 2', 'Review 3' ],
+      //-       yLabels: [ 'Outstanding' ,'Exceeds Expectations' , 'Meets Expectations' ,'Needs Improvement', 'Unsatisfactory'],
+      //-       //- labels: ['Review 1', 'Review 2', 'Review 3'],
+      //-       datasets: [{
+      //-         label: 'Mark McCarthy',
+      //-         data: ['Needs Improvement', 'Meets Expectations', 'Exceeds Expectations'],
+      //-         backgroundColor: "rgba(255, 99, 132, 0.45)"
+      //-       }, {
+      //-         label: 'Daniel Kenny',
+      //-         data: ['Unsatisfactory','Exceeds Expectations', 'Outstanding'],
+      //-         backgroundColor: "rgba(75, 192, 192, 0.45)"
+      //-       }, {
+      //-         label: 'Jennifer Kelleher',
+      //-         data: ['Meets Expectations', 'Needs Improvement',  'Meets Expectations'],
+      //-         backgroundColor: "rgba(153, 102, 255, 0.45)"
+      //-       }, {
+      //-         label: 'Julie Smith',
+      //-         data: ['Exceeds Expectations', 'Outstanding',  'Meets Expectations'],
+      //-         backgroundColor: " rgba(229, 158, 175, 0.45)"
+      //-       }]
+      //-     },
+          
+      //-     options: {
+      //-       scales:{
+      //-         //- defaultFontSize: 22,
+      //-         xAxes: [{
+      //-           display: true,
+      //-           scaleLabel: {
+      //-             display: true,
+      //-             labelString: 'Review',
+      //-             fontSize: 16
+      //-           }
+      //-         }],
+      //-         yAxes: [{
+      //-           type: 'category',
+      //-           position: 'left',
+      //-           display: true,
+      //-           fontSize: 16,
+      //-           scaleLabel: {
+      //-             display: true,
+      //-             fontSize: 16,
+      //-             labelString: 'Result'
+      //-           }
+      //-         }]
+      //-       },
+      //-        maintainAspectRatio: false,
+      //-       //- responsive: true,
+      //-       title: {
+      //-         display: true,
+      //-         position: "top",
+      //-         text: "Overall Result For The Last Three Performance Reviews",	
+      //-         padding: 15,
+      //-         fontSize: 20,
+      //-         fontColor: "#111"
+      //-       },
+      //-       legend: {
+      //-         display: true,
+      //-         position: "bottom",
+      //-         labels: {
+      //-           fontColor: "#333",
+      //-           fontSize: 16
+      //-         }
+      //-       }
+      //-     }
+      //-   });
+      //- };
 

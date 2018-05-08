@@ -4,8 +4,8 @@ block pageBody
 	if user
 		.container.padding-top-sm
 			if (user.role == "Management")
-				.col-md-6.center.float-none
-					h3 Manager Review Dashboard
+				.col-xs-6
+					h3 Reviews
 					br 
 					br
 					h4 My Employees
@@ -13,17 +13,17 @@ block pageBody
 							each user, i in users 
 								li.list-group-item.list-reviews
 									a(href='/users/profile/'+user.username)= user.name
+				.col-xs-6.padding-top-xl
+					br
+					a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_employee_review') Submit Review for Employee
 					br
 					br
 					br
-					a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_employee_review') Submit Review for Employee
-					br
-					br 
-					br
-					a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_self_review') New Submit Self Review
+					a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_self_review') Submit Self Review
 					br
 					br
-					a(class='button btn btn-default btn-success', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Employee Enagagement Survay
+					br
+					a(class='button btn btn-default1', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Employee Enagagement Survay
 			else if (user.role == "Employee")
 				.col-md-6.center.float-none 
 					h3 Employee Review Dashboard
@@ -32,7 +32,6 @@ block pageBody
 					h4 My Self Reviews New
 					ul.list-group
 						each perReview, i in perReviewss
-							//- if (perReview.type="Self Review")
 							li.list-group-item.list-reviews
 								a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss, MMMM Do YYYY ") 
 					br
@@ -51,13 +50,10 @@ block pageBody
 									p= moment(engagement.date).format("h:mm:ss a, MMMM Do YYYY ")
 					br
 					br
-					a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_self_review') Submit Self Review  
-					br
-					br
-					a(class='button btn btn-default btn-success', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Employee Enagagement Survay
+					a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_self_review') Submit Self Review  
 					//- a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review
 			else if (user.role == "Administrator")
-				.col-md-6
+				.col-md-6.float-none.center
 					h3.margin-top-none List of Employees
 					table.table.table-bordered.table-hover
 						thead
@@ -78,9 +74,6 @@ block pageBody
 					br
 					br
 					a(class='button btn btn-primary', style="width: 100%; " href='/users/add') Add a new Employee
-				.col-md-6 
-					.center.float-none
-						canvas#NumberPeopleOnTeams(width="250" height="250")
 			else if (user.role == "Senior Management") 
 				br
 				br
@@ -106,19 +99,19 @@ block pageBody
 					//-                 a(href='/users/profile/'+users.username)= users.name
 					br
 					br
-					a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_manager_review') Submit Review for Manager
+					a(class='button btn btn-default1 ', style="width: 100%;" href='/perReviews/add_manager_review') Submit Review for Manager
 					br
 					br
-					a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_Senior_manager_review') Submit Review for Senior Manager
+					a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_Senior_manager_review') Submit Review for Senior Manager
 					br
 					br
-					a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_self_review') New Submit Self Review
-			else 
-				p Uh Oh! You are not supposed to be here.
-				a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
-	else 
-		p Uh Oh! You are not supposed to be here.
-		a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
+					a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_self_review') New Submit Self Review
+			//- else 
+			//- 	p Uh Oh! You are not supposed to be here.
+			//- 	a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
+	//- else 
+	//- 	p Uh Oh! You are not supposed to be here.
+	//- 	a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
 	script.
 		$.get('http://localhost:3333/chartsEndpoints/listUsers2', {}, function(data){
 			var g = data;

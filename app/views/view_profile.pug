@@ -1,62 +1,131 @@
 extends layout
 
 block pageBody
-    if user
-        .container
-            .col-md-8.center.float-none
+    .view_profile.padding-top-sm
+        if user
+            .container
                 if (user.role =="Administrator")
-                    h2 Profile
-                    table.table.table-bordered
-                        thead.thead-light
-                        tr
-                            th(scope="col") Name
-                            th(scope="col") Email
-                            th(scope="col") Role
-                            th(scope="col") Team
-                            th(scope="col") Title
-                        tbody
-                        tr
-                            td= users[0].name
-                            td= users[0].email
-                            td= users[0].role
-                            td= users[0].team
-                            td= users[0].title
-                    a.btn.btn-default(style="width:20%;" href='/users/view/edit/'+users[0].username) Edit
-                    a.btn.btn-danger.delete-user-profile.pull-right(style="width:20%;" href='#', data-id=users[0].username) Delete
+                    .col-md-8.center.float-none
+                        h2 Profile
+                        table.table.table-bordered
+                            thead.thead-light
+                            tr
+                                th(scope="col") Name
+                                th(scope="col") Email
+                                th(scope="col") Role
+                                th(scope="col") Team
+                                th(scope="col") Title
+                            tbody
+                            tr
+                                td= users[0].name
+                                td= users[0].email
+                                td= users[0].role
+                                td= users[0].team
+                                td= users[0].title
+                        a.btn.btn-default1(style="width:20%;" href='/users/view/edit/'+users[0].username) Edit
+                        a.btn.btn-danger.delete-user-profile.pull-right(style="width:20%;" href='#', data-id=users[0].username) Delete
                 else
-                    h2 #{users[0].name}'s Profile
-                    .row
-                        .col-xs-2
-                            h4 Name
-                            h4 Team
-                            h4 Title
-                        .col-xs-10
-                            h4= users[0].name
-                            h4= users[0].team
-                            h4= users[0].title
-                    br
-                    br
-                    h2 #{users[0].name}'s Self Reviews
-                    //- each article, i in articles
-                    //-     li.list-group-item.list-reviews
-                    //-         a(href='/articles/'+article._id)= moment(article.date).format("h:mm:ss a, MMMM Do YYYY ")
-                    //- if (perReview.type="Self Review")
-                    ul.list-group
-                        each perReview, i in perReviewss
-                            li.list-group-item.list-reviews
-                                a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss, MMMM Do YYYY ") 
-                    br
-                    br
-                    h2 #{users[0].name}'s Performance Reviews
-                    each perReview, i in perReviews
-                        li.list-group-item.list-reviews
-                            a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
-
-    else
-        .col-md-6.center.float-none
-            h1 Welcome to Performify
-            h2.text-center Please Login
-                .btn-hold
-                    .btn-inner
-                        a(class='button btn btn-default btn-success btn-login', style="width: 30%;" href='/users/login') Login
-                            i.fas.fa-sign-in-alt(style="margin-left:10px;")
+                    .col-md-5
+                        .col-xs-12.card.margin-bottom-md
+                            .holder
+                                .info-card
+                                    .img-hold(style="display:flex;")
+                                        img.center(src="../../images/user.jpeg", alt="", srcset="")
+                                    .col-xs-6.padding-left-lg.padding-bottom-md
+                                        h4 Name
+                                        h4 Team:
+                                        h4 Job Title:
+                                    .col-xs-6.padding-bottom-md
+                                        h4= users[0].name
+                                        h4= users[0].team
+                                        h4= users[0].title
+                        .div                 
+                            h3 #{users[0].name}'s Self Reviews
+                            ul.list-group
+                                each perReview, i in perReviewss
+                                    li.list-group-item.list-reviews
+                                        a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss, MMMM Do YYYY ") 
+                    .col-md-7
+                        .center.float-none
+                            canvas#userReviews(width="auto" height="400")
+                        .padding-top-sm.padding-left-xs.padding-right-sm
+                            h3 #{users[0].name}'s Performance Reviews
+                                each perReview, i in perReviews
+                                    li.list-group-item.list-reviews
+                                        a(href='/perReviews/'+perReview._id style="font-size:19px;")= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
+        else
+            .col-md-6.center.float-none
+                h1 Welcome to Performify
+                h2.text-center Please Login
+                    .btn-hold
+                        .btn-inner
+                            a(class='button btn btn-default1 btn-login', style="width: 30%;" href='/users/login') Login
+                                i.fas.fa-sign-in-alt(style="margin-left:10px;")
+        script.
+            const url = new URL(window.location);
+            const username = url.pathname.split('/')[3];
+            $.get('http://localhost:3333/chartsEndpoints/getUserReviews/' + username , {}, function(data){
+                console.log(data);
+                let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
+                for (i in colors){
+                    console.log(colors[i]);
+                }
+                let datasets = [];
+                let scores = [];
+                for (let i of data) {
+                    scores.push(i.overallResult);
+                };
+                datasets.push({
+                    label: i.userSelected,
+                    backgroundColor: colors[3],
+                    data: scores,
+                    opacity: 0.2,
+                });
+                var ctx = document.getElementById("userReviews").getContext('2d');
+                var userReviews = new Chart(ctx, {
+                    type: 'line',
+                    labels: ['Review 1', 'Review 2', 'Review 3'],
+                    data: {
+                        xLabels: ['Review 1',  'Review 2', 'Review 3'],
+                        yLabels: ['outstanding',  'Exceeds Expectations' ,  'Meets Expectations' ,  'Needs Improvement', 'Unsatisfactory'],
+                        datasets: datasets,
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Review'
+                                }
+                            }],
+                            yAxes: [{
+                                type: 'category',
+                                position: 'left',
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Review Result'
+                                }
+                            }]
+                        },
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        title: {
+                            display: true,
+                            position: "top",
+                            text: data[0].userSelected +  "'s Last Three Performance Reviews",				
+                            fontSize: 20,
+                            fontColor: "#111"
+                        },
+                        legend: {
+                            display: false,
+                            position: "bottom",
+                            labels: {
+                                fontColor: "#333",
+                                fontSize: 16
+                            }
+                        }
+                    }
+                });
+            });

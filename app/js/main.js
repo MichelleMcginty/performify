@@ -58,6 +58,25 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+  $('.delete-review').on('click', function(e){
+    $target = $(e.target);
+    const id = $target.attr('data-id');
+
+    $.ajax({
+      type: 'DELETE',
+      url: '/perReviews/'+id,
+      success: function (response){
+        alert('Deleting dynamic review');
+        window.location.href='/managerdashboard';
+      },
+      error: function(err){
+        console.error(err);
+      }
+    });
+  });
+});
+
+$(document).ready(function(){
   $('.delete-dynamic').on('click', function(e){
     $target = $(e.target);
     const id = $target.attr('data-id');

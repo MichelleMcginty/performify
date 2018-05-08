@@ -1,5 +1,20 @@
-.home .container .home-right-col .gen-chart {
-  height: 375px;
-  width: 375px; }
-  .home .container .home-right-col .gen-chart h2 {
+.home .container .home-right-col .chart-col-4 {
+  position: relative;
+  height: 375px !important;
+  width: 375px !important; }
+  .home .container .home-right-col .chart-col-4 h2 {
     text-align: center; }
+
+.home .container .home-right-col .card {
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
+  box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
+  background: white;
+  border-radius: 4px;
+  padding: 10px; }
+
+.home .container .home-left-col .chart-col-8 {
+  display: block;
+  position: relative;
+  height: 375px !important;
+  width: 669px !important; }

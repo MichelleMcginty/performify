@@ -12,8 +12,10 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const MongoStore = require('connect-mongo')(session);
 var http = require('http').Server(app);
-const User = require('./models/user');
 var Chart = require('chart.js');
+const nodemail = require('nodemailer');
+
+const User = require('./models/user');
 const Engagement = require('./models/engagement_form')
 const PerReview = require('./models/performance_review');
 
@@ -48,7 +50,7 @@ app.use(session({
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: true,
-  // store: new MongoStore({ url: dbURL })
+  store: new MongoStore({ url: "mongodb://michellemcginty:Carrignavar95@ds229909.mlab.com:29909/performify-start" })
 }));
 
 // Express Messages Middleware
@@ -105,6 +107,34 @@ app.get('/' ,function (req, res) {
 });
 
 app.get('/home' ,function (req, res) {
+  if (req.user.role == "Employee"){
+    PerReview.find({userSelected:req.user.username, type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
+      if (err) {
+        res.status(500).send(err);
+        console.error(err);
+      }
+      PerReview.find({author:req.user.name, type:"Self Review"}).sort('-date').exec(function(err, perReviewss){
+        if (err) {
+          res.status(500).send(err);
+          console.error(err);
+        } 
+        Engagement.find({author:req.user.name}).sort('-date').exec(function(err, engagements){
+          if (err) {
+            res.status(500).send(err);
+            console.error(err);
+          }
+          res.render('home', {
+            engagements:engagements,
+            perReviewss: perReviewss,
+            perReviews: perReviews,
+            users: users,
+            moment: moment
+          });
+        });
+      });
+    });
+  } 
+  else
   res.render('home', {
     title: 'Home', 
     moment: moment
@@ -118,20 +148,21 @@ app.get('/engagement_form' ,function (req, res) {
   });
 });
 
-// var isAuthenticated = function (req, res, next) {
-//   if (req.isAuthenticated())
-//     return next();
-//   res.redirect('/');
-// }
-// if (err) {
-//   res.status(500).send(err);
-//   console.error(err);
-// } else {
-// res.render('view_profile', {
-//     users: users
-//   });
-//   console.log(users);
-// }
+app.get('/engagement_dashboard', requireLogin ,function(req, res){
+  Engagement.find({authorTeam:req.user.team}).sort('-date').limit(8).exec(function(err, engagements){
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    } else
+    console.log(engagements);
+    res.render('engagement_dashboard', {
+      engagements:engagements,
+      moment:moment
+    });
+    console.log(engagements);
+  });
+});
+
 app.get('/managerdashboard', requireLogin, (req, res) => {
     User.find({team:req.user.team, role:"Employee" }, function(err, users){
       if(err){
@@ -147,40 +178,16 @@ app.get('/managerdashboard', requireLogin, (req, res) => {
       // console.log(req.user._id);
       // console.log(req.user.id);
     });
-
-    // delete session object
-    // req.session.destroy(function(err) {
-    //   if(err) {
-    //     return next(err);
-    //   } else {
-    //     return res.redirect('/users/login');
-    //   }
-    // });
-  // User.find({team:req.user._id}, function(err, users){
-  //   User.find({team:req.user.team}, function(err, users){
-  //   if(err){
-  //     res.status(500).send(err);
-  //     console.log(err);
-  //     res.render('/login');
-  //   } else {
-  //     res.render('manager-dashboard', {
-  //       users: users
-  //     });
-  //   } 
-  //   // console.log(req.user.userid);
-  //   // console.log(req.user._id);
-  //   // console.log(req.user.id);
-  // });
 });
 
 
 app.get('/employeedashboard', requireLogin,(req, res) => {
-  PerReview.find({userSelected:req.user.name, type:"Performance Review"}, function(err, perReviews){
+  PerReview.find({userSelected:req.user.username, type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
     if (err) {
       res.status(500).send(err);
       console.error(err);
     }
-    PerReview.find({author:req.user.name, type:"Self Review"}, function(err, perReviewss){
+    PerReview.find({author:req.user.name, type:"Self Review"}).sort('-date').exec(function(err, perReviewss){
       if (err) {
         res.status(500).send(err);
         console.error(err);
@@ -201,6 +208,34 @@ app.get('/employeedashboard', requireLogin,(req, res) => {
     });
   });
 });
+
+// app.get('/employee', requireLogin,(req, res) => {
+//   PerReview.find({userSelected:req.user.username, type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
+//     if (err) {
+//       res.status(500).send(err);
+//       console.error(err);
+//     }
+//     PerReview.find({author:req.user.name, type:"Self Review"}).sort('-date').exec(function(err, perReviewss){
+//       if (err) {
+//         res.status(500).send(err);
+//         console.error(err);
+//       } 
+//       Engagement.find({author:req.user.name}).sort('-date').exec(function(err, engagements){
+//         if (err) {
+//           res.status(500).send(err);
+//           console.error(err);
+//         }
+//         res.render('home', {
+//           engagements:engagements,
+//           perReviewss: perReviewss,
+//           perReviews: perReviews,
+//           users: users,
+//           moment: moment
+//         });
+//       });
+//     });
+//   });
+// });
 
 
 app.get('/admin-employee-dashboard', requireLogin,(req, res) => {

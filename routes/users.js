@@ -5,15 +5,34 @@ const passport = require('passport');
 const sortBy = require('sort-by');
 const expressValidator = require('express-validator');
 const app = express();
+var mongoose = require('mongoose');
 const moment = require('moment');
+const nodemailer = require('nodemailer');
 app.use(expressValidator());
 
-// Article model
+// models
 const User = require('../models/user');
 const PerReview = require('../models/performance_review');
 const Engagement = require('../models/engagement_form');
 
 
+// .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i");
+
+
+
+//nodemailer set up
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  port: 25,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: 'performifyapp@gmail.com', //  user
+    pass: 'michellefyp999'  // password
+  },
+  tls:{
+    rejectUnauthorized:false
+  }
+});
 
 router.post('/login', function (req, res, next) {
   passport.authenticate('local-login', {  
@@ -31,7 +50,7 @@ router.get('/logout', function (req, res, next) {
       if(err) {
         return next(err);
       } else {
-        return res.redirect('/home');
+        return res.redirect('/users/login');
       }
     });
   }
@@ -53,7 +72,7 @@ router.get('/add', function (req, res) {
   });
 });
 
-// // submit new article 
+// add new employee to the system 
 router.post('/add', (req, res)  => {
   const name = req.body.name;
   const email = req.body.email;
@@ -110,6 +129,34 @@ router.post('/add', (req, res)  => {
             req.flash('error', 'Username already in the DB');
             res.redirect('/users/add')
           } else {
+            //get new users email
+            const email = req.body.email;
+            // body of email
+            const output = `
+              <h1 style='color:blue;'>Welcome to Performify <span style="color:grey; font-style: italic;"> ${req.body.name} </span> </h1>
+              <br>
+              <h2> Your generated username is <span style="color:grey; font-style: italic;">${req.body.username}</span></h2>
+              <h2> Your generated password is <span style="color:grey; font-style: italic;">${req.body.password}</span></h2>
+              <br>
+              <h3> We highly recommend you to change your password once you login </h3>
+            `;
+            //setting up to and from for the email
+            let mailOptions = {
+              from: '"Performify" <performifyapp@gmail.com>', // sender email address
+              to: email, // receiver of email - new employee
+              subject: 'Welcome to Performify', // subject of email
+              html: output // body of email 
+            };
+            //send mail and console the id
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                return console.log(error);
+              }
+              console.log('Message sent: %s', info.messageId);
+              console.log('User added, Email sent')
+            });
+
+            // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
             req.session.userId = user._id;
             console.log("Employee added")
             console.log("Registering user: " + req.body.name);
@@ -121,6 +168,8 @@ router.post('/add', (req, res)  => {
     })
   }
 });
+
+
 
   // load edit form
 router.get('/edit/:id', function (req, res) {
@@ -174,6 +223,39 @@ router.get('/list', function (req, res) {
     }
   });
 });
+
+// router.get('/test', function (req, res) {
+//   User.findOne({ id: req.params.id }, function(error, user) {
+//     if (error) {
+//       return handleError(error);
+//     }
+//     user.reviews = reviews;
+//     console.log(user.reviews.type); // prints "Ian Fleming"
+//   });
+// });
+// router.get('/test', function (req, res) {
+//   User.findById(req.params.id)
+//     .populate('reviews')
+//     .exec(function (err, user, docs) {
+//     // if (err) return handleError(err);
+//       console.log(docs);
+//       // console.log(user.reviews);
+//     // prints "The author is Ian Fleming"
+//   });
+// });
+
+
+
+// router.get('/getUser', function (req, res) {
+//   User.findById(req.params.id, function (err, user) {
+//     .populate('reviews')
+// 		res.render('profile', { 
+//       user: user
+//     }); 
+//     console.log(user.reviews);
+// 	}); 
+// });
+
 
 router.get('/:id', function (req, res) {
   User.findById(req.params.id, function (err, user) {
@@ -243,14 +325,14 @@ router.get('/view/:username', function (req, res) {
 //     // console.log("hello one" + user.name);
 //   });
 // });
-
+// ).sort('-date').limit(3).exec(function(err, perreviews){
 router.get('/profile/:username', function (req, res) {
   User.find({username:req.params.username}, function (err, users) {
     if (err) {
       res.status(500).send(err);
       console.error(err);
     }
-    PerReview.find({userSelected:users[0].name , type:"Performance Review"}, function(err, perReviews){
+    PerReview.find({userSelected:users[0].username , type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
       if (err) {
         res.status(500).send(err);
         console.error(err);
@@ -264,7 +346,7 @@ router.get('/profile/:username', function (req, res) {
           perReviewss: perReviewss,
           perReviews: perReviews,
           users: users,
-          moment: moment
+          moment: moment,
         });
       });
     });
@@ -287,10 +369,10 @@ router.post('/edit/:id', function (req, res) {
   let user = {};
   user.name = req.body.name;
   user.email = req.body.email;
-  user.username = req.body.username;
-  user.role = req.body.role;
-  user.team = req.body.team;
-  user.title = req.body.title;
+  // user.username = req.body.username;
+  // user.role = req.body.role;
+  // user.team = req.body.team;
+  // user.title = req.body.title;
   user.gender = req.body.gender;
 
   let query = {
