@@ -259,12 +259,12 @@ router.get('/list', function (req, res) {
 
 router.get('/:id', function (req, res) {
   User.findById(req.params.id, function (err, user) {
-    PerReview.find({userSelected:user.name , type:"Performance Review"}, function(err, perReviews){
+    PerReview.find({userSelected:user.name , type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
       if (err) {
         res.status(500).send(err);
         console.error(err);
       }
-      PerReview.find({author:user.name, type:"Self Review"}, function(err, perReviewss){
+      PerReview.find({author:user.name, type:"Self Review"}).sort('-date').exec(function(err, perReviewss){
         if (err) {
           res.status(500).send(err);
           console.error(err);
