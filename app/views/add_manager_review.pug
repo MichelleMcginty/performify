@@ -175,7 +175,8 @@ block pageBody
           br
           textarea.form-control(name='comments')
         br
-        input.btn.btn-primary(type='submit', value='Submit' style="margin-left:15px;")
+        a.btn.btn-danger(style="margin-left:15px; width:20%;" href='/senior-dashboard') Cancel
+        input.btn.btn-primary.pull-right(type='submit', value='Submit' style="margin-left:15px;")
 
     script.
       $(document).ready(function(){

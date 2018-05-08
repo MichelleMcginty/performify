@@ -77,11 +77,12 @@ block pageBody
 			else if (user.role == "Senior Management") 
 				br
 				br
-				h4 Team Managers
-					ul.list-group
-						each user, i in users 
-							li.list-group-item.list-reviews
-								a(href='/users/profile/'+user.username)= user.name
+				.col-md-6.float-none.center
+					h4 Team Managers
+						ul.list-group
+							each user, i in users 
+								li.list-group-item.list-reviews
+									a(href='/users/profile/'+user.username)= user.name
 					//- include 
 					//- h4 Senior Managers
 					//-     ul.list-group
