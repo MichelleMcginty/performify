@@ -36,6 +36,7 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  // refrenece to performance review schema
   reviews: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'PerReview',

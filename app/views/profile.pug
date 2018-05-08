@@ -50,19 +50,10 @@ block pageBody
 					br 
 					br 
 					if (user.role == "Management")
-						br
-						br
 						h4 My Self Reviews
 							ul.list-group
 								each perReview, i in perReviewss
 									//- if (perReview.type="Self Review")
-									li.list-group-item.list-reviews
-										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm a, Do MMMM YYYY ")
-						br
-						br
-						h4 My Reviews From Senior Management
-							ul.list-group
-								each perReview, i in perReviews
 									li.list-group-item.list-reviews
 										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm a, Do MMMM YYYY ")
 						br
@@ -74,25 +65,37 @@ block pageBody
 										//- p= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
 										p= moment(engagement.date).format("h:mm a, Do MMMM YYYY ")
 					if (user.role =="Senior Management")
-						br
-						br
-						h4 My Self Reviews New
+						h4 My Self Reviews
 							ul.list-group
 								each perReview, i in perReviewss
-									//- if (perReview.type="Self Review")
 									li.list-group-item.list-reviews
 										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss, MMMM Do YYYY ") 
 						br
 						br
+						h4 Last Submitted Engagement Survay
+							ul.list-group.engagement-view
+								each engagement, i in engagements
+									li.list-group-item.list-reviews
+										//- p= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
+										p= moment(engagement.date).format("h:mm a, Do MMMM YYYY ")
+				.col-md-7
+					.center.float-none
+						canvas#userReviews(width="auto" height="507")
+					br
+					br
+					if (user.role == "Management")
+						h4 My Reviews From Senior Management
+							ul.list-group
+								each perReview, i in perReviews
+									li.list-group-item.list-reviews
+										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm a, Do MMMM YYYY ")
+					if (user.role =="Senior Management")
 						h4 My Reviews From Senior Management
 							ul.list-group
 								each perReview, i in perReviews
 									li.list-group-item.list-reviews
 										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
 
-				.col-md-7
-					.center.float-none
-						canvas#userReviews(width="auto" height="507")
 
 	script.
 		$.get('http://localhost:3333/chartsEndpoints/getUserReviews', {}, function(data){

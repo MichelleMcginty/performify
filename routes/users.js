@@ -50,7 +50,7 @@ router.get('/logout', function (req, res, next) {
       if(err) {
         return next(err);
       } else {
-        return res.redirect('/home');
+        return res.redirect('/users/login');
       }
     });
   }
@@ -332,7 +332,7 @@ router.get('/profile/:username', function (req, res) {
       res.status(500).send(err);
       console.error(err);
     }
-    PerReview.find({userSelected:users[0].name , type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
+    PerReview.find({userSelected:users[0].username , type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
       if (err) {
         res.status(500).send(err);
         console.error(err);
@@ -369,10 +369,10 @@ router.post('/edit/:id', function (req, res) {
   let user = {};
   user.name = req.body.name;
   user.email = req.body.email;
-  user.username = req.body.username;
-  user.role = req.body.role;
-  user.team = req.body.team;
-  user.title = req.body.title;
+  // user.username = req.body.username;
+  // user.role = req.body.role;
+  // user.team = req.body.team;
+  // user.title = req.body.title;
   user.gender = req.body.gender;
 
   let query = {

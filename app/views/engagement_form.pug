@@ -10,22 +10,22 @@ block pageBody
             a.btn.btn-primary.btn-circle(href='#step-1', type='button') 1
             p Question 1
           .stepwizard-step
-            a.btn.btn-default.btn-circle(href='#step-2', type='button' ) 2
+            a.btn.btn-primary.btn-circle(href='#step-2', type='button' ) 2
             p Question 2
           .stepwizard-step
             a.btn.btn-primary.btn-circle(href='#step-3', type='button') 3
             p Question 3
           .stepwizard-step
-            a.btn.btn-default.btn-circle(href='#step-4', type='button') 4
+            a.btn.btn-primary.btn-circle(href='#step-4', type='button') 4
             p Question 4
           .stepwizard-step
-            a.btn.btn-default.btn-circle(href='#step-5', type='button') 5
+            a.btn.btn-primary.btn-circle(href='#step-5', type='button') 5
             p Question 5
           .stepwizard-step
-            a.btn.btn-default.btn-circle(href='#step-6', type='button') 6
+            a.btn.btn-primary.btn-circle(href='#step-6', type='button') 6
             p Question 6
           .stepwizard-step
-            a.btn.btn-default.btn-circle(href='#step-7', type='button') 7
+            a.btn.btn-primary.btn-circle(href='#step-7', type='button') 7
             p Submit
       form(role='form', method='POST', action='/engagements/submit_engagement_survey')
         #step-1.row.setup-content
@@ -105,97 +105,97 @@ block pageBody
 
       allWells.hide();
 
-      //-   const slider1 = $('#ex1').slider({
-      //-     formatter: function(value) {
-      //-       return 'Current value: ' + value;
-      //-       console.log(value);
-      //-     }
-      //-   });
-      //-   const slider2 = $('#ex2').slider({
-      //-     formatter: function(value) {
-      //-       return 'Current value: ' + value;
-      //-       console.log(value);
-      //-     }
-      //-   });
-      //-   const slider3 = $('#ex3').slider({
-      //-     formatter: function(value) {
-      //-       return 'Current value: ' + value;
-      //-       console.log(value);
-      //-     }
-      //-   });
-      //-   const slider4 = $('#ex4').slider({
-      //-     formatter: function(value) {
-      //-       return 'Current value: ' + value;
-      //-       console.log(value);
-      //-     }
-      //-   });
-      //-   const slider5 = $('#ex5').slider({
-      //-     formatter: function(value) {
-      //-       return 'Current value: ' + value;
-      //-       console.log(value);
-      //-     }
-      //-   });
-      //-   const slider6 = $('#ex6').slider({
-      //-     formatter: function(value) {
-      //-       return 'Current value: ' + value;
-      //-       console.log(value);
-      //-     }
-      //-   });
+        const slider1 = $('#ex1').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+        const slider2 = $('#ex2').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+        const slider3 = $('#ex3').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+        const slider4 = $('#ex4').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+        const slider5 = $('#ex5').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
+        const slider6 = $('#ex6').slider({
+          formatter: function(value) {
+            return 'Current value: ' + value;
+            console.log(value);
+          }
+        });
         
-      //-   //- const slider = $('#ex').slider({
-      //-   //-   formatter: function(value) {
-      //-   //-     return 'Current value: ' + value;
-      //-   //-     console.log(value);
-      //-   //-   }
-      //-   //- });
-
-      //-   navListItems.click(function (e) {
-      //-       e.preventDefault();
-      //-       var $target = $($(this).attr('href')),
-      //-               $item = $(this);
-
-      //-       if (!$item.hasClass('disabled')) {
-      //-           navListItems.removeClass('btn-primary').addClass('btn-default');
-      //-           $item.addClass('btn-primary');
-      //-           allWells.hide();
-      //-           $target.show();
-      //-           $target.find('input:eq(0)').focus();
-      //-       }
-      //-   });
-        
-      //-   allPrevBtn.click(function(){
-      //-       var curStep = $(this).closest(".setup-content"),
-      //-           curStepBtn = curStep.attr("id"),
-      //-           prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
-
-      //-           prevStepWizard.removeAttr('disabled').trigger('click');
-      //-   });
-
-      //-   allNextBtn.click(function(){
-      //-       var curStep = $(this).closest(".setup-content"),
-      //-           curStepBtn = curStep.attr("id"),
-      //-           nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-      //-           curInputs = curStep.find("input[type='text'],input[type='url']"),
-      //-           isValid = true;
-
-      //-       $(".form-group").removeClass("has-error");
-      //-       for(var i=0; i<curInputs.length; i++){
-      //-           if (!curInputs[i].validity.valid){
-      //-               isValid = false;
-      //-               $(curInputs[i]).closest(".form-group").addClass("has-error");
-      //-           }
-      //-       }
-
-      //-       if (isValid)
-      //-           console.log('slider1', slider1[0].value);
-      //-           console.log('slider2', slider2[0].value);
-      //-           console.log('slider3', slider3[0].value);
-      //-           console.log('slider4', slider4[0].value);
-      //-           console.log('slider5', slider5[0].value);
-      //-           console.log('slider6', slider6[0].value);
-      //-           nextStepWizard.removeAttr('disabled').trigger('click');
+        //- const slider = $('#ex').slider({
+        //-   formatter: function(value) {
+        //-     return 'Current value: ' + value;
+        //-     console.log(value);
+        //-   }
         //- });
 
-        //- $('div.setup-panel div a.btn-primary').trigger('click');
+        navListItems.click(function (e) {
+            e.preventDefault();
+            var $target = $($(this).attr('href')),
+                    $item = $(this);
+
+            if (!$item.hasClass('disabled')) {
+                navListItems.removeClass('btn-primary').addClass('btn-default');
+                $item.addClass('btn-primary');
+                allWells.hide();
+                $target.show();
+                $target.find('input:eq(0)').focus();
+            }
+        });
+        
+        allPrevBtn.click(function(){
+            var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+
+                prevStepWizard.removeAttr('disabled').trigger('click');
+        });
+
+        allNextBtn.click(function(){
+            var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                curInputs = curStep.find("input[type='text'],input[type='url']"),
+                isValid = true;
+
+            $(".form-group").removeClass("has-error");
+            for(var i=0; i<curInputs.length; i++){
+                if (!curInputs[i].validity.valid){
+                    isValid = false;
+                    $(curInputs[i]).closest(".form-group").addClass("has-error");
+                }
+            }
+
+            if (isValid)
+                console.log('slider1', slider1[0].value);
+                console.log('slider2', slider2[0].value);
+                console.log('slider3', slider3[0].value);
+                console.log('slider4', slider4[0].value);
+                console.log('slider5', slider5[0].value);
+                console.log('slider6', slider6[0].value);
+                nextStepWizard.removeAttr('disabled').trigger('click');
+        });
+
+        $('div.setup-panel div a.btn-primary').trigger('click');
 
       });

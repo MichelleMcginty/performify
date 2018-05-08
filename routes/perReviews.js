@@ -306,20 +306,20 @@ router.post('/add_senior_manager_review', function(req, res){
 //   })
 // });
 
-// // Delete post
-// router.delete('/:id', function(req, res){
-//   let query = {_id: req.params.id};
+// Delete post
+router.delete('/:id', function(req, res){
+  let query = {_id: req.params.id};
 
-//   Article.remove(query, function(err){
-//     if(err) {
-//       console.error(err);
-//       return;
-//     } else {
-//       req.flash('success', 'Article Deleted')
-//       res.send('Success');
-//     }
-//   });
-// });
+  PerReview.remove(query, function(err){
+    if(err) {
+      console.error(err);
+      return;
+    } else {
+      req.flash('success', 'Article Deleted')
+      res.send('Success');
+    }
+  });
+});
 
 // get single review
 router.get('/:id', function(req, res){

@@ -4,22 +4,26 @@ block pageBody
 	.enagagement-dashboard
 		if user
 			.container
+				.padding-top-md
 				if (user.role == "Management")
 					.col-md-6
-						h4 Last 5 Engagement Surveys from team
-							ul.list-group.engagement-view
-								each engagement, i in engagements
-									li.list-group-item.list-reviews
-										a(href='/engagements/'+engagement._id)= moment(engagement.date).format("h:mm:ss a, MMMM Do YYYY ")	
-										//- a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")	
+						h3 Last 5 Engagement Surveys from team
+						br
+						ul.list-group.engagement-view
+							each engagement, i in engagements
+								li.list-group-item.list-reviews
+									a(href='/engagements/'+engagement._id)= moment(engagement.date).format("h:mm:ss a, MMMM Do YYYY ")	
+									//- a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")	
 							br
 							br
-						a(class='button btn btn-default btn-success', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Employee Enagagement Survay
-					.col-md-6
+						a(class='button btn btn-default1', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Employee Enagagement Survay
+					.col-md-6.padding-top-lg
 						.card.center.float-none(style="width:375px")
 							.center
 								h3(style="font-size:20px; font-weight:700; margin-top: 10px; text-align:center;") Average Team Overall Result From Performance Review 
-								h4#average(style="font-size:17px;  margin-top: 10px; text-align:center; color: slategrey; text-decoration: underline;")
+								h4(style="font-size:19px;  margin-top: 10px; text-align:center; color: slategrey; text-decoration: underline;")
+									span#average
+									|  / 10
 				else if (user.role == "Senior Management")
 					h3 hello
 				else  
@@ -30,7 +34,7 @@ block pageBody
 						h3 Please navigate back to the home page!
 		
 		script.
-			$.get('http://localhost:3333/chartsEndpoints/listTeamAverage', {}, function(data){
+			$.get('http://localhost:3333/chartsEndpoints/engagmentTeamAverage', {}, function(data){
 				//- console.log(data);
 				var div = document.getElementById('average');
 				div.innerHTML += data;

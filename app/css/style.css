@@ -491,5 +491,14 @@ footer {
   background: #51A8FF;
   border: none; }
 
+.btn-default1 {
+  background: #28AFA5;
+  border: none;
+  color: white; }
+
+.btn-default1:hover, .btn-default1:focus, .btn-default1:active {
+  background: #29CFC2;
+  color: white; }
+
 .slider .slider-track .slider-selection {
   background: lightgray; }

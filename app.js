@@ -107,6 +107,34 @@ app.get('/' ,function (req, res) {
 });
 
 app.get('/home' ,function (req, res) {
+  if (req.user.role == "Employee"){
+    PerReview.find({userSelected:req.user.username, type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
+      if (err) {
+        res.status(500).send(err);
+        console.error(err);
+      }
+      PerReview.find({author:req.user.name, type:"Self Review"}).sort('-date').exec(function(err, perReviewss){
+        if (err) {
+          res.status(500).send(err);
+          console.error(err);
+        } 
+        Engagement.find({author:req.user.name}).sort('-date').exec(function(err, engagements){
+          if (err) {
+            res.status(500).send(err);
+            console.error(err);
+          }
+          res.render('home', {
+            engagements:engagements,
+            perReviewss: perReviewss,
+            perReviews: perReviews,
+            users: users,
+            moment: moment
+          });
+        });
+      });
+    });
+  } 
+  else
   res.render('home', {
     title: 'Home', 
     moment: moment
@@ -154,12 +182,12 @@ app.get('/managerdashboard', requireLogin, (req, res) => {
 
 
 app.get('/employeedashboard', requireLogin,(req, res) => {
-  PerReview.find({userSelected:req.user.username, type:"Performance Review"}, function(err, perReviews){
+  PerReview.find({userSelected:req.user.username, type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
     if (err) {
       res.status(500).send(err);
       console.error(err);
     }
-    PerReview.find({author:req.user.name, type:"Self Review"}, function(err, perReviewss){
+    PerReview.find({author:req.user.name, type:"Self Review"}).sort('-date').exec(function(err, perReviewss){
       if (err) {
         res.status(500).send(err);
         console.error(err);
@@ -180,6 +208,34 @@ app.get('/employeedashboard', requireLogin,(req, res) => {
     });
   });
 });
+
+// app.get('/employee', requireLogin,(req, res) => {
+//   PerReview.find({userSelected:req.user.username, type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
+//     if (err) {
+//       res.status(500).send(err);
+//       console.error(err);
+//     }
+//     PerReview.find({author:req.user.name, type:"Self Review"}).sort('-date').exec(function(err, perReviewss){
+//       if (err) {
+//         res.status(500).send(err);
+//         console.error(err);
+//       } 
+//       Engagement.find({author:req.user.name}).sort('-date').exec(function(err, engagements){
+//         if (err) {
+//           res.status(500).send(err);
+//           console.error(err);
+//         }
+//         res.render('home', {
+//           engagements:engagements,
+//           perReviewss: perReviewss,
+//           perReviews: perReviews,
+//           users: users,
+//           moment: moment
+//         });
+//       });
+//     });
+//   });
+// });
 
 
 app.get('/admin-employee-dashboard', requireLogin,(req, res) => {
