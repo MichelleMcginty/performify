@@ -113,7 +113,7 @@ block pageBody
 	//- 	p Uh Oh! You are not supposed to be here.
 	//- 	a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
 	script.
-		$.get('http://localhost:3333/chartsEndpoints/listUsers2', {}, function(data){
+		$.get('https://performify.herokuapp.com/chartsEndpoints/listUsers2', {}, function(data){
 			var g = data;
 			let Finance = 0;
 			let Marketing = 0;
