@@ -16,6 +16,10 @@ router.post('/submit_engagement_survey', function(req, res){
   // Express validator
   req.checkBody('q1', 'An answer to question 1 is required').notEmpty();
   req.checkBody('q2', 'An answer to question 1 is required').notEmpty();
+  req.checkBody('q3', 'An answer to question 1 is required').notEmpty();
+  req.checkBody('q4', 'An answer to question 1 is required').notEmpty();
+  req.checkBody('q5', 'An answer to question 1 is required').notEmpty();
+  req.checkBody('q6', 'An answer to question 1 is required').notEmpty();
   // req.checkBody('results', 'results is required').notEmpty();
   // req.checkBody('communication', 'communication is required').notEmpty();
   // req.checkBody('passion', 'passion is required').notEmpty();
@@ -36,7 +40,11 @@ router.post('/submit_engagement_survey', function(req, res){
     engagement.author = req.user.name;
     engagement.authorTeam = req.user.team;
     engagement.q1 = req.body.q1;
-    engagement.q2 = req.body.q1;
+    engagement.q2 = req.body.q2;
+    engagement.q3 = req.body.q3;
+    engagement.q4 = req.body.q4;
+    engagement.q5 = req.body.q5;
+    engagement.q6 = req.body.q6;
 
     engagement.save(function(err){
       if(err) {
@@ -283,6 +291,7 @@ router.post('/submit_engagement_survey', function(req, res){
 // //     }
 // //   });
 // // });
+
 
 // get single review
 router.get('/:id', function(req, res){

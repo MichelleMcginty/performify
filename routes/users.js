@@ -325,14 +325,14 @@ router.get('/view/:username', function (req, res) {
 //     // console.log("hello one" + user.name);
 //   });
 // });
-
+// ).sort('-date').limit(3).exec(function(err, perreviews){
 router.get('/profile/:username', function (req, res) {
   User.find({username:req.params.username}, function (err, users) {
     if (err) {
       res.status(500).send(err);
       console.error(err);
     }
-    PerReview.find({userSelected:users[0].name , type:"Performance Review"}, function(err, perReviews){
+    PerReview.find({userSelected:users[0].name , type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
       if (err) {
         res.status(500).send(err);
         console.error(err);
@@ -346,7 +346,7 @@ router.get('/profile/:username', function (req, res) {
           perReviewss: perReviewss,
           perReviews: perReviews,
           users: users,
-          moment: moment
+          moment: moment,
         });
       });
     });

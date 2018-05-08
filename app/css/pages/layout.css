@@ -8,3 +8,6 @@
 
 .layout .navbar-nav > li > a {
   color: white; }
+
+.layout .navbar-nav > li > a:hover {
+  color: #E8E8E8; }

@@ -9,6 +9,8 @@ html
     link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet' href='/styles/style.css')
     link(rel='stylesheet' href='../css/style.css')
+    link(rel='stylesheet' href='../../css/style.css')
+    link(rel='stylesheet' href='../../../css/style.css')
     link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/css/bootstrap-slider.css')
     script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous")
     script(defer src='https://use.fontawesome.com/releases/v5.0.6/js/all.js')
@@ -16,7 +18,6 @@ html
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl', crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.js')
-    //- script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/css/bootstrap-slider.css')
     
   .layout
     body
@@ -35,15 +36,6 @@ html
                 if (user.role =="Administrator")
                   li
                     a(href='/home') Home
-                  //- li.dropdown
-                  //-   a.dropdown-toggle(data-toggle='dropdown', href='#')
-                  //-     | Employees
-                  //-     span.caret
-                  //-   ul.dropdown-menu
-                  //-     li
-                  //-       a(href='/users/add') Add Employee
-                  //-     li
-                  //-       a(href='/users/list') List Employees
                   li
                     a(href='/admin-employee-dashboard') Employee Dashboard
                 else if (user.role == "Senior Management")
@@ -52,14 +44,14 @@ html
                   li 
                     a(href='/senior-dashboard') Review
                   li
-                    a(href='/list-senior-managers') List Senior Managers
+                    a(href='/engagement_dashboard') Enagagments
                 else if (user.role == "Management")
                   li
                     a(href='/home') Home
                   li
                     a(href='/managerdashboard') Reviews
                   li
-                    a(href='') Enagagments
+                    a(href='/engagement_dashboard') Enagagments
                 else if (user.role == "Employee")
                   li
                     a(href='/home') Home

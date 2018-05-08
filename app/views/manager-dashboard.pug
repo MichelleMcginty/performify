@@ -52,12 +52,9 @@ block pageBody
 					br
 					br
 					a(class='button btn btn-default btn-success', style="width: 100%;" href='/perReviews/add_self_review') Submit Self Review  
-					br
-					br
-					a(class='button btn btn-default btn-success', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Employee Enagagement Survay
 					//- a(class='button btn btn-default btn-success', style="width: 100%;" href='/articles/add') Submit Self Review
 			else if (user.role == "Administrator")
-				.col-md-6
+				.col-md-6.float-none.center
 					h3.margin-top-none List of Employees
 					table.table.table-bordered.table-hover
 						thead
@@ -78,9 +75,6 @@ block pageBody
 					br
 					br
 					a(class='button btn btn-primary', style="width: 100%; " href='/users/add') Add a new Employee
-				.col-md-6 
-					.center.float-none
-						canvas#NumberPeopleOnTeams(width="250" height="250")
 			else if (user.role == "Senior Management") 
 				br
 				br

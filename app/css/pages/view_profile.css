@@ -1,0 +1,5 @@
+.view_profile .info-card .img-hold {
+  display: flex; }
+  .view_profile .info-card .img-hold img {
+    width: 50%;
+    margin: auto; }

@@ -9,6 +9,9 @@
 .layout .navbar-nav > li > a {
   color: white; }
 
+.layout .navbar-nav > li > a:hover {
+  color: #E8E8E8; }
+
 .index .index-header {
   height: 400px;
   position: relative; }
@@ -86,6 +89,12 @@
     line-height: 1.428571429;
     border-radius: 15px; }
 
+.profile .info-card .img-hold {
+  display: flex; }
+  .profile .info-card .img-hold img {
+    width: 50%;
+    margin: auto; }
+
 .profile .engagement-view li {
   display: none; }
 
@@ -111,7 +120,7 @@
   display: block;
   position: relative;
   height: 375px !important;
-  width: auto !important; }
+  width: 669px !important; }
 
 hr {
   margin: 0;
@@ -273,11 +282,25 @@ hr {
 .padding-right-xl {
   padding-right: 12rem; }
 
+.view_profile .info-card .img-hold {
+  display: flex; }
+  .view_profile .info-card .img-hold img {
+    width: 50%;
+    margin: auto; }
+
 body {
   font-family: 'Open Sans',Arial,sans-serif;
   background: #FEFEFF; }
 
 canvas {
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
+  box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
+  background: white;
+  border-radius: 4px;
+  padding: 10px; }
+
+.card {
   -webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
   -moz-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);
   box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.2);

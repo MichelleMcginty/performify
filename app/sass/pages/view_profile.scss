@@ -1,4 +1,4 @@
-.profile{
+.view_profile{
   .info-card{
     .img-hold{
       display:flex;
@@ -6,14 +6,6 @@
         width:50%;
         margin:auto;
       }
-    }
-  }
-  .engagement-view{
-    li {
-      display:none;
-    }
-    li:first-child {
-        display:block;
     }
   }
 }

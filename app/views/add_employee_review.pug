@@ -13,7 +13,7 @@ block pageBody
             .col-md-11.form-info-col
               select#list-users-in-team.form-control(name='userSelected' style="width:20%;")
                 each user in users
-                  option #{user.name}
+                  option(value=user.username) #{user.name}
         .form-group.self-review
           .row
             .col-md-1.form-label-col(data-toggle="tooltip" title="How we work with peers & customers and role model our values")

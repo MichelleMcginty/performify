@@ -50,7 +50,7 @@ app.use(session({
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: true,
-  // store: new MongoStore({ url: dbURL })
+  store: new MongoStore({ url: "mongodb://michellemcginty:Carrignavar95@ds229909.mlab.com:29909/performify-start" })
 }));
 
 // Express Messages Middleware
@@ -120,20 +120,21 @@ app.get('/engagement_form' ,function (req, res) {
   });
 });
 
-// var isAuthenticated = function (req, res, next) {
-//   if (req.isAuthenticated())
-//     return next();
-//   res.redirect('/');
-// }
-// if (err) {
-//   res.status(500).send(err);
-//   console.error(err);
-// } else {
-// res.render('view_profile', {
-//     users: users
-//   });
-//   console.log(users);
-// }
+app.get('/engagement_dashboard', requireLogin ,function(req, res){
+  Engagement.find({authorTeam:req.user.team}).sort('-date').limit(8).exec(function(err, engagements){
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    } else
+    console.log(engagements);
+    res.render('engagement_dashboard', {
+      engagements:engagements,
+      moment:moment
+    });
+    console.log(engagements);
+  });
+});
+
 app.get('/managerdashboard', requireLogin, (req, res) => {
     User.find({team:req.user.team, role:"Employee" }, function(err, users){
       if(err){
@@ -149,35 +150,11 @@ app.get('/managerdashboard', requireLogin, (req, res) => {
       // console.log(req.user._id);
       // console.log(req.user.id);
     });
-
-    // delete session object
-    // req.session.destroy(function(err) {
-    //   if(err) {
-    //     return next(err);
-    //   } else {
-    //     return res.redirect('/users/login');
-    //   }
-    // });
-  // User.find({team:req.user._id}, function(err, users){
-  //   User.find({team:req.user.team}, function(err, users){
-  //   if(err){
-  //     res.status(500).send(err);
-  //     console.log(err);
-  //     res.render('/login');
-  //   } else {
-  //     res.render('manager-dashboard', {
-  //       users: users
-  //     });
-  //   } 
-  //   // console.log(req.user.userid);
-  //   // console.log(req.user._id);
-  //   // console.log(req.user.id);
-  // });
 });
 
 
 app.get('/employeedashboard', requireLogin,(req, res) => {
-  PerReview.find({userSelected:req.user.name, type:"Performance Review"}, function(err, perReviews){
+  PerReview.find({userSelected:req.user.username, type:"Performance Review"}, function(err, perReviews){
     if (err) {
       res.status(500).send(err);
       console.error(err);

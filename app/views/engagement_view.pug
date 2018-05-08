@@ -1,21 +1,23 @@
-.col-md-8.center.float-none
-	.container
-		.col-md-8.center.float-none
-			h2 heloo
-			//- table.table.table-bordered
-			//- 	thead.thead-light
-			//- 		tr
-			//- 			th(scope="col") Name
-			//- 			th(scope="col") Email
-			//- 			th(scope="col") Username
-			//- 			th(scope="col") Role
-			//- 			th(scope="col") Team
-			//- 			th(scope="col") Title
-			//- 	tbody
-			//- 		tr
-			//- 			td= user.name
-			//- 			td= user.name
-			//- 			td= user.username
-			//- 			td= user.role
-			//- 			td= user.team
-			//- 			td= user.title
+extends layout
+
+block pageBody
+	.col-md-8.center.float-none
+		.container
+			.col-md-3
+				h3 Date of Engagement
+				br
+				h4 Question 1
+				h4 Question 2
+				h4 Question 3
+				h4 Question 4
+				h4 Question 5
+				h4 Question 6
+			.col-md-5
+				h3= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
+				br
+				h4= engagements.q1
+				h4= engagements.q2
+				h4= engagements.q3
+				h4= engagements.q4
+				h4= engagements.q5
+				h4= engagements.q6
