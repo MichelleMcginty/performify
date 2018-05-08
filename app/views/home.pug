@@ -89,7 +89,7 @@ block pageBody
         return Math.ceil(Math.random() * 255);
       }
 
-      $.get('http://localhost:3333/chartsEndpoints/ListUsers', {}, function(data){
+      $.get('https://performify.herokuapp.com/chartsEndpoints/ListUsers', {}, function(data){
         var g = data;
         let Female = 0;
         let Male = 0;
@@ -130,7 +130,7 @@ block pageBody
           }
         });
       });
-      $.get('http://localhost:3333/chartsEndpoints/team', {}, function(data){
+      $.get('https://performify.herokuapp.com/chartsEndpoints/team', {}, function(data){
         //- console.log(data);
         var g = data;
         let Female = 0;
@@ -203,7 +203,7 @@ block pageBody
           }
         });
       });
-      $.get('http://localhost:3333/chartsEndpoints/teamOverallResult', {}, function(data){
+      $.get('https://performify.herokuapp.com/chartsEndpoints/teamOverallResult', {}, function(data){
         //- console.log('graph' , data);
           let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
           for (i in colors){
@@ -273,12 +273,12 @@ block pageBody
             }
           });
       });
-      $.get('http://localhost:3333/chartsEndpoints/listTeamAverage', {}, function(data){
+      $.get('https://performify.herokuapp.com/chartsEndpoints/listTeamAverage', {}, function(data){
         console.log(data);
         var div = document.getElementById('average');
         div.innerHTML += data;
       });
-      $.get('http://localhost:3333/chartsEndpoints/listUsers2', {}, function(data){
+      $.get('https://performify.herokuapp.com/chartsEndpoints/listUsers2', {}, function(data){
         var g = data;
         let Finance = 0;
         let Marketing = 0;
@@ -365,7 +365,7 @@ block pageBody
           }
         });
       });
-      $.get('http://localhost:3333/chartsEndpoints/getUserReviews', {}, function(data){
+      $.get('https://performify.herokuapp.com/chartsEndpoints/getUserReviews', {}, function(data){
         console.log(data);
         let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
         for (i in colors){

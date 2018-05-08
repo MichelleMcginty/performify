@@ -34,7 +34,7 @@ block pageBody
 						h3 Please navigate back to the home page!
 		
 		script.
-			$.get('http://localhost:3333/chartsEndpoints/engagmentTeamAverage', {}, function(data){
+			$.get('https://performify.herokuapp.com/chartsEndpoints/engagmentTeamAverage', {}, function(data){
 				//- console.log(data);
 				var div = document.getElementById('average');
 				div.innerHTML += data;

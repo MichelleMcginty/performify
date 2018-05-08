@@ -8,7 +8,7 @@ const Engagement = require('../models/engagement_form');
 function requireLoginTest (req, res, next) {
   if (!req.user) {
     req.flash('success', 'Sorry you need to be logged in to view this page Test');
-    res.redirect('/users/login');
+    res.redirect('/');
   } else {
     next();
   }
