@@ -106,7 +106,7 @@ app.get('/' ,function (req, res) {
   });
 });
 
-app.get('/home' ,function (req, res) {
+app.get('/home' , requireLogin ,function (req, res) {
   if (req.user.role == "Employee"){
     PerReview.find({userSelected:req.user.username, type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
       if (err) {
