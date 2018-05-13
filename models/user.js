@@ -46,15 +46,3 @@ const UserSchema = mongoose.Schema({
 
 const User = module.exports = mongoose.model('User', UserSchema);
 
-
-
-// module.exports.getAll = function(callback){ 
-// 	User.find().exec(callback);	
-// }
-
-// module.exports.getUser= function(req,id, callback){
-//   User.findOne(req.params.id)
-//     .populate('reviews')
-//     .exec(callback);
-// }
-

@@ -186,26 +186,6 @@ router.get('/edit/:id', requireLogin ,function (req, res) {
   });
 });
 
-
-// router.get('/view/:name', function (req, res) {
-//   User.find({name:req.params.name}, function (err, users) {
-//     res.render('view_profile', {
-//       users: users
-//     });
-//     console.log(users[0].name + "view");
-//   });
-// });
-
-// router.get('/profile/:name', function (req, res) {
-//   User.find({name:req.params.name}, function (err, users) {
-//     res.render('view_profile', {
-//       users: users
-//     });
-//     console.log(users[0].name + "view");
-//   });
-// });
-
-
 router.get('/view/edit/:username', requireLogin ,function (req, res) {
   User.find({username:req.params.username}, function (err, users) {
     res.render('edit_profile', {
@@ -229,39 +209,6 @@ router.get('/list', function (req, res) {
   });
 });
 
-// router.get('/test', function (req, res) {
-//   User.findOne({ id: req.params.id }, function(error, user) {
-//     if (error) {
-//       return handleError(error);
-//     }
-//     user.reviews = reviews;
-//     console.log(user.reviews.type); // prints "Ian Fleming"
-//   });
-// });
-// router.get('/test', function (req, res) {
-//   User.findById(req.params.id)
-//     .populate('reviews')
-//     .exec(function (err, user, docs) {
-//     // if (err) return handleError(err);
-//       console.log(docs);
-//       // console.log(user.reviews);
-//     // prints "The author is Ian Fleming"
-//   });
-// });
-
-
-
-// router.get('/getUser', function (req, res) {
-//   User.findById(req.params.id, function (err, user) {
-//     .populate('reviews')
-// 		res.render('profile', { 
-//       user: user
-//     }); 
-//     console.log(user.reviews);
-// 	}); 
-// });
-
-
 router.get('/:id', requireLogin, function (req, res) {
   User.findById(req.params.id, function (err, user) {
     PerReview.find({userSelected:user.username , type:"Performance Review"}).limit(5).sort('-date').exec(function(err, perReviews){
@@ -279,11 +226,6 @@ router.get('/:id', requireLogin, function (req, res) {
             res.status(500).send(err);
             console.error(err);
           }
-          // Engagement.find({author:user.name}, function(err, engagements){
-          //   if (err) {
-          //     res.status(500).send(err);
-          //     console.error(err);
-          //   }
           res.render('profile', {
             engagements: engagements,
             perReviewss:perReviewss,
@@ -310,29 +252,6 @@ router.get('/view/:username', function (req, res) {
   });
 });
 
-
-
-
-// router.get('/profile/:id', (req, res) => {
-//   User.find({id:req.params.id}, function (err, users) {
-//     if(err) {/*error!!!*/}
-//     PerReview.find({userSelected:req.params.name}, function(err, perReviews){
-//       if(err) {/*error!!!*/}
-//       Article.find({author:req.params.name}, function(err, articles){
-//         if(err) {/*error!!!*/}
-//         res.render('view_profile', {
-//           perReviews: perReviews,
-//           articles: articles,
-//           users: users,
-//           moment: moment
-//         });
-//         console.log("hello three" + user.name);
-//       });
-//       // console.log("hello two" + users[0].name);
-//     });
-//     // console.log("hello one" + user.name);
-//   });
-// });
 // ).sort('-date').limit(3).exec(function(err, perreviews){
 router.get('/profile/:username', requireLogin,function (req, res) {
   User.find({username:req.params.username}, function (err, users) {
@@ -362,25 +281,12 @@ router.get('/profile/:username', requireLogin,function (req, res) {
   });
 });
 
-// router.get('view_profile/:name', function (req, res) {
-//   User.find({name:req.params.name}, function (err, users) {
-//     res.render('view_profile', {
-//       users: users
-//     });
-//   });
-//   console.log(users.name);
-//   console.log(users.name);
-// });
 
 // update submit new user 
 router.post('/edit/:id', function (req, res) {
   let user = {};
   user.name = req.body.name;
   user.email = req.body.email;
-  // user.username = req.body.username;
-  // user.role = req.body.role;
-  // user.team = req.body.team;
-  // user.title = req.body.title;
   user.gender = req.body.gender;
 
   let query = {
@@ -402,13 +308,9 @@ router.post('/view/edit/:username', function (req, res) {
   let users = {};
   users.name = req.body.name;
   users.email = req.body.email;
-  // users.username = req.body.username;
   users.role = req.body.role;
   users.team = req.body.team;
   users.title = req.body.title;
-  // users.gender = req.body.gender;
-  // console.log(req.body.title + "check one");
-  // console.log(req.params.title + "check two");
   
   let query = {
     username: req.body.username

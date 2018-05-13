@@ -303,41 +303,6 @@ router.post('/add_senior_manager_review', function(req, res){
 });
 
 
-// load edit form
-// router.get('/edit/:id', function(req, res){
-//   Article.findById(req.params.id, function(err, article){
-//     res.render('edit_article', {
-//       title: 'Edit Article',
-//       article: article
-//     });
-//   });
-// });
-
-// update submit new article 
-// router.post('/edit/:id', function(req, res){
-//   let article = {};
-//   article.teamwork = req.body.teamwork;
-//   article.results = req.body.results;
-//   article.communication = req.body.communication;
-//   article.passion = req.body.passion;
-//   article.development = req.body.development;
-//   article.overallResult = req.body.overallResult;
-//   article.comments = req.body.comments;
-
-
-//   let query = {_id: req.params.id};
-
-//   Article.update(query, article, function(err){
-//     if(err) {
-//       console.error(err);
-//       return;
-//     } else {
-//       req.flash('success', 'Article Updated');
-//       res.redirect('/');
-//     }
-//   })
-// });
-
 // Delete post
 router.delete('/:id', function(req, res){
   let query = {_id: req.params.id};
@@ -362,21 +327,6 @@ router.get('/:id', function(req, res){
     });
   });
 });
-
-// app.get('/view-profile', (req, res) => {
-//     PerReview.find({userSelected:req.user.name ,  type:"Performance Review"}, function(err, perReviews){
-//       if(err) {/*error!!!*/}
-//       PerReview.find({userSelected:req.user.name, type:"Self Review"}, function(err, perReviewss){
-//        if(err) {/*error!!!*/}
-//       res.render('manager-dashboard', {
-//         perReviewss: perReviewss,
-//         perReviews: perReviews,
-//         users: users,
-//         moment: moment
-//       });
-//     });
-//   });
-// });
 
 
 

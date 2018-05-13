@@ -12,9 +12,6 @@ const perReviewSchema = mongoose.Schema({
   author: {
     type: String
   },
-  authorRef: {
-    type: String
-  },
   authorTeam: {
     type: String
   },

@@ -221,35 +221,6 @@ app.get('/employeedashboard', requireLogin,(req, res) => {
   });
 });
 
-// app.get('/employee', requireLogin,(req, res) => {
-//   PerReview.find({userSelected:req.user.username, type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
-//     if (err) {
-//       res.status(500).send(err);
-//       console.error(err);
-//     }
-//     PerReview.find({author:req.user.name, type:"Self Review"}).sort('-date').exec(function(err, perReviewss){
-//       if (err) {
-//         res.status(500).send(err);
-//         console.error(err);
-//       } 
-//       Engagement.find({author:req.user.name}).sort('-date').exec(function(err, engagements){
-//         if (err) {
-//           res.status(500).send(err);
-//           console.error(err);
-//         }
-//         res.render('home', {
-//           engagements:engagements,
-//           perReviewss: perReviewss,
-//           perReviews: perReviews,
-//           users: users,
-//           moment: moment
-//         });
-//       });
-//     });
-//   });
-// });
-
-
 app.get('/admin-employee-dashboard', requireLogin,(req, res) => {
   User.find({"role":{$ne:req.user.role }}, function(err, users){
     if (err) {
@@ -285,21 +256,6 @@ app.get('/listUsers', function (req, res) {
   });
 });
 
-// app.get('/senior-dashboard', (req, res) => {
-//   User.find((err, users) => {
-//     if (err) {
-//       res.status(500).send(err);
-//       console.error(err);
-//     } 
-//     else {
-//       res.render('manager-dashboard', {
-//         perReviews: perReviews,
-//         users: users,
-//         moment: moment
-//       });
-//     }
-//   });
-// });
 
 app.get('/senior-dashboard', requireLogin,(req, res) => {
   User.find({role:"Management" }, function(err, users){
@@ -330,9 +286,7 @@ app.get('/senior-dashboard', requireLogin,(req, res) => {
             moment: moment
           });
         });
-        // console.log("Users:" + users);
       });
-      // console.log("Seniors:" + seniors);
     });
   });
 });
@@ -349,9 +303,8 @@ app.get('/list-senior-managers', requireLogin,(req, res) => {
         users: users,
         moment: moment
       });
-    console.log("hello" + users);
+    // console.log("hello" + users);
     }
-    // console.log("hello");
   });
 });
 
