@@ -17,78 +17,59 @@ block pageBody
         label Role:
         br
         .form-check
-          input.form-check-input(type='radio', name='role', value='Administrator')
+          input.form-check-input(type='radio', name='role', value='Administrator' , checked=users[0].role==='Administrator')
           label.form-check-label(for='exampleRadios1')
             | Admin
         .form-check
-          input.form-check-input(type='radio', name='role', value='Senior Management')
+          input.form-check-input(type='radio', name='role', value='Senior Management' , checked=users[0].role==='Senior Management')
           label.form-check-label(for='exampleRadios1')
             | Senior Management
         .form-check
-          input.form-check-input(type='radio', name='role', value='Management')
+          input.form-check-input(type='radio', name='role', value='Management' , checked=users[0].role==='Management')
           label.form-check-label(for='exampleRadios1')
             | Management
         .form-check
-          input.form-check-input(type='radio', name='role', value='Employee')
+          input.form-check-input(type='radio', name='role', value='Employee' , checked=users[0].role==='Employee')
           label.form-check-label(for='exampleRadios1')
             | Employee
       .form-group
         label Team
         br
         .form-check
-          input.form-check-input(type='radio', name='team', value='Finance')
+          input.form-check-input(type='radio', name='team', value='Finance', checked=users[0].team==='Finance')
           label.form-check-label(for='exampleRadios1')
             | Finance
         .form-check
-          input.form-check-input(type='radio', name='team', value='Marketing')
+          input.form-check-input(type='radio', name='team', value='Marketing' , checked=users[0].team==='Marketing')
           label.form-check-label(for='exampleRadios1')
             | Marketing
         .form-check
-          input.form-check-input(type='radio', name='team', value='Testing')
+          input.form-check-input(type='radio', name='team', value='Testing' , checked=users[0].team==='Testing')
           label.form-check-label(for='exampleRadios1')
             | Testing
         .form-check
-          input.form-check-input(type='radio', name='team', value='Engineering')
+          input.form-check-input(type='radio', name='team', value='Engineering' , checked=users[0].team==='Engineering')
           label.form-check-label(for='exampleRadios1')
             | Engineering
         .form-check
-          input.form-check-input(type='radio', name='team', value='Sales')
+          input.form-check-input(type='radio', name='team', value='Sales' , checked=users[0].team==='Sales')
           label.form-check-label(for='exampleRadios1')
             | Sales
         .form-check
-          input.form-check-input(type='radio', name='team', value='HR')
+          input.form-check-input(type='radio', name='team', value='HR' , checked=users[0].team==='HR')
           label.form-check-label(for='exampleRadios1')
             | HR
         .form-check
-          input.form-check-input(type='radio', name='team', value='IT')
+          input.form-check-input(type='radio', name='team', value='IT' , checked=users[0].team==='IT')
           label.form-check-label(for='exampleRadios1')
             | I.T.
         .form-check
-          input.form-check-input(type='radio', name='team', value='Support')
+          input.form-check-input(type='radio', name='team', value='Support' , checked=users[0].team==='Support')
           label.form-check-label(for='exampleRadios1')
             | Support
       .form-group
         label Job Title:
         input.form-control(name='title', type='text' value=users[0].title)
-      //- .form-group
-      //-   label Gender
-      //-   br
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='gender', value='Female')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Female
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='gender', value='Male')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Male
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='gender', value='Transgender')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Transgender
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='gender', value='Other')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Other
       br
       a.btn.btn-danger(style="margin-left:15px; width:20%;" href='/users/view/'+users[0].username) Cancel
       input.btn.btn-primary.pull-right(type='submit', value='Submit' style="margin-right:15px; width:20%;")

@@ -163,7 +163,7 @@ app.get('/engagement_dashboard', requireLogin ,function(req, res){
     });
   }
   else{
-    Engagement.find({authorTeam:req.user.team}).sort('-date').limit(10).exec(function(err, engagements){
+    Engagement.find().sort('-date').limit(10).exec(function(err, engagements){
       if (err) {
         res.status(500).send(err);
         console.error(err);

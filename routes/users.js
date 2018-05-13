@@ -264,12 +264,12 @@ router.get('/list', function (req, res) {
 
 router.get('/:id', requireLogin, function (req, res) {
   User.findById(req.params.id, function (err, user) {
-    PerReview.find({userSelected:user.username , type:"Performance Review"}).limit(4).sort('-date').exec(function(err, perReviews){
+    PerReview.find({userSelected:user.username , type:"Performance Review"}).limit(5).sort('-date').exec(function(err, perReviews){
       if (err) {
         res.status(500).send(err);
         console.error(err);
       }
-      PerReview.find({author:user.name, type:"Self Review"}).sort('-date').limit(4).exec(function(err, perReviewss){
+      PerReview.find({author:user.name, type:"Self Review"}).sort('-date').limit(5).exec(function(err, perReviewss){
         if (err) {
           res.status(500).send(err);
           console.error(err);

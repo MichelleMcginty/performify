@@ -1,46 +1,104 @@
 extends layout
 
 block pageBody
-  .col-md-6.center.float-none
-    if (user.role == "Employee")
-        if (perReviews.type == "Performance Review")
-            h2 Review from your Manager #{perReviews.author}
-            h2 For #{perReviews.userSelected}
+  .col-md-12.center.float-none
+    .col-xs-12
+        h3(style="margin-left:-15px;") Performance Review Date : 
+            span(style="color:slategrey;") #{moment(perReviews.date).format("h:mm:ss a, MMMM Do YYYY ")}
+        if (user.role == "Employee")
+            if (perReviews.type == "Performance Review")
+                h3(style="margin-left:-15px;") Review from your Manager #{perReviews.author}
+                h3(style="margin-left:-15px;") For #{perReviews.userSelected}
+            else
+                h3(style="margin-left:-15px;") #{perReviews.userSelected}'s Self Review
+        else if (user.role == "Management")
+            if (perReviews.type == "Performance Review")
+                h3(style="margin-left:-15px;") For #{perReviews.userSelected}
+            else
+                h3(style="margin-left:-15px;") #{perReviews.userSelected}'s Self Review
+        else if (user.role == "Senior Management")
+            if (perReviews.type == "Performance Review")
+                h3(style="margin-left:-15px;") Review from #{perReviews.author}
+                h3(style="margin-left:-15px;") For #{perReviews.userSelected}
+            else
+                h2(style="margin-left:-15px;") #{perReviews.userSelected}'s Self Review
         else
-            h2 #{perReviews.userSelected}'s Self Review
-    else if (user.role == "Management")
-        if (perReviews.type == "Performance Review")
-            h2 Review from #{perReviews.author}
-            h2 For #{perReviews.userSelected}
-        else
-            h2 #{perReviews.userSelected}'s Self Review
-    else if (user.role == "Senior Management")
-        if (perReviews.type == "Performance Review")
-           h2 Review from #{perReviews.author}
-           h2 For #{perReviews.userSelected}
-        else
-            h2 #{perReviews.userSelected}'s Self Review
-    else
-        h2 Review for #{perReviews.userSelected}
-    br
-    h3 Review date: #{moment(perReviews.date).format("h:mm:ss a, MMMM Do YYYY ")}
-    .row
-      .col-md-4
-        h4 Teamwork:
-        h4 Results: 
-        h4 Comunication: 
-        h4 Passion: 
-        h4 Development:
-        h4 Overall Result: 
-        h4 Comments: 
-      .col-md-8
-        h4= perReviews.teamwork
-        h4= perReviews.results
-        h4= perReviews.communication
-        h4= perReviews.passion
-        h4= perReviews.development
-        h4= perReviews.overallResult
-        h4= perReviews.comments
+            h2 Review for #{perReviews.userSelected}
+        br
+        .row
+            .row
+                .col-xs-8
+                    h4(style="font-weight:600;") Questions:
+                .col-xs-4
+                    h4(style="font-weight:600;") Answers:
+            br
+            .row
+                .col-xs-8
+                    h4 Teamwork -
+                        span(style="color:slategrey;")  How you work with peers & customers and role model our values
+                .col-xs-4
+                    h4= perReviews.teamwork
+            .row
+                .col-xs-8
+                    h4 Results -
+                        span(style="color:slategrey;")  How you deliver high quality results
+                .col-xs-4
+                    h4= perReviews.results
+            .row
+                .col-xs-8
+                    h4 Comunication - 
+                        span(style="color:slategrey;") How you communicate effectively to achieve results
+                .col-xs-4
+                    h4= perReviews.communication
+            .row
+                .col-xs-8
+                    h4 Passion - 
+                        span(style="color:slategrey;") How you demonstrate commitment to what we do
+                .col-xs-4
+                    h4= perReviews.passion
+            .row
+                .col-xs-8
+                    h4 Development - 
+                        span(style="color:slategrey;") How you learn and develop to improve our performance
+                .col-xs-4
+                    h4= perReviews.development
+            br
+            .row
+                .col-xs-8
+                    h4(style="font-weight:600;") Overall Result: 
+                .col-xs-4
+                    h4= perReviews.overallResult
+            .row
+                .col-xs-8
+                    h4 Comments: 
+                .col-xs-4
+                    h4= perReviews.comments
+        br
+        br
+        if (user.role == "Senior Management")
+            a.btn.btn-danger(style="margin-left:-15px; width:20%;" href='/senior-dashboard') Back
+        else if (user.role == "Management")
+            a.btn.btn-danger(style="margin-left:-15px; width:20%;" href='/managerdashboard') Back
+        else if (user.role == "Employee")
+            a.btn.btn-danger(style="margin-left:-15px; width:20%;" href='/home') Back
+    //- h3 Review date: #{moment(perReviews.date).format("h:mm:ss a, MMMM Do YYYY ")}
+    //- .row
+    //-   .col-md-4
+    //-     h4 Teamwork:
+    //-     h4 Results: 
+    //-     h4 Comunication: 
+    //-     h4 Passion: 
+    //-     h4 Development:
+    //-     h4 Overall Result: 
+    //-     h4 Comments: 
+    //-   .col-md-8
+    //-     h4= perReviews.teamwork
+    //-     h4= perReviews.results
+    //-     h4= perReviews.communication
+    //-     h4= perReviews.passion
+    //-     h4= perReviews.development
+    //-     h4= perReviews.overallResult
+    //-     h4= perReviews.comments
     
     //- a.btn.btn-default(href='/articles/edit/'+article._id) Edit
     //- a.btn.btn-danger.delete-review(href='#', data-id=perReviews._id) Delete

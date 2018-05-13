@@ -32,8 +32,6 @@ block pageBody
 							each engagement, i in engagements
 								li.list-group-item.list-reviews(style="font-size:18px;")
 									a(href='/engagements/'+engagement._id)= moment(engagement.date).format("h:mm:ss a, MMMM Do YYYY ")	
-						br
-						a(class='button btn btn-default1', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Enagagement Survay
 					.col-md-6
 						.div.padding-top-lg
 							.card.center.float-none(style="width:80%")
@@ -42,6 +40,9 @@ block pageBody
 									h4(style="font-size:42px;  margin-top: 10px; text-align:center; color: slategrey; text-decoration: underline;")
 										span#companyAverage
 										|  / 10
+						br
+						.div.center.float-none(style="width: 80%;").padding-top-sm
+							a(class='button btn btn-default1 center', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Enagagement Survay
 				else  
 					.col-md-6.center.float-none 
 						br 
