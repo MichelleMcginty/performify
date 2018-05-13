@@ -52,7 +52,6 @@ block pageBody
 						h4 My Self Reviews
 							ul.list-group
 								each perReview, i in perReviewss
-									//- if (perReview.type="Self Review")
 									li.list-group-item.list-reviews
 										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm a, Do MMMM YYYY ")
 						br
@@ -60,7 +59,6 @@ block pageBody
 							ul.list-group.engagement-view
 								each engagement, i in engagements
 									li.list-group-item.list-reviews(style='height:40px;')
-										//- p= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
 										p= moment(engagement.date).format("h:mm a, Do MMMM YYYY ")
 					if (user.role =="Senior Management")
 						h4 My Self Reviews
@@ -73,7 +71,6 @@ block pageBody
 							ul.list-group.engagement-view
 								each engagement, i in engagements
 									li.list-group-item.list-reviews(style='height:40px;')
-										//- p= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
 										p= moment(engagement.date).format("h:mm a, Do MMMM YYYY ")
 				.col-md-7
 					.center.float-none
@@ -96,7 +93,6 @@ block pageBody
 
 	script.
 		$.get('https://performify.herokuapp.com/chartsEndpoints/getUserReviews', {}, function(data){
-			console.log(data);
 			let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
 			for (i in colors){
 				console.log(colors[i]);
@@ -106,8 +102,6 @@ block pageBody
 			let scores = [];
 			for (let i of data) {
 				scores.push(i.overallResult);
-				//- console.log(i.userSelected);
-				//- console.log(i.overallResult);
 			};
 			datasets.push({
 				label: i.userSelected,

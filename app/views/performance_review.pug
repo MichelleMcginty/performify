@@ -81,24 +81,3 @@ block pageBody
             a.btn.btn-danger(style="margin-left:-15px; width:20%;" href='/managerdashboard') Back
         else if (user.role == "Employee")
             a.btn.btn-danger(style="margin-left:-15px; width:20%;" href='/home') Back
-    //- h3 Review date: #{moment(perReviews.date).format("h:mm:ss a, MMMM Do YYYY ")}
-    //- .row
-    //-   .col-md-4
-    //-     h4 Teamwork:
-    //-     h4 Results: 
-    //-     h4 Comunication: 
-    //-     h4 Passion: 
-    //-     h4 Development:
-    //-     h4 Overall Result: 
-    //-     h4 Comments: 
-    //-   .col-md-8
-    //-     h4= perReviews.teamwork
-    //-     h4= perReviews.results
-    //-     h4= perReviews.communication
-    //-     h4= perReviews.passion
-    //-     h4= perReviews.development
-    //-     h4= perReviews.overallResult
-    //-     h4= perReviews.comments
-    
-    //- a.btn.btn-default(href='/articles/edit/'+article._id) Edit
-    //- a.btn.btn-danger.delete-review(href='#', data-id=perReviews._id) Delete

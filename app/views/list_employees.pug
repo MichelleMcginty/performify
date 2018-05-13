@@ -10,14 +10,9 @@ block pageBody
             li.list-group-item
               a(href='/users/view/'+user.name)= user.name
         canvas#myChart(width="400" height="400")
-        //- ul.list-group
-        //-   each gender in genders
-        //-     li.list-group-item
-        //-       p #{gender}
 
         script.
           $.get('https://performify.herokuapp.com/listUsersGen', {}, function(data){
-            //- console.log(data);
             var g = data;
             let Female = 0;
             let Male = 0;
@@ -66,58 +61,5 @@ block pageBody
                       borderWidth: 1
                   }]
               },
-              //- options: {
-              //-     scales: {
-              //-         //- xAxes: [{
-              //-         //-     type: 'category',
-              //-         //-     labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-              //-         //- }]
-              //-     }
-              //- }
             });
           });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //- canvas#myCharto
-        //- script.
-        //-   //- var users = users;
-        //-   //- zingchart.render({
-        //-   //-   id: 'myChart',
-        //-   //-   data: {
-        //-   //-     type: 'pie',
-        //-   //-     series: [{
-        //-   //-       values: [users],
-        //-   //-     }]
-        //-   //-   }
-        //-   //- });
-        //-   var ctx = document.getElementById('myCharto').getContext('2d');
-        //-   var chart = new Chart(ctx, {
-        //-       // The type of chart we want to create
-        //-       type: 'bar',
-              
-        //-       // The data for our dataset
-        //-       data: {
-        //-           labels: [usersName],
-        //-           datasets: [{
-        //-               label: "My First dataset",
-        //-               backgroundColor: 'rgb(255, 99, 132)',
-        //-               borderColor: 'rgb(255, 99, 132)',
-        //-               data: [usersName],
-        //-           }]
-        //-       },
-
-        //-       // Configuration options go here
-        //-       options: {}
-        //-   });
