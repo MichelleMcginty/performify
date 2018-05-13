@@ -143,7 +143,7 @@ router.post('/add', (req, res)  => {
               <h2> Your generated username is <span style="color:grey; font-style: italic;">${req.body.username}</span></h2>
               <h2> Your generated password is <span style="color:grey; font-style: italic;">${req.body.password}</span></h2>
               <br>
-              <h3> We highly recommend you to change your password once you login </h3>
+              <a href="https://performify.herokuapp.com/home"> Login here </a> 
             `;
             //setting up to and from for the email
             let mailOptions = {
