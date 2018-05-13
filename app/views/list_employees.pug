@@ -16,7 +16,7 @@ block pageBody
         //-       p #{gender}
 
         script.
-          $.get('http://localhost:3333/listUsersGen', {}, function(data){
+          $.get('https://performify.herokuapp.com/listUsersGen', {}, function(data){
             //- console.log(data);
             var g = data;
             let Female = 0;

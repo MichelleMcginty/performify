@@ -104,7 +104,7 @@ block pageBody
       function randColour() {
         return Math.ceil(Math.random() * 255);
       }
-      $.get('http://localhost:3333/chartsEndpoints/ListUsers', {}, function(data){
+      $.get('https://performify.herokuapp.com/chartsEndpoints/ListUsers', {}, function(data){
         var g = data;
         let Female = 0;
         let Male = 0;
@@ -145,14 +145,12 @@ block pageBody
           }
         });
       });
-      $.get('http://localhost:3333/chartsEndpoints/team', {}, function(data){
-        //- console.log(data);
+      $.get('https://performify.herokuapp.com/chartsEndpoints/team', {}, function(data){
         var g = data;
         let Female = 0;
         let Male = 0;
         let Transgender = 0;
         let Other = 0
-        //- console.log(data);
         for (var i = 0; i < g.length; i++) {
           if (g[i].gender === 'Female') {
             Female += 1;
@@ -167,7 +165,6 @@ block pageBody
             Other+= 1;
           }
         }
-        //- console.log(g[0].team)
         let genderLabels = ['Male', 'Female', 'Trangender' , 'Other'];
         var ctx = document.getElementById("GenderRatioOnTeam").getContext('2d');
         var GenderRatioOnTeam = new Chart(ctx, {
@@ -189,7 +186,6 @@ block pageBody
                   ],
                   borderColor: [
                       'rgba(255,99,132,1)',
-                      //- 'rgba(54, 162, 235, 1)',
                       'rgba(255, 206, 86, 1)',
                       'rgba(75, 192, 192, 1)',
                       'rgba(153, 102, 255, 1)',
@@ -218,12 +214,11 @@ block pageBody
           }
         });
       });
-      $.get('http://localhost:3333/chartsEndpoints/teamOverallResult', {}, function(data){
-        //- console.log('graph' , data);
+      $.get('https://performify.herokuapp.com/chartsEndpoints/teamOverallResult', {}, function(data){
           let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
-          for (i in colors){
-            console.log(colors[i]);
-          }
+          //- for (i in colors){
+          //-   console.log(colors[i]);
+          //- }
           let datasets = [];
           for (let user of data) {
             let reviews = user.reviews;
@@ -239,7 +234,7 @@ block pageBody
               opacity: 0.2,
             })
           }
-          console.log('----------------------',datasets);
+          //- console.log('----------------------',datasets);
           var ctx = document.getElementById("PerformanceReviewAverage").getContext('2d');
           var PerformanceReviewAverage = new Chart(ctx, {
             type: 'line',
@@ -288,15 +283,15 @@ block pageBody
             }
           });
       });
-      $.get('http://localhost:3333/chartsEndpoints/listTeamAverage', {}, function(data){
+      $.get('https://performify.herokuapp.com/chartsEndpoints/listTeamAverage', {}, function(data){
         var div = document.getElementById('average');
         div.innerHTML += data;
       });
-      $.get('http://localhost:3333/chartsEndpoints/listCompanyAverage', {}, function(data){
+      $.get('https://performify.herokuapp.com/chartsEndpoints/listCompanyAverage', {}, function(data){
         var div = document.getElementById('companyAverage');
         div.innerHTML += data;
       });
-      $.get('http://localhost:3333/chartsEndpoints/listUsers2', {}, function(data){
+      $.get('https://performify.herokuapp.com/chartsEndpoints/listUsers2', {}, function(data){
         var g = data;
         let Finance = 0;
         let Marketing = 0;
@@ -306,7 +301,6 @@ block pageBody
         let HR = 0;
         let IT = 0;
         let Support = 0;
-        //- Finance Marketing Testing Engineering Sales HR IT Support
         for (var i = 0; i < g.length; i++) {
           if (g[i].team === 'Finance') {
             Finance += 1;
@@ -383,8 +377,7 @@ block pageBody
           }
         });
       });
-      $.get('http://localhost:3333/chartsEndpoints/getUserReviews', {}, function(data){
-        console.log(data);
+      $.get('https://performify.herokuapp.com/chartsEndpoints/getUserReviews', {}, function(data){
         let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
         for (i in colors){
           console.log(colors[i]);
@@ -394,8 +387,6 @@ block pageBody
         let scores = [];
         for (let i of data) {
           scores.push(i.overallResult);
-          //- console.log(i.userSelected);
-          //- console.log(i.overallResult);
         };
         datasets.push({
           label: i.userSelected,
@@ -451,8 +442,7 @@ block pageBody
           }
         });
       });
-      $.get('http://localhost:3333/chartsEndpoints/getAverageForEachTeam', {}, function(data){
-        console.log(data);
+      $.get('https://performify.herokuapp.com/chartsEndpoints/getAverageForEachTeam', {}, function(data){
         var ctx = document.getElementById("companyPerformance").getContext('2d');
         var companyPerformance = new Chart(ctx, {
           type: 'line',
@@ -461,7 +451,6 @@ block pageBody
             xLabels: Object.keys(data),
             datasets: [
               {
-                //- label: "Average Performance Review Overall Result Per Result",
                 backgroundColor: ["rgba(234, 128, 252, 0.4)"],
                 data: Object.values(data)
               }
@@ -487,7 +476,6 @@ block pageBody
                 }
               }]
             },
-            //- responsive: true,
             maintainAspectRatio: false,
             legend: { display: false },
             title: {

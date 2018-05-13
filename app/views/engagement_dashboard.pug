@@ -51,12 +51,12 @@ block pageBody
 						h3 Please navigate back to the home page!
 		
 		script.
-			$.get('http://localhost:3333/chartsEndpoints/engagmentTeamAverage', {}, function(data){
+			$.get('https://performify.herokuapp.com/chartsEndpoints/engagmentTeamAverage', {}, function(data){
 				//- console.log(data);
 				var div = document.getElementById('teamAverage');
 				div.innerHTML += data;
 			});
-			$.get('http://localhost:3333/chartsEndpoints/engagmentCompanyAverage', {}, function(data){
+			$.get('https://performify.herokuapp.com/chartsEndpoints/engagmentCompanyAverage', {}, function(data){
 				var div = document.getElementById('companyAverage');
 				div.innerHTML += data;
 			});

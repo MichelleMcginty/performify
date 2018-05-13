@@ -95,7 +95,7 @@ block pageBody
 
 
 	script.
-		$.get('http://localhost:3333/chartsEndpoints/getUserReviews', {}, function(data){
+		$.get('https://performify.herokuapp.com/chartsEndpoints/getUserReviews', {}, function(data){
 			console.log(data);
 			let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
 			for (i in colors){
