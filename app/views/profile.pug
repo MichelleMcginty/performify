@@ -28,25 +28,24 @@ block pageBody
 							a.btn.btn-primary.center(style="display:flow-root; padding-left:5%; padding-right:5%; " href='/users/edit/'+user._id) Edit
 			else 
 				.col-md-5
-					.card.info-card
+					.card2.info-card.padding-top-md.padding-bottom-md.padding-left-md.padding-right-md
 						.hold
 							.img-hold
 								img(src="../images/user.jpeg", alt="", srcset="")
-							.col-md-6.padding-left-lg.padding-bottom-md
+							.col-xs-12.col-sm-4.padding-sides-reset.padding-bottom-md.hidden-xs
 								h4 Name:
 								h4 Email:
 								h4 Role:
 								h4 Team:
 								h4 Job Title:
-							.col-md-6.padding-bottom-md
+							.col-xs-12.col-sm-8.padding-sides-reset.padding-bottom-md
 								h4= user.name
 								h4= user.email
 								h4= user.role
 								h4= user.team
 								h4= user.title
 						br
-						.test.padding-left-md.padding-right-md.padding-bottom-sm
-							a.btn.btn-primary.center(style="display:flow-root; padding-left:5%; padding-right:5%; " href='/users/edit/'+user._id) Edit
+						a.btn.btn-primary.center(style="display:flow-root; padding-left:5%; padding-right:5%; " href='/users/edit/'+user._id) Edit
 					br 
 					br 
 					if (user.role == "Management")
@@ -57,11 +56,10 @@ block pageBody
 									li.list-group-item.list-reviews
 										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm a, Do MMMM YYYY ")
 						br
-						br
 						h4 Last Submitted Engagement Survay
 							ul.list-group.engagement-view
 								each engagement, i in engagements
-									li.list-group-item.list-reviews
+									li.list-group-item.list-reviews(style='height:40px;')
 										//- p= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
 										p= moment(engagement.date).format("h:mm a, Do MMMM YYYY ")
 					if (user.role =="Senior Management")
@@ -71,16 +69,15 @@ block pageBody
 									li.list-group-item.list-reviews
 										a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss, MMMM Do YYYY ") 
 						br
-						br
 						h4 Last Submitted Engagement Survay
 							ul.list-group.engagement-view
 								each engagement, i in engagements
-									li.list-group-item.list-reviews
+									li.list-group-item.list-reviews(style='height:40px;')
 										//- p= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
 										p= moment(engagement.date).format("h:mm a, Do MMMM YYYY ")
 				.col-md-7
 					.center.float-none
-						canvas#userReviews(width="auto" height="507")
+						canvas#userReviews(width="auto" height="470")
 					br
 					br
 					if (user.role == "Management")

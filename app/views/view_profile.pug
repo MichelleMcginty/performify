@@ -43,7 +43,7 @@ block pageBody
                             h3 #{users[0].name}'s Self Reviews
                             ul.list-group
                                 each perReview, i in perReviewss
-                                    li.list-group-item.list-reviews
+                                    li.list-group-item.list-reviews(style="font-size:18px;")
                                         a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss, MMMM Do YYYY ") 
                     .col-md-7
                         .center.float-none
@@ -51,7 +51,7 @@ block pageBody
                         .padding-top-sm.padding-left-xs.padding-right-sm
                             h3 #{users[0].name}'s Performance Reviews
                                 each perReview, i in perReviews
-                                    li.list-group-item.list-reviews
+                                    li.list-group-item.list-reviews(style="font-size:18px;")
                                         a(href='/perReviews/'+perReview._id style="font-size:19px;")= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
         else
             .col-md-6.center.float-none

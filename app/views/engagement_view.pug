@@ -1,23 +1,54 @@
 extends layout
 
 block pageBody
-	.col-md-8.center.float-none
+	.col-md-12.center.float-none
 		.container
-			.col-md-3
-				h3 Date of Engagement
+			.col-xs-12
+				h3(style="margin-left:-15px;") Enagagement on 
+					span(style="color:slategrey;") #{moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")}
 				br
-				h4 Question 1
-				h4 Question 2
-				h4 Question 3
-				h4 Question 4
-				h4 Question 5
-				h4 Question 6
-			.col-md-5
-				h3= moment(engagements.date).format("h:mm:ss a, MMMM Do YYYY ")
+				.row
+					.row
+						.col-xs-10
+							h4 Questions:
+						.col-xs-2
+							h4 Answers:
+					br
+					.row
+						.col-xs-10
+							h4 1: On a scale of 1 - 10 does my supervisor create a motivating and energizing workplace.
+						.col-xs-2
+							h4= engagements.q1
+					.row
+						.col-xs-10
+							h4 2: On a scale of 1 - 10 does my job provide me with a sense of meaning and purpose.
+						.col-xs-2
+							h4= engagements.q2
+					.row
+						.col-xs-10
+							h4 3: Most days I see postive results because of my work.
+						.col-xs-2
+							h4= engagements.q3
+					.row
+						.col-xs-10
+							h4 4: Most days I see postive results because of my work.
+						.col-xs-2
+							h4= engagements.q4
+					.row
+						.col-xs-10
+							h4 5: I feel like I belong here
+						.col-xs-2
+							h4= engagements.q5
+					.row
+						.col-xs-10
+							h4 6: I am given adequate feedback about my performance.
+						.col-xs-2
+							h4= engagements.q6
 				br
-				h4= engagements.q1
-				h4= engagements.q2
-				h4= engagements.q3
-				h4= engagements.q4
-				h4= engagements.q5
-				h4= engagements.q6
+				br
+				if (user.role == "Senior Management")
+					a.btn.btn-danger(style="margin-left:-15px; width:20%;" href='/engagement_dashboard') Back
+				else if (user.role == "Management")
+					a.btn.btn-danger(style="margin-left:-15px; width:20%;" href='/engagement_dashboard') Back
+				else if (user.role == "Employee")
+					a.btn.btn-danger(style="margin-left:-15px; width:20%;" href='/homw') Back

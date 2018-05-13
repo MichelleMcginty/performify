@@ -36,6 +36,14 @@ canvas{
   padding: 10px;
 }
 
+.card2{
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.20);
+  -moz-box-shadow:    0px 0px 15px 0px rgba(50, 50, 50, 0.20);
+  box-shadow:         0px 0px 15px 0px rgba(50, 50, 50, 0.20);
+  background: white;
+  border-radius: 4px;
+}
+
 .alert-error {
   color: #a94442;
   background: #f2dede;

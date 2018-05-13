@@ -2,28 +2,30 @@ extends layout
 
 block pageBody
 	if user
-		.container.padding-top-sm
+		.container
 			if (user.role == "Management")
-				.col-xs-6
+				.col-xs-12
 					h3 Reviews
 					br 
 					br
-					h4 My Employees
-						ul.list-group
-							each user, i in users 
-								li.list-group-item.list-reviews
-									a(href='/users/profile/'+user.username)= user.name
-				.col-xs-6.padding-top-xl
-					br
-					a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_employee_review') Submit Review for Employee
-					br
-					br
-					br
-					a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_self_review') Submit Self Review
-					br
-					br
-					br
-					a(class='button btn btn-default1', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Employee Enagagement Survay
+					.row
+						.col-sm-6
+							h4 My Employees
+								ul.list-group
+									each user, i in users 
+										li.list-group-item.list-reviews
+											a(href='/users/profile/'+user.username)= user.name
+						.col-sm-6.padding-top-sm
+							br
+							a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_employee_review') Submit Review for Employee
+							br
+							br
+							br
+							a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_self_review') Submit Self Review
+							br
+							br
+							br
+							a(class='button btn btn-default1', style="width: 100%;" href='/engagements/submit_engagement_survey') Submit Employee Enagagement Survay
 			else if (user.role == "Employee")
 				.col-md-6.center.float-none 
 					h3 Employee Review Dashboard
@@ -77,127 +79,188 @@ block pageBody
 			else if (user.role == "Senior Management") 
 				br
 				br
-				.col-md-6.float-none.center
+				.col-md-5.padding-top-sm.padding-bottom-sm
 					h4 Team Managers
 						ul.list-group
 							each user, i in users 
 								li.list-group-item.list-reviews
 									a(href='/users/profile/'+user.username)= user.name
-					//- include 
-					//- h4 Senior Managers
-					//-     ul.list-group
-					//-         each use, i  in users
-					//-             li.list-group-item.list-reviews
-					//-                 a(href='/users/profile/'+use.username)= use.name
-					//- include ./list-senior-managers.pug
-
-					//- br
-					//- br
-					//- h4 Senior Managers
-					//-     ul.list-group
-					//-         each users, i  in seniors
-					//-             li.list-group-item.list-reviews
-					//-                 a(href='/users/profile/'+users.username)= users.name
-					br
 					br
 					a(class='button btn btn-default1 ', style="width: 100%;" href='/perReviews/add_manager_review') Submit Review for Manager
 					br
 					br
-					a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_Senior_manager_review') Submit Review for Senior Manager
+					a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_senior_manager_review') Submit Review for Senior Manager
 					br
 					br
-					a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_self_review') New Submit Self Review
+					a(class='button btn btn-default1', style="width: 100%;" href='/perReviews/add_self_review') Submit Self Review
+				.col-md-7.padding-top-md.padding-bottom-sm
+					.chart-col-8
+						canvas#managerOverallResult( style="display:block; height:433px; width:522px;")
+			
 			//- else 
 			//- 	p Uh Oh! You are not supposed to be here.
 			//- 	a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
-	//- else 
-	//- 	p Uh Oh! You are not supposed to be here.
-	//- 	a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
-	script.
-		$.get('http://localhost:3333/chartsEndpoints/listUsers2', {}, function(data){
-			var g = data;
-			let Finance = 0;
-			let Marketing = 0;
-			let Testing = 0;
-			let Engineering = 0;
-			let Sales = 0;
-			let HR = 0;
-			let IT = 0;
-			let Support = 0;
-			//- Finance Marketing Testing Engineering Sales HR IT Support
-			for (var i = 0; i < g.length; i++) {
-				if (g[i].team === 'Finance') {
-					Finance += 1;
-				}
-				else if (g[i].team === 'Marketing') {
-					Marketing += 1;
-				}
-				else if (g[i].team === 'Testing') {
-					Testing += 1;
-				}
-				else if (g[i].team === 'Engineering') {
-					Engineering += 1;
-				}
-				else if (g[i].team === 'Sales') {
-					Sales += 1;
-				}
-				else if (g[i].team === 'HR') {
-					HR += 1;
-				}
-				else if (g[i].team === 'IT') {
-					IT += 1;
-				}
-				else {
-					Support+= 1;
-				}
-			}
-			let teamLabels = ['Finance', 'Marketing', 'Testing', 'Engineering', 'Sales', 'HR', 'IT', 'Support'];
-			var ctx = document.getElementById("NumberPeopleOnTeams").getContext('2d');
-			var NumberPeopleOnTeams = new Chart(ctx, {
-				type: 'doughnut',
-				data: {
-						labels: teamLabels,
-						datasets: [{
+			//- else 
+			//- 	p Uh Oh! You are not supposed to be here.
+			//- 	a(class='button btn btn-default', style="width: 30%; margin-left: 35%;" href='/home') Home
+			script.
+				$.get('http://localhost:3333/chartsEndpoints/listUsers2', {}, function(data){
+					var g = data;
+					let Finance = 0;
+					let Marketing = 0;
+					let Testing = 0;
+					let Engineering = 0;
+					let Sales = 0;
+					let HR = 0;
+					let IT = 0;
+					let Support = 0;
+					//- Finance Marketing Testing Engineering Sales HR IT Support
+					for (var i = 0; i < g.length; i++) {
+						if (g[i].team === 'Finance') {
+							Finance += 1;
+						}
+						else if (g[i].team === 'Marketing') {
+							Marketing += 1;
+						}
+						else if (g[i].team === 'Testing') {
+							Testing += 1;
+						}
+						else if (g[i].team === 'Engineering') {
+							Engineering += 1;
+						}
+						else if (g[i].team === 'Sales') {
+							Sales += 1;
+						}
+						else if (g[i].team === 'HR') {
+							HR += 1;
+						}
+						else if (g[i].team === 'IT') {
+							IT += 1;
+						}
+						else {
+							Support+= 1;
+						}
+					}
+					let teamLabels = ['Finance', 'Marketing', 'Testing', 'Engineering', 'Sales', 'HR', 'IT', 'Support'];
+					var ctx = document.getElementById("NumberPeopleOnTeams").getContext('2d');
+					var NumberPeopleOnTeams = new Chart(ctx, {
+						type: 'doughnut',
+						data: {
+							labels: teamLabels,
+							datasets: [{
 								label: '# of Votes',
 								data:[Finance, Marketing, Testing, Engineering, Sales, HR, IT, Support],
 								backgroundColor: [
-										'rgba(255, 99, 132)',
-										'rgba(75, 192, 192, 0.5)',
-										'rgba(153, 102, 255, 0.5)',
-										'rgba(255, 159, 64, 0.5)',
-										'rgba(229, 158, 175, 0.5)',
-										'rgba(65,79,111)',
-										'rgba(153,153,204)',
-										'rgba(254,255,163, 0.85)'
+									'rgba(255, 99, 132)',
+									'rgba(75, 192, 192, 0.5)',
+									'rgba(153, 102, 255, 0.5)',
+									'rgba(255, 159, 64, 0.5)',
+									'rgba(229, 158, 175, 0.5)',
+									'rgba(65,79,111)',
+									'rgba(153,153,204)',
+									'rgba(254,255,163, 0.85)'
 								],
 								borderColor: [
-										'rgba(255,99,132,1)',
-										//- 'rgba(54, 162, 235, 1)',
-										'rgba(255, 206, 86, 1)',
-										'rgba(75, 192, 192, 1)',
-										'rgba(153, 102, 255, 1)',
-										'rgba(255, 159, 64, 1)'
+									'rgba(255,99,132,1)',
+									//- 'rgba(54, 162, 235, 1)',
+									'rgba(255, 206, 86, 1)',
+									'rgba(75, 192, 192, 1)',
+									'rgba(153, 102, 255, 1)',
+									'rgba(255, 159, 64, 1)'
 								],
 								borderWidth: 0
-						}]
-				},
-				options: {
-					responsive: true,
-					title: {
-						display: true,
-						position: "top",
-						text: "Team Breakdown & Number of Teams: " + teamLabels.length,				
-						fontSize: 20,
-						fontColor: "#111"
-					},
-					legend: {
-						display: true,
-						position: "bottom",
-						labels: {
-							fontColor: "#333",
-							fontSize: 16
+							}]
+						},
+						options: {
+							responsive: true,
+							title: {
+								display: true,
+								position: "top",
+								text: "Team Breakdown & Number of Teams: " + teamLabels.length,				
+								fontSize: 20,
+								fontColor: "#111"
+							},
+							legend: {
+								display: true,
+								position: "bottom",
+								labels: {
+									fontColor: "#333",
+									fontSize: 16
+								}
+							}
 						}
+					});
+				});
+				$.get('http://localhost:3333/chartsEndpoints/managerOverallResult', {}, function(data){
+					let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
+					for (i in colors){
+						console.log(colors[i]);
 					}
-				}
-			});
-		});
+					let datasets = [];
+					for (let user of data) {
+						let reviews = user.reviews;
+						let labels = [];
+						let scores = [];
+						for (let review of reviews) {
+							scores.push(review.overallResult);
+						}
+						datasets.push({
+							label: user.name,
+							backgroundColor: colors[Math.round(Math.random() * colors.length)],
+							data: scores,
+							opacity: 0.2,
+						})
+					}
+					console.log('----------------------',datasets);
+					var ctx = document.getElementById("managerOverallResult").getContext('2d');
+					var managerOverallResult = new Chart(ctx, {
+						type: 'line',
+						labels: ['Review 1', 'Review 2', 'Review 3'],
+						data: {
+							xLabels: ['Review 1',  'Review 2', 'Review 3'],
+							yLabels: ['outstanding',  'Exceeds Expectations' ,  'Meets Expectations' ,  'Needs Improvement', 'Unsatisfactory'],
+							datasets: datasets,
+						},
+						options: {
+							scales: {
+								xAxes: [{
+									display: true,
+									scaleLabel: {
+										display: true,
+										labelString: 'Review'
+									}
+								}],
+								yAxes: [{
+									type: 'category',
+									position: 'left',
+									display: true,
+									scaleLabel: {
+										display: true,
+										labelString: 'Review Result'
+									}
+								}]
+							},
+							maintainAspectRatio: false,
+							responsive: true,
+							title: {
+								display: true,
+								position: "top",
+								text: "Manager Performance Review Average ",				
+								fontSize: 20,
+								fontColor: "#111"
+							},
+							legend: {
+								display: true,
+								position: "bottom",
+								labels: {
+									fontColor: "#333",
+									fontSize: 16
+								}
+							}
+						}
+					});
+				});
+				$.get('http://localhost:3333/chartsEndpoints/listCompanyAverage', {}, function(data){
+					var div = document.getElementById('companyAverage');
+					div.innerHTML += data;
+				});

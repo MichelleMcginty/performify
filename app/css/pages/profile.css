@@ -1,6 +1,7 @@
 .profile .info-card .img-hold {
   display: flex; }
   .profile .info-card .img-hold img {
+    height: 100%;
     width: 50%;
     margin: auto; }
 

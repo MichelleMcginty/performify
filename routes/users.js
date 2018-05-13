@@ -15,10 +15,15 @@ const User = require('../models/user');
 const PerReview = require('../models/performance_review');
 const Engagement = require('../models/engagement_form');
 
-
-// .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i");
-
-
+//to check if the user is logged in
+function requireLogin (req, res, next) {
+  if (!req.user) {
+    req.flash('success', 'Sorry you need to be logged in to view this page');
+    res.redirect('/');
+  } else {
+    next();
+  }
+};
 
 //nodemailer set up
 const transporter = nodemailer.createTransport({
@@ -65,8 +70,8 @@ router.get('/login', function (req, res) {
 });
 
 
-// new article form
-router.get('/add', function (req, res) {
+// add new user form
+router.get('/add', requireLogin, function (req, res) {
   res.render('add_employee', {
     title: 'Add Employee'
   });
@@ -172,7 +177,7 @@ router.post('/add', (req, res)  => {
 
 
   // load edit form
-router.get('/edit/:id', function (req, res) {
+router.get('/edit/:id', requireLogin ,function (req, res) {
   User.findById(req.params.id, function (err, users) {
     res.render('edit_employee', {
       title: 'Edit Employee',
@@ -201,7 +206,7 @@ router.get('/edit/:id', function (req, res) {
 // });
 
 
-router.get('/view/edit/:username', function (req, res) {
+router.get('/view/edit/:username', requireLogin ,function (req, res) {
   User.find({username:req.params.username}, function (err, users) {
     res.render('edit_profile', {
       users: users
@@ -257,14 +262,14 @@ router.get('/list', function (req, res) {
 // });
 
 
-router.get('/:id', function (req, res) {
+router.get('/:id', requireLogin, function (req, res) {
   User.findById(req.params.id, function (err, user) {
-    PerReview.find({userSelected:user.name , type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
+    PerReview.find({userSelected:user.username , type:"Performance Review"}).limit(4).sort('-date').exec(function(err, perReviews){
       if (err) {
         res.status(500).send(err);
         console.error(err);
       }
-      PerReview.find({author:user.name, type:"Self Review"}).sort('-date').exec(function(err, perReviewss){
+      PerReview.find({author:user.name, type:"Self Review"}).sort('-date').limit(4).exec(function(err, perReviewss){
         if (err) {
           res.status(500).send(err);
           console.error(err);
@@ -287,8 +292,11 @@ router.get('/:id', function (req, res) {
             moment: moment
           });
         });
+        console.log(perReviews);
+        console.log(perReviewss);
       });
     });
+    
     console.log(user.name + " viewing profile");
   });
 });
@@ -326,18 +334,18 @@ router.get('/view/:username', function (req, res) {
 //   });
 // });
 // ).sort('-date').limit(3).exec(function(err, perreviews){
-router.get('/profile/:username', function (req, res) {
+router.get('/profile/:username', requireLogin,function (req, res) {
   User.find({username:req.params.username}, function (err, users) {
     if (err) {
       res.status(500).send(err);
       console.error(err);
     }
-    PerReview.find({userSelected:users[0].username , type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
+    PerReview.find({userSelected:users[0].username , type:"Performance Review"}).limit(5).sort('-date').exec(function(err, perReviews){
       if (err) {
         res.status(500).send(err);
         console.error(err);
       }
-      PerReview.find({author:users[0].name, type:"Self Review"}, function(err, perReviewss){
+      PerReview.find({author:users[0].name, type:"Self Review"}).limit(5).sort('-date').exec(function(err, perReviewss){
         if (err) {
           res.status(500).send(err);
           console.error(err);
@@ -419,7 +427,7 @@ router.post('/view/edit/:username', function (req, res) {
 
 
 // Delete post
-router.delete('/:id', function (req, res) {
+router.delete('/:id', requireLogin, function (req, res) {
   let query = {
     id: req.params.id
   };
@@ -435,7 +443,7 @@ router.delete('/:id', function (req, res) {
   });
 });
 
-router.delete('/view/:username', function (req, res) {
+router.delete('/view/:username', requireLogin, function (req, res) {
   let query = {username: req.params.username};
   User.remove(query, function (err) {
     if (err) {

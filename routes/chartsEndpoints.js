@@ -36,7 +36,7 @@ router.get('/listTeamAverage' , function (req, res) {
     } else { 
       let average = 0;
       for (perReview of perReviews){
-        console.log(perReview.overallResult);
+        // console.log(perReview.overallResult);
         average += reviewsToScore[perReview.overallResult];
       }
       average /= perReviews.length;
@@ -48,17 +48,19 @@ router.get('/listTeamAverage' , function (req, res) {
   });
 });
 
-router.get('/listTeamAverage' , function (req, res) {
+
+
+router.get('/listCompanyAverage' , function (req, res) {
   const reviewsToScore = {'Unsatisfactory':1, 'Needs Improvement':2 , 'Meets Expectations': 3, 'Exceeds Expectations':4, 'outstanding':5};
   const reviews = ['', 'Unsatisfactory','Needs Improvement','Meets Expectations','Exceeds Expectations','outstanding'];
-  PerReview.find({type:"Performance Review"}).sort('-date').limit(3).exec(function(err, perReviews){
+  PerReview.find({type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
     if (err) {
       res.status(500).send(err);
       console.error(err);
     } else { 
       let average = 0;
       for (perReview of perReviews){
-        console.log(perReview.overallResult);
+        // console.log(perReview.overallResult);
         average += reviewsToScore[perReview.overallResult];
       }
       average /= perReviews.length;
@@ -70,6 +72,48 @@ router.get('/listTeamAverage' , function (req, res) {
   });
 });
 
+function reviewsToAverageScores(perReviews) {
+  const reviewsToScore = {'Unsatisfactory':1, 'Needs Improvement':2 , 'Meets Expectations': 3, 'Exceeds Expectations':4, 'outstanding':5};
+  const reviews = ['', 'Unsatisfactory','Needs Improvement','Meets Expectations','Exceeds Expectations','outstanding'];
+  let average = 0;
+  for (perReview of perReviews){
+    average += reviewsToScore[perReview];
+  }
+  average /= perReviews.length;
+  let averageReview = Math.round(average);
+  let averageScore = reviews[averageReview];
+  return averageScore;
+}
+
+router.get('/getAverageForEachTeam' , function (req, res) {
+  userToTeam = {};
+  teamReviews = {}
+  User.find().then((users) => {
+    for(user of users) {
+      userToTeam[user.username] = user.team;
+    }
+    return PerReview.find();
+  }).then( reviews => {
+    for(review of reviews) {
+      reviewsTeam = userToTeam[review.userSelected];
+      reviewValue = review.overallResult;
+      
+      if (typeof teamReviews[reviewsTeam] === 'undefined') {
+        teamReviews[reviewsTeam]  = [reviewValue];
+        delete teamReviews.undefined;
+      } else {
+        teamReviews[reviewsTeam].push(reviewValue);
+      }
+    }
+    for (team in teamReviews) {
+      teamReviews[team] = reviewsToAverageScores(teamReviews[team]);
+    }
+    console.log('so fancy', teamReviews);
+    res.json(teamReviews);
+  }).catch(err => {
+    console.log(err);
+  })
+});
 
 
 router.get('/getUserDetails' ,function (req, res) {
@@ -125,19 +169,44 @@ router.get('/teamOverallResult', function (req, res) {
       // console.log(users);
       const usersPromises = users.map(user => { 
         // console.log(user.name);
-        return PerReview.find({userSelected:user.username}).limit(3).sort('-date')
+        return PerReview.find({userSelected:user.username, type:"Performance Review"}).limit(3).sort('-date')
       })
       Promise.all(usersPromises).then( reviews => {
         for(let i = 0; i < users.length; i++ ) {
           users[i].reviews = reviews[i];
           // console.log(users[i].reviews);
         }
-        console.log(users.reviews);
+        // console.log(users.reviews);
         res.json(users);
       });
       }
     });
   });
+
+  router.get('/managerOverallResult', function (req, res) {
+    // .limit(3)
+    User.find({role:"Management"}, function(err, users){
+      if (err) {
+        res.status(500).send(err);
+        console.error(err);
+      } else {
+        // console.log(users);
+        const usersPromises = users.map(user => { 
+          // console.log(user.name);
+          return PerReview.find({userSelected:user.username, type:"Performance Review"}).limit(3).sort('-date')
+        })
+        Promise.all(usersPromises).then( reviews => {
+          for(let i = 0; i < users.length; i++ ) {
+            users[i].reviews = reviews[i];
+            // console.log(users[i].reviews);
+          }
+          // console.log(users.reviews);
+          res.json(users);
+        });
+        }
+      });
+    });
+
   
   router.get('/getUserReviews', function (req, res) {
     PerReview.find({userSelected:req.user.username , type:"Performance Review"}).sort('-date').limit(3).exec(function(err, perreviews){
@@ -236,5 +305,16 @@ router.get('/engagmentCompanyAverage', function (req, res) {
 //     res.json(average);
 //   });
 // });
+
+router.get('/getLastTenEnagagements', function (req, res) {
+  Engagement.find({}).sort('-date').limit(10).exec(function(err, engagements){
+    if (err) {
+      res.status(500).send(err);
+      console.error(err);
+    } else 
+    res.json(engagements);
+  });
+});
+
 
 module.exports = router;
