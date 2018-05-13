@@ -106,14 +106,14 @@ app.get('/' ,function (req, res) {
   });
 });
 
-app.get('/home' ,function (req, res) {
+app.get('/home' , requireLogin ,function (req, res) {
   if (req.user.role == "Employee"){
-    PerReview.find({userSelected:req.user.username, type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
+    PerReview.find({userSelected:req.user.username, type:"Performance Review"}).sort('-date').limit(5).exec(function(err, perReviews){
       if (err) {
         res.status(500).send(err);
         console.error(err);
       }
-      PerReview.find({author:req.user.name, type:"Self Review"}).sort('-date').exec(function(err, perReviewss){
+      PerReview.find({author:req.user.name, type:"Self Review"}).limit(5).sort('-date').exec(function(err, perReviewss){
         if (err) {
           res.status(500).send(err);
           console.error(err);
@@ -149,19 +149,34 @@ app.get('/engagement_form' ,function (req, res) {
 });
 
 app.get('/engagement_dashboard', requireLogin ,function(req, res){
-  Engagement.find({authorTeam:req.user.team}).sort('-date').limit(8).exec(function(err, engagements){
-    if (err) {
-      res.status(500).send(err);
-      console.error(err);
-    } else
-    console.log(engagements);
-    res.render('engagement_dashboard', {
-      engagements:engagements,
-      moment:moment
+  if (req.user.role == "Management"){
+    Engagement.find({authorTeam:req.user.team}).sort('-date').limit(5).exec(function(err, engagements){
+      if (err) {
+        res.status(500).send(err);
+        console.error(err);
+      } else
+      console.log(engagements);
+      res.render('engagement_dashboard', {
+        engagements:engagements,
+        moment:moment
+      });
     });
-    console.log(engagements);
-  });
+  }
+  else{
+    Engagement.find({authorTeam:req.user.team}).sort('-date').limit(10).exec(function(err, engagements){
+      if (err) {
+        res.status(500).send(err);
+        console.error(err);
+      } else
+      console.log(engagements);
+      res.render('engagement_dashboard', {
+        engagements:engagements,
+        moment:moment
+      });
+    });
+  }
 });
+
 
 app.get('/managerdashboard', requireLogin, (req, res) => {
     User.find({team:req.user.team, role:"Employee" }, function(err, users){
@@ -174,9 +189,6 @@ app.get('/managerdashboard', requireLogin, (req, res) => {
           users: users
         });
       } 
-      // console.log(req.user.userid);
-      // console.log(req.user._id);
-      // console.log(req.user.id);
     });
 });
 

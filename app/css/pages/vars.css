@@ -83,6 +83,10 @@ hr {
 .padding-reset {
   padding: 0; }
 
+.padding-sides-reset {
+  padding-left: 0;
+  padding-right: 0; }
+
 .padding-xs {
   padding: .5rem; }
 

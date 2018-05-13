@@ -43,7 +43,7 @@ block pageBody
                             h3 #{users[0].name}'s Self Reviews
                             ul.list-group
                                 each perReview, i in perReviewss
-                                    li.list-group-item.list-reviews
+                                    li.list-group-item.list-reviews(style="font-size:18px;")
                                         a(href='/perReviews/'+perReview._id)= moment(perReview.date).format("h:mm:ss, MMMM Do YYYY ") 
                     .col-md-7
                         .center.float-none
@@ -51,7 +51,7 @@ block pageBody
                         .padding-top-sm.padding-left-xs.padding-right-sm
                             h3 #{users[0].name}'s Performance Reviews
                                 each perReview, i in perReviews
-                                    li.list-group-item.list-reviews
+                                    li.list-group-item.list-reviews(style="font-size:18px;")
                                         a(href='/perReviews/'+perReview._id style="font-size:19px;")= moment(perReview.date).format("h:mm:ss a, MMMM Do YYYY ")
         else
             .col-md-6.center.float-none
@@ -64,7 +64,7 @@ block pageBody
         script.
             const url = new URL(window.location);
             const username = url.pathname.split('/')[3];
-            $.get('https://performify.herokuapp.com/chartsEndpoints/getUserReviews/' + username , {}, function(data){
+            $.get('http://localhost:3333/chartsEndpoints/getUserReviews/' + username , {}, function(data){
                 console.log(data);
                 let colors = ['rgba(234, 128, 252, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(0, 150, 233, 0.4)', 'rgba(255, 128, 171, 0.4)', 'rgba(140, 158, 255, 0.4)', 'rgba(128, 203, 196, 0.4)', 'rgba(101, 225, 105, 0.4)', 'rgba(255, 183, 77, 0.4)','rgba(24, 255, 255, 0.4)', 'rgba(213, 0, 249, 0.4)', 'rgba(0, 102, 204, 0.4)', 'rgba(255, 255, 0, 0.4)']
                 for (i in colors){

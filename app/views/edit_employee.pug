@@ -10,83 +10,23 @@ block pageBody
       .form-group
         label Email:
         input.form-control(name='email', type='text', value=users.email)
-      //- .form-group
-      //-   label Username:
-      //-   input.form-control(name='username', type='text' value=users.username)
-      //- .form-group
-      //-   label Role:
-      //-   br
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='role', value='Administrator')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Admin
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='role', value='Senior Management')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Senior Management
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='role', value='Management')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Management
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='role', value='Employee')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Employee
-      //- .form-group
-      //-   label Team
-      //-   br
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='team', value='Finance')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Finance
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='team', value='Marketing')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Marketing
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='team', value='Testing')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Testing
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='team', value='Engineering')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Engineering
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='team', value='Sales')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Sales
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='team', value='HR')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | HR
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='team', value='IT')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | I.T.
-      //-   .form-check
-      //-     input.form-check-input(type='radio', name='team', value='Support')
-      //-     label.form-check-label(for='exampleRadios1')
-      //-       | Support
-      //- .form-group
-      //-   label Job Title:
-      //-   input.form-control(name='title', type='text' value=users.title)
       .form-group
         label Gender
         br
         .form-check
-          input.form-check-input(type='radio', name='gender', value='Female')
+          input.form-check-input(type='radio', name='gender', value='Female'  checked=users.gender==='Female')
           label.form-check-label(for='exampleRadios1')
             | Female
         .form-check
-          input.form-check-input(type='radio', name='gender', value='Male')
+          input.form-check-input(type='radio', name='gender', value='Male' checked=users.gender==='Male')
           label.form-check-label(for='exampleRadios1')
             | Male
         .form-check
-          input.form-check-input(type='radio', name='gender', value='Transgender')
+          input.form-check-input(type='radio', name='gender', value='Transgender' checked=users.gender==='Transgender')
           label.form-check-label(for='exampleRadios1')
             | Transgender
         .form-check
-          input.form-check-input(type='radio', name='gender', value='Other')
+          input.form-check-input(type='radio', name='gender', value='Other' checked=users.gender==='Other')
           label.form-check-label(for='exampleRadios1')
             | Other
       br

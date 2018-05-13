@@ -112,6 +112,7 @@ router.post('/add_employee_review', function(req, res){
     });
   } else {
     // users:users
+    console.log("------------", req.body , "-----------");
     let perReview = new PerReview();
     perReview.userSelected = req.body.userSelected;
     perReview.userEmail = req.body.userEmail;
@@ -136,13 +137,46 @@ router.post('/add_employee_review', function(req, res){
         console.error(err);
         return;
       } else {
-        
+        sendPerformanceReviewEmail(req.body.userSelected);
         req.flash('success', 'Employee Review Added for ' + req.body.userSelected);
         res.redirect('/managerdashboard');
       }
     });
   }
 });
+
+
+
+function sendPerformanceReviewEmail(userId) {
+  console.log(userId)
+  User.findOne({username:userId}).then((user) => {
+    // console.log(user);
+    const emailAddress = user.email;
+    // console.log('Hello Patrick', emailAddress);
+            // body of email
+    const output = `
+      <h1 style='color:blue;'>A new Performance Review has been uploaded</h1>
+      <br>
+      <h2> Login to view</h2>
+      <a href="https://performify.herokuapp.com/"> Login </a> 
+    `;
+    //setting up to and from for the email
+    let mailOptions = {
+      from: '"Performify" <performifyapp@gmail.com>', // sender email address
+      to: emailAddress, // receiver of email - new employee
+      subject: 'A new Performance Review has been uploaded', // subject of email
+      html: output // body of email 
+    };
+    //send mail and console the id
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log(error);
+      }
+      console.log('Message sent: %s', info.messageId);
+      console.log('User added, Email sent')
+    });
+  });
+}
 
 router.get('/add_manager_review', function(req, res){
   User.find({role:"Management"}, function(err, users){
@@ -197,6 +231,7 @@ router.post('/add_manager_review', function(req, res){
         console.error(err);
         return;
       } else {
+        sendPerformanceReviewEmail(req.body.userSelected);
         req.flash('success', 'Manager Review Added for ' + req.body.userSelected);
         res.redirect('/senior-dashboard');
       }
@@ -259,16 +294,13 @@ router.post('/add_senior_manager_review', function(req, res){
         console.error(err);
         return;
       } else {
+        sendPerformanceReviewEmail(req.body.userSelected);
         req.flash('success', 'Senior Manager Review Added for ' + req.body.userSelected);
         res.redirect('/senior-dashboard');
       }
     });
   }
 });
-
-
-
-
 
 
 // load edit form
