@@ -63,24 +63,24 @@ block pageBody
           h3(style="margin-top:0; padding-bottom: 15px;") Welcome 
             span.user-name(style="color: gray; text-transform: capitalize; ") #{ user.name}
           .row
-            .col-md-7.home-left-col
+            .col-md-7.home-left-col.padding-top-sm.padding-bottom-sm
               .chart-col-8(style="width:auto!important")
                 canvas#companyPerformance(style="display:block; height:300px; width:auto;")
-            .col-md-5.home-right-col
+            .col-md-5.home-right-col.padding-top-sm.padding-bottom-sm
               .chart-col-4.center.float-none
                 canvas#NumberPeopleOnTeams(width="250" height="250")
-          .row.padding-top-md
-            .col-md-7.home-left-col
+          .row
+            .col-md-7.home-left-col.padding-top-sm.padding-bottom-sm
               .div
                 .card(style="height:298px;")
                   .center.padding-lg
-                    h3.padding-left-sm.padding-right-sm.padding-top-sm(style="font-size:20px; font-weight:700; margin-top: 10px; text-align:center;") Average Overall Result From Performance Review for Company
-                    h4#companyAverage(style="font-size:25px;  margin-top: 10px; text-align:center; color: slategrey; text-decoration: underline;")
+                    h3.padding-left-sm.padding-right-sm.padding-top-sm(style="font-size:19px; font-weight:700; margin-top: 10px; text-align:center;") Average Overall Result From Performance Review for Company
+                    h4#companyAverage(style="font-size:23px;  margin-top: 10px; text-align:center; color: slategrey; text-decoration: underline;")
               .center-hold(style="height:100%;")
                 .div.center.padding-top-sm(style="width:60%")
                   .float-none.padding-top-md
                     a(class='button btn btn-default1 btn-primary center', style="width: 100%; " href='/perReviews/add_manager_review') Submit Review for Manager
-            .col-md-5.home-right-col
+            .col-md-5.home-right-col.padding-top-sm.padding-bottom-sm
               .chart-col-4.center.float-none
                 canvas#GenderRatioChart(width="250" height="250")
         else if (user.role == "Administrator")
