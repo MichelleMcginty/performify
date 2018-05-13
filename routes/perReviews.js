@@ -158,7 +158,7 @@ function sendPerformanceReviewEmail(userId) {
       <h1 style='color:blue;'>A new Performance Review has been uploaded</h1>
       <br>
       <h2> Login to view</h2>
-      <a href="https://performify.herokuapp.com/"> Login </a> 
+      <a href="https://performify.herokuapp.com/home"> Login </a> 
     `;
     //setting up to and from for the email
     let mailOptions = {
