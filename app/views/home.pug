@@ -443,6 +443,7 @@ block pageBody
         });
       });
       $.get('https://performify.herokuapp.com/chartsEndpoints/getAverageForEachTeam', {}, function(data){
+        console.log(data);
         var ctx = document.getElementById("companyPerformance").getContext('2d');
         var companyPerformance = new Chart(ctx, {
           type: 'line',
