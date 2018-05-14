@@ -12,7 +12,7 @@ block pageBody
         canvas#myChart(width="400" height="400")
 
         script.
-          $.get('http://localhost:3333/listUsersGen', {}, function(data){
+          $.get('https://performify.herokuapp.com/listUsersGen', {}, function(data){
             var g = data;
             let Female = 0;
             let Male = 0;

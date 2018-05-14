@@ -41,4 +41,4 @@ To Start:
 - Run "Npm install"
 - Run "nodemon app or node app.js"
 
-Navigate to http://localhost:3333/
+Navigate to https://performify.herokuapp.com/
