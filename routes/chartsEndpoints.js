@@ -115,14 +115,14 @@ function reviewsToAverageScores(perReviews) {
 }
 
 router.get('/getAverageForEachTeam' , function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
+  // var allowedOrigins = ['https://performify.herokuapp.com/'];
+  // var origin = req.headers.origin;
+  // if(allowedOrigins.indexOf(origin) > -1){
+  //     res.setHeader('Access-Control-Allow-Origin', origin);
+  // }
+  // res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
+  // res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  // res.header('Access-Control-Allow-Credentials', true);
   userToTeam = {};
   teamReviews = {}
   User.find().then((users) => {
