@@ -15,14 +15,6 @@ function requireLoginTest (req, res, next) {
 };
 //get user
 router.get('/getUser', requireLoginTest , function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
   User.find({name:req.user.name}, function (err, user) {
     if (err) {
       res.status(500).send(err);
@@ -34,14 +26,6 @@ router.get('/getUser', requireLoginTest , function (req, res) {
 });
 
 router.get('/listTeamAverage' , function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
   const reviewsToScore = {'Unsatisfactory':1, 'Needs Improvement':2 , 'Meets Expectations': 3, 'Exceeds Expectations':4, 'outstanding':5};
   const reviews = ['', 'Unsatisfactory','Needs Improvement','Meets Expectations','Exceeds Expectations','outstanding'];
   PerReview.find({authorTeam:req.user.team, type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
@@ -65,14 +49,6 @@ router.get('/listTeamAverage' , function (req, res) {
 
 
 router.get('/listCompanyAverage' , function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
   const reviewsToScore = {'Unsatisfactory':1, 'Needs Improvement':2 , 'Meets Expectations': 3, 'Exceeds Expectations':4, 'outstanding':5};
   const reviews = ['', 'Unsatisfactory','Needs Improvement','Meets Expectations','Exceeds Expectations','outstanding'];
   PerReview.find({type:"Performance Review"}).sort('-date').exec(function(err, perReviews){
@@ -94,14 +70,7 @@ router.get('/listCompanyAverage' , function (req, res) {
 });
 
 function reviewsToAverageScores(perReviews) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
+
   const reviewsToScore = {'Unsatisfactory':1, 'Needs Improvement':2 , 'Meets Expectations': 3, 'Exceeds Expectations':4, 'outstanding':5};
   const reviews = ['', 'Unsatisfactory','Needs Improvement','Meets Expectations','Exceeds Expectations','outstanding'];
   let average = 0;
@@ -154,14 +123,7 @@ router.get('/getAverageForEachTeam' , function (req, res) {
 
 
 router.get('/getUserDetails' ,function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
+
   User.find({username:req.params.username}, function (err, users) {
     res.render('view_profile', {
       users: users
@@ -171,14 +133,6 @@ router.get('/getUserDetails' ,function (req, res) {
 });
 //// Gender Chart
 router.get('/listUsers' ,function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
   User.find((err, users) => {
     if (err) {
       res.status(500).send(err);
@@ -190,14 +144,6 @@ router.get('/listUsers' ,function (req, res) {
 });
 
 router.get('/listUsers2', requireLoginTest ,function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
   User.find({"role":{$ne:req.user.role }}, function(err, users){
     if (err) {
       res.status(500).send(err);
@@ -209,14 +155,7 @@ router.get('/listUsers2', requireLoginTest ,function (req, res) {
 });
 
 router.get('/team',requireLoginTest, function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
+  
   User.find({team:req.user.team, role:"Employee"}, function(err, users){
     if (err) {
       res.status(500).send(err);
@@ -227,14 +166,6 @@ router.get('/team',requireLoginTest, function (req, res) {
   });
 });
 router.get('/teamOverallResult', function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
   // .limit(3)
   User.find({team:req.user.team, role:"Employee"}, function(err, users){
     if (err) {
@@ -255,14 +186,6 @@ router.get('/teamOverallResult', function (req, res) {
   });
 
   router.get('/managerOverallResult', function (req, res) {
-    var allowedOrigins = ['https://performify.herokuapp.com/'];
-    var origin = req.headers.origin;
-    if(allowedOrigins.indexOf(origin) > -1){
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.header('Access-Control-Allow-Credentials', true);
     // .limit(3)
     User.find({role:"Management"}, function(err, users){
       if (err) {
@@ -284,14 +207,6 @@ router.get('/teamOverallResult', function (req, res) {
 
   
   router.get('/getUserReviews', function (req, res) {
-    var allowedOrigins = ['https://performify.herokuapp.com/'];
-    var origin = req.headers.origin;
-    if(allowedOrigins.indexOf(origin) > -1){
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.header('Access-Control-Allow-Credentials', true);
     PerReview.find({userSelected:req.user.username , type:"Performance Review"}).sort('-date').limit(3).exec(function(err, perreviews){
       if (err) {
         res.status(500).send(err);
@@ -302,14 +217,6 @@ router.get('/teamOverallResult', function (req, res) {
   });
 
   router.get('/getUserReviews/:username', function (req, res) {
-    var allowedOrigins = ['https://performify.herokuapp.com/'];
-    var origin = req.headers.origin;
-    if(allowedOrigins.indexOf(origin) > -1){
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.header('Access-Control-Allow-Credentials', true);
     const userId = req.params.username;
     PerReview.find({userSelected:userId , type:"Performance Review"}).sort('-date').limit(3).exec(function(err, perreviews){
       if (err) {
@@ -321,14 +228,6 @@ router.get('/teamOverallResult', function (req, res) {
   });
 
 router.get('/engagmentTeamAverage', function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
   Engagement.find({authorTeam:req.user.team}).sort('-date').limit(8).exec(function(err, engagements){
     if (err) {
       res.status(500).send(err);
@@ -346,14 +245,7 @@ router.get('/engagmentTeamAverage', function (req, res) {
 });
 
 router.get('/engagmentCompanyAverage', function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
+
   Engagement.find({}).sort('-date').exec(function(err, engagements){
     if (err) {
       res.status(500).send(err);
@@ -372,14 +264,6 @@ router.get('/engagmentCompanyAverage', function (req, res) {
 
 
 router.get('/getLastTenEnagagements', function (req, res) {
-  var allowedOrigins = ['https://performify.herokuapp.com/'];
-  var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
-      res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
   Engagement.find({}).sort('-date').limit(10).exec(function(err, engagements){
     if (err) {
       res.status(500).send(err);
